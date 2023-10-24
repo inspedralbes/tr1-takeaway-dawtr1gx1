@@ -7,24 +7,24 @@ createApp({
         return {
             active: 0,
             products: [],
-            carrito: [],
-            precioCarrito: 0,
+            cart: [],
+            cartPrice: 0,
         }
     },
     methods: {
-        changeScreen(active){
+        changeScreen(active) {
             this.active = active;
-            
-        },
-        añadirCarrito(id){
-            this.carrito.push(this.products[id]);
-            console.log(this.carrito);
 
-            this.precioCarrito += this.products[id].price;
-            console.log(this.precioCarrito);
+        },
+        addToCart(id) {
+            this.cart.push(this.products[id]);
+            console.log(this.cart);
+
+            this.cartPrice += this.products[id].price;
+            console.log(this.cartPrice);
         }
     },
-    created(){
+    created() {
         getProducts().then(data => {
             this.products = data;
         });
