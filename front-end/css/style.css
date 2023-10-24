@@ -74,7 +74,21 @@
 /* -------------------------------------------------------------------------- */
 /*                                  PRODUCTS                                  */
 /* -------------------------------------------------------------------------- */
-
+.products__grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 10px;
+}
+.products__product{
+    background-color: aquamarine;
+    padding: 5px;
+}
+.product__img{
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                   footer                                   */

@@ -42,9 +42,8 @@
         </div>
 
         <div class="products__grid">
-
           <div class="products__product " v-for="product in products">
-            <img class="product__img" :src="product.img" alt="products">
+            <img class="product__img" :src=product.img alt="products">
             <h3 class="product__name"> {{ product.itemName }}</h3>
             <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
           </div>
