@@ -33,6 +33,8 @@
 .menu__item {
 }
 .header__title {
+    background: transparent;
+    border: none;
 }
 
 
