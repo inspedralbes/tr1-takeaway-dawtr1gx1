@@ -15,6 +15,13 @@ createApp({
         changeScreen(active){
             this.active = active;
             
+        },
+        añadirCarrito(id){
+            this.carrito.push(this.products[id]);
+            console.log(this.carrito);
+
+            this.precioCarrito += this.products[id].price;
+            console.log(this.precioCarrito);
         }
     },
     created(){
