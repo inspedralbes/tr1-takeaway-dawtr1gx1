@@ -79,7 +79,7 @@ export async function getProducts() {
             "stock": 20,
             "description": "Burrito grande relleno de pollo, frijoles, arroz y salsa.",
             "category": "Comida Mexicana",
-            "img": "./img/burritoPollo"
+            "img": "./img/burritoPollo.jpg"
         },
         {
             "id": 10,
@@ -97,7 +97,7 @@ export async function getProducts() {
             "stock": 15,
             "description": "Deliciosa tarta de chocolate con crema batida y salsa de caramelo.",
             "category": "Postres",
-            "img": "./img/tartaChocolate"
+            "img": "./img/tartaChocolate.jpg"
         },
         {
             "id": 12,
