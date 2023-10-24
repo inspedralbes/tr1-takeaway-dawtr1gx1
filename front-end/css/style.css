@@ -40,13 +40,32 @@
 /*                                   LANDING                                  */
 /* -------------------------------------------------------------------------- */
 .landing__content {
+    margin: 40px 0;
+    padding: 0 20px;
+}
+
+.landing-content__hero{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     
 }
 .landing-content__img {
+    width: 150px;
+    height: auto;
+
 }
 .landing-content__title {
+    padding-left: 10px;
+    text-align: center;
+    font-size: 18px;
 }
 .landing-content__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 .landing-buttons__btn {
 }
