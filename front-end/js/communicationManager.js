@@ -115,7 +115,7 @@ export async function getProducts() {
             "stock": 20,
             "description": "Arroz frito con vegetales y tu elección de pollo, cerdo o camarones.",
             "category": "Comida Asiática",
-            "img": "./img/"
+            "img": "./img/arrozFrito.jpg"
         },
         {
             "id": 14,
@@ -124,7 +124,7 @@ export async function getProducts() {
             "stock": 40,
             "description": "Batido refrescante de fresas con crema batida.",
             "category": "Bebidas",
-            "img": "./img/"
+            "img": "./img/batidoFresas.jpg"
         },
         {
             "id": 15,
@@ -133,7 +133,7 @@ export async function getProducts() {
             "stock": 30,
             "description": "Un hot dog clásico con mostaza, ketchup y cebolla.",
             "category": "Comida Rápida",
-            "img": "./img/"
+            "img": "./img/hotDog.jpg"
         },
         {
             "id": 16,
@@ -142,7 +142,7 @@ export async function getProducts() {
             "stock": 25,
             "description": "Ensalada con pepino, tomate, aceitunas, queso feta y aderezo griego.",
             "category": "Ensaladas",
-            "img": "./img/"
+            "img": "./img/ensaladaGriega.jpg"
         },
         {
             "id": 17,
@@ -151,7 +151,7 @@ export async function getProducts() {
             "stock": 20,
             "description": "Tortilla de patata española con cebolla y papas.",
             "category": "Comida Española",
-            "img": "./img/"
+            "img": "./img/tortillaPatataEspañola.jpg"
         },
         {
             "id": 18,
@@ -160,7 +160,7 @@ export async function getProducts() {
             "stock": 20,
             "description": "Pollo glaseado con salsa teriyaki, servido con arroz y vegetales.",
             "category": "Comida Asiática",
-            "img": "./img/"
+            "img": "./img/polloTeriyaki.webp"
         },
         {
             "id": 19,
@@ -169,7 +169,7 @@ export async function getProducts() {
             "stock": 30,
             "description": "Nachos con queso fundido y jalapeños.",
             "category": "Aperitivos",
-            "img": "./img/"
+            "img": "./img/nachosConQueso.webp"
         },
         {
             "id": 20,
@@ -178,7 +178,7 @@ export async function getProducts() {
             "stock": 40,
             "description": "Té helado refrescante con sabor a durazno.",
             "category": "Bebidas",
-            "img": "./img/"
+            "img": "./img/téHelado.webp"
         }
     ]  
     
