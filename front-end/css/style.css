@@ -42,7 +42,16 @@
 .landing__content {
     
 }
+
+.landing-content__hero{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .landing-content__img {
+    width: 300px;
+    height: auto;
+
 }
 .landing-content__title {
 }
