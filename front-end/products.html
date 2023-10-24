@@ -46,6 +46,7 @@
             <img class="product__img" :src=product.img alt="products">
             <h3 class="product__name"> {{ product.itemName }}</h3>
             <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
+            <button @click="añadirCarrito()">Añadir</button>
           </div>
 
         </div>
