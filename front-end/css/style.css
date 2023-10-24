@@ -80,6 +80,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     width: 90%;
+    height: 100%;
     gap: 15px;
     margin: 0 auto;
 }
@@ -99,10 +100,21 @@
     object-fit: cover;
 }
 
+.btn{
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    bottom: 30px;
+}
 .products__buy{
+    position: sticky;
     width: 60%;
     font-size: 18px;
-    margin: 0 auto;
+    margin: 30px auto;
+    border: 2px solid black;
+    padding: 5px 0;
+    background-color: rgb(204, 204, 204);
+    border-radius: 20px;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -156,6 +168,7 @@
     align-items: center;
     padding: 0 30px;
     background-color: rgb(204, 204, 204);
+    margin-top: 10px;
 }
 .footer__img {
     width: 70px;

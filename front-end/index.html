@@ -74,7 +74,9 @@
           <button @click="addToCart(index)">Añadir</button>
         </div>
       </div>
-      <button class="products__buy" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per <strong>{{cartPrice}}</strong></button>
+      <div class="btn">
+        <button class="products__buy" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per <strong>{{cartPrice}}</strong></button>
+      </div>
     </section>
 
 
