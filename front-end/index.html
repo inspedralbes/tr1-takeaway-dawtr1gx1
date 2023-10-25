@@ -75,7 +75,8 @@
         </div>
       </div>
       <div class="btn">
-        <button class="products__buy" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
+        <button class="products__buy" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per
+          <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
       </div>
     </section>
 
@@ -88,7 +89,7 @@
         <h3>COMANDA</h3>
         <div class="ticket__products" v-for="(product, index) in cart">
           <div class="product__ticket">
-            <p class="product-ticket__name">{{product.itemName}}</p>
+            <p class="product-ticket__name">{{product.itemName}} x{{product.amount}}</p>
             <p>-</p>
             <p>{{product.price}}€</p>
 
@@ -101,6 +102,16 @@
         <button @click="changeScreen(3)">Comprar</button>
         <button @click="changeScreen(1)">Tornar</button>
       </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                             DATOS DE COMPRA                             -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="datosCompra" v-if="active==3">
+      <h3 class="datosCompra__id">ID</h3>
+      <img class="datosCompra__qr" src="img/qr.jfif" alt="">
+      <button class="datosCompra__btn">Descarregar</button>
+      <button class="datosCompra__btn" @click="changeScreen(0)">Tornar</button>
     </section>
 
 
