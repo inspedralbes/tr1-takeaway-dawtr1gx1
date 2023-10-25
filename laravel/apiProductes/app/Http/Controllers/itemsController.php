@@ -38,6 +38,7 @@ class itemsController extends Controller
         $newItem->description=$request->description;
         $newItem->imageRoute=$request->imageRoute;
         $newItem->itemCategory=$request->itemCategory;
+        $newItem->sale=$request->file;
         $newItem->save();
         return $newItem;
         
