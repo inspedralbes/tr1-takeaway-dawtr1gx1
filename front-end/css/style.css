@@ -85,6 +85,7 @@
     margin: 0 auto;
 }
 .products__product{
+    position: relative;
     background-color: bisque;
     border-radius: 20px;
     padding: 5px;
@@ -94,6 +95,11 @@
     justify-content: center;
     text-align: center;
 }
+
+.product__name{
+    min-height: 43px;
+}
+
 .product__img{
     width: 100px;
     height: 100px;

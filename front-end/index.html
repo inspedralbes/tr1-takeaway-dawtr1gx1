@@ -71,11 +71,11 @@
           <img class="product__img" :src=product.img alt="products">
           <h3 class="product__name"> {{ product.itemName }}</h3>
           <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
-          <button @click="addToCart(index)">Añadir</button>
+          <button class="product__btn" @click="addToCart(index)">Añadir</button>
         </div>
       </div>
       <div class="btn">
-        <button class="products__buy" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per <strong>{{cartPrice}}</strong></button>
+        <button class="products__buy" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per <strong>{{parseFloat((cartPrice).toFixed(2))}}</strong></button>
       </div>
     </section>
 
@@ -94,7 +94,7 @@
 
           </div>
         </div>
-        <p class="ticket__total">Total: {{cartPrice}}€</p>
+        <p class="ticket__total">Total: {{parseFloat((cartPrice).toFixed(2))}}€</p>
       </div>
 
       <div class="ticket__buttons">
