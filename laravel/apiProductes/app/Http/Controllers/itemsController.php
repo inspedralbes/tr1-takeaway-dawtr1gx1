@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\items;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use App\Models\category;
 
 class itemsController extends Controller
 {
@@ -47,7 +48,7 @@ class itemsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return items::all()->where("id","==",$id);
     }
 
     /**
@@ -63,7 +64,9 @@ class itemsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $item=items::find($id);
+        $item->update($request->all());
+        return $item;
     }
 
     /**
@@ -71,6 +74,7 @@ class itemsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return items::destroy($id);
     }
+
 }
