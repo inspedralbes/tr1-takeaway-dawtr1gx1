@@ -26,7 +26,7 @@ createApp({
             let objetoExistente = this.cart.find(item =>item.id === this.productes[index].id)
             if (objetoExistente) {
                 this.cartPrice += this.products[index].price;
-                this.productes[index].amount++;
+                this.cart[index].amount++;
             } else {
               this.cart[this.comprat.length] = {
                 id: this.products[index].id,

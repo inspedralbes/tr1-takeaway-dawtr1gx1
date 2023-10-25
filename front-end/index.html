@@ -23,7 +23,7 @@
     <!-- ----------------------------------------------------------------------- -->
     <header class="header">
       <nav class="header__menu">
-        <i class="fa-solid fa-bars header__icon" style="color: #000000"></i>
+        <i class="fa-solid fa-bars header__icon"></i>
         <ul class="menu__items">
           <li class="menu__item">Inici</li>
           <li class="menu__item">Productes</li>
@@ -34,7 +34,7 @@
       <button class="header__title" @click="changeScreen(0)">
         <h1>FASTBITES</h1>
       </button>
-      <i class="fa-solid fa-user header__icon" style="color: #000000"></i>
+      <i class="fa-solid fa-user header__icon"></i>
     </header>
 
     <!-- ----------------------------------------------------------------------- -->
@@ -71,11 +71,11 @@
           <img class="product__img" :src=product.img alt="products">
           <h3 class="product__name"> {{ product.itemName }}</h3>
           <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
-          <button class="product__btn" @click="addToCart(index)">Añadir</button>
+          <button class="product__btn" @click="addToCart(index)"><i class="fa-solid fa-plus product__btn-icon"></i></button>
         </div>
       </div>
-      <div class="btn">
-        <button class="products__buy" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per
+      <div class="products__container-buyBtn">
+        <button class="products__buyBtn" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per
           <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
       </div>
     </section>
