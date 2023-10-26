@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
+
 :root{
     --color-primary: #00a082;
     --color-secondary: #ffc244;
@@ -10,6 +12,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
 }
 .container{
     width: 100%;
@@ -26,7 +29,7 @@ button{
 /* -------------------------------------------------------------------------- */
 .header {
     width: 100%;
-    height: 100px;
+    height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -53,15 +56,17 @@ button{
 /*                                   LANDING                                  */
 /* -------------------------------------------------------------------------- */
 .landing {
-    margin: 40px 0;
+    height: 80vh;
     padding: 0 20px;
+    /* margin: 40px 0; */
+    overflow: hidden;
 }
 
 .landing__hero{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    
+    margin-top: 70px;
 }
 .landing__img {
     width: 150px;
@@ -82,7 +87,8 @@ button{
 }
 .landing-buttons__btn,
 .status__return-btn,
-.ticket__btn {
+.ticket__btn,
+.buyData__btn {
     border: none;
     font-size: 20px;
     background-color: var(--color-primary);
@@ -93,7 +99,8 @@ button{
     transition: all .2s ease-in-out;
 }
 .landing-buttons__btn:hover,
-.status__return-btn:hover{
+.status__return-btn:hover,
+.buyData__btn:hover{
     background-color: var(--color-button-hover);
 }
 /* .landing-buttons__btn:focus{
@@ -155,7 +162,7 @@ button{
 
 .product__img{
     width: 100%;
-    height: 100%;
+    height: 20vh;
     object-fit: cover;
 }
 .product__btn{
@@ -213,13 +220,18 @@ button{
 /* -------------------------------------------------------------------------- */
 .ticket{
     width: 100%;
+    min-height: calc(80vh - 20px);
 }
 .ticket__box{
-    width: 90%;
+    width: 80%;
+    min-height: 200px;
     padding: 10px;
-    background-color: rgb(204, 204, 204);
+    background-color: var(--color-primary);
+    color: var(--color-white);
     margin: 20px auto;
     text-align: center;
+    border-radius: 20px;
+    position: relative;
 }
 
 .product__ticket{
@@ -228,7 +240,7 @@ button{
     align-items: center;
     padding: 5px;
     margin: 5px 0;
-    box-shadow: 2px 2px 0px 0px #00000020;
+    border-bottom: 1px solid var(--color-button-hover);
 }
 
 .product-ticket__name{
@@ -237,6 +249,11 @@ button{
 .ticket__total{
     font-weight: bold;
     margin-top: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+
 }
 
 .ticket__buttons{
@@ -249,25 +266,37 @@ button{
 }
 .ticket__btn{
     font-size: 18px;
-    width: 26%;
+    width: 24%;
 }
 
 /* -------------------------------------------------------------------------- */
 /*                                DATOS COMPRA                                */
 /* -------------------------------------------------------------------------- */
 .buyData{
-    margin-top: 20px;
     width: 100%;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    overflow: hidden;
+}
+.buyData__id{
+    margin-top: 50px;
 }
 .buyData__qr{
     width: 200px;
     height: 200px;
+    margin-bottom: 20px;
+}
+.buyData__btn{
+    font-size: 18px;
+    width: 28%;
 }
 
+.buyData-download__btn{
+    display: none;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                   STATUS                                   */
@@ -276,12 +305,16 @@ button{
     background-color: var(--color-secondary);
     padding: 20px;
     text-align: center;
+    height: 80vh;
 }
 
 .status__title {
+    display: inline-block;
     font-size: 24px;
-    color: var(--color-primary);
+    color: var(--color-black);
+    border-bottom: 2px solid var(--color-button-hover);
     margin-bottom: 20px;
+    margin-top: 50px;
 }
 
 .status__search {
@@ -295,7 +328,7 @@ button{
     border: 1px solid var(--color-primary);
     border-radius: 20px;
     padding: 10px;
-    width: 150px;
+    width: 35%;
 }
 
 .status__search-icon {
@@ -331,20 +364,14 @@ button{
     margin-top: 10px;
 }
 
-/* .status__return-btn {
-    border: none;
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
+.status__return-btn {
+    font-size: 18px;
+    width: 26%;
 }
 
 .status__return-btn:hover {
     background-color: var(--color-button-hover);
-} */
+}
 
 
 /* -------------------------------------------------------------------------- */
@@ -352,13 +379,14 @@ button{
 /* -------------------------------------------------------------------------- */
 .footer {
     width: 100%;
-    /* height: 100px; */
+    height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
-    background-color: rgb(204, 204, 204);
-    margin-top: 10px;
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-black);
+    border-top: 1px solid var(--color-black);
 }
 .footer__img {
     width: 70px;
@@ -370,7 +398,7 @@ button{
 }
 .legal__link-page {
     text-decoration: none;
-    color: black;
+    color: var(--color-black);
 }
 .socialMedia {
     display: grid;
@@ -379,5 +407,5 @@ button{
 }
 .socialMedia__icon {
     text-decoration: none;
-    color: black;
+    color: var(--color-black);
 }
