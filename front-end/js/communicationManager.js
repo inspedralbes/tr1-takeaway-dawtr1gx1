@@ -5,7 +5,7 @@ export async function getProducts() {
             "itemName": "Hamburguesa Clásica",
             "description": "Una deliciosa hamburguesa clásica con carne de res, lechuga, tomate y salsa especial.",
             "price": 7.99,
-            "stock": 50,
+            "stock": 5,
             "category": "Comida Rápida",
             "img": "./img/hamburguesaClasica.webp"
         },
