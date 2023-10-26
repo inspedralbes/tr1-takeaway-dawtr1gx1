@@ -49,7 +49,7 @@
       </div>
       <div class="landing__buttons">
         <button class="landing-buttons__btn" @click="changeScreen(1)">Demanar</button>
-        <button class="landing-buttons__btn">Consultar</button>
+        <button class="landing-buttons__btn" @click="changeScreen(4)">Consultar</button>
       </div>
     </section>
 
@@ -71,11 +71,13 @@
           <img class="product__img" :src=product.img alt="products">
           <h3 class="product__name"> {{ product.itemName }}</h3>
           <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
-          <button class="product__btn" @click="addToCart(index)"><i class="fa-solid fa-plus product__btn-icon"></i></button>
+          <button class="product__btn" @click="addToCart(index)"><i
+              class="fa-solid fa-plus product__btn-icon"></i></button>
         </div>
       </div>
       <div class="products__container-buyBtn">
-        <button class="products__buyBtn" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per
+        <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n
+          <strong>{{cart.length}}</strong> per
           <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
       </div>
     </section>
@@ -99,20 +101,41 @@
       </div>
 
       <div class="ticket__buttons">
-        <button @click="changeScreen(3)">Comprar</button>
-        <button @click="changeScreen(1)">Tornar</button>
+        <button class="ticket__btn" @click="changeScreen(3)">Comprar</button>
+        <button class="ticket__btn" @click="changeScreen(1)">Tornar</button>
       </div>
     </section>
 
     <!-- ----------------------------------------------------------------------- -->
     <!--                             DATOS DE COMPRA                             -->
     <!-- ----------------------------------------------------------------------- -->
-    <section class="datosCompra" v-if="active==3">
-      <h3 class="datosCompra__id">ID</h3>
-      <img class="datosCompra__qr" src="img/qr.jfif" alt="">
-      <button class="datosCompra__btn">Descarregar</button>
-      <button class="datosCompra__btn" @click="changeScreen(0)">Tornar</button>
+    <section class="buyData" v-if="active==3">
+      <h3 class="buyData__id">ID</h3>
+      <img class="buyData__qr" src="img/qr.jfif" alt="">
+      <button class="buyData__btn">Descarregar</button>
+      <button class="buyData__btn" @click="changeScreen(0)">Tornar</button>
     </section>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 STATUS                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="status" v-if="active == 4">
+      <h3 class="status__title">Estat de la Comanda</h3>
+      <div class="status__search">
+        <input type="text" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
+        <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
+      </div>
+
+      <div class="status__result" v-if="searchResult">
+        <p class="status__result-id"></p>
+        <p class="status__result-status"></p>
+        <p class="status__result-details"></p>
+      </div>
+
+      <button @click="changeScreen(3)" class="status__return-btn">Tornar</button>
+    </section>
+
 
 
     <!-- ----------------------------------------------------------------------- -->
