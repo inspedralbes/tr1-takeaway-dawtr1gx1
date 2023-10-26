@@ -49,7 +49,7 @@ createApp({
 
             let objetoExistente = this.cart.find(item => item.id === this.products[index].id)
             if (objetoExistente) {
-                this.cartPrice -= objetoExistente.price;
+                
                 
                 if (objetoExistente.amount==0) {
                     this.cart.forEach(item => {
@@ -58,8 +58,10 @@ createApp({
                         }
                     })
                     this.cart.splice(index, 1);
+                    this.cartPrice -= objetoExistente.price;
                 } else{
                     objetoExistente.amount--;
+                    this.cartPrice -= objetoExistente.price;
                 }
             }
 
