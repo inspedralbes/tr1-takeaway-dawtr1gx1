@@ -66,8 +66,8 @@ button{
 .landing__img {
     width: 150px;
     height: auto;
-
 }
+
 .landing__title {
     padding-left: 10px;
     text-align: center;
@@ -80,16 +80,20 @@ button{
     align-items: center;
     gap: 30px;
 }
-.landing-buttons__btn {
+.landing-buttons__btn,
+.status__return-btn,
+.ticket__btn {
     border: none;
+    font-size: 20px;
     background-color: var(--color-primary);
     color: var(--color-white);
     padding: 6px 10px;
-    width: 24%;
+    width: 30%;
     border-radius: 200px;
     transition: all .2s ease-in-out;
 }
-.landing-buttons__btn:hover{
+.landing-buttons__btn:hover,
+.status__return-btn:hover{
     background-color: var(--color-button-hover);
 }
 /* .landing-buttons__btn:focus{
@@ -205,7 +209,7 @@ button{
 }
 
 /* -------------------------------------------------------------------------- */
-/*                                  ticket                                  */
+/*                                  TICKET                                  */
 /* -------------------------------------------------------------------------- */
 .ticket{
     width: 100%;
@@ -243,11 +247,15 @@ button{
     gap: 10px;
     margin-bottom: 20px;
 }
+.ticket__btn{
+    font-size: 18px;
+    width: 26%;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                DATOS COMPRA                                */
 /* -------------------------------------------------------------------------- */
-.datosCompra{
+.buyData{
     margin-top: 20px;
     width: 100%;
     display: flex;
@@ -255,10 +263,88 @@ button{
     align-items: center;
     gap: 10px;
 }
-.datosCompra__qr{
+.buyData__qr{
     width: 200px;
     height: 200px;
 }
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   STATUS                                   */
+/* -------------------------------------------------------------------------- */
+.status {
+    background-color: var(--color-secondary);
+    padding: 20px;
+    text-align: center;
+}
+
+.status__title {
+    font-size: 24px;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.status__search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.status__search-input {
+    border: 1px solid var(--color-primary);
+    border-radius: 20px;
+    padding: 10px;
+    width: 150px;
+}
+
+.status__search-icon {
+    font-size: 20px;
+    color: var(--color-primary);
+    cursor: pointer;
+    margin-left: -30px;
+}
+
+.status__result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.status__result-id {
+    font-size: 18px;
+    color: var(--color-primary);
+}
+
+.status__result-status {
+    font-size: 16px;
+    color: var(--color-primary);
+}
+
+.status__result-details {
+    font-size: 16px;
+    color: var(--color-primary);
+    margin-top: 10px;
+}
+
+/* .status__return-btn {
+    border: none;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.status__return-btn:hover {
+    background-color: var(--color-button-hover);
+} */
 
 
 /* -------------------------------------------------------------------------- */
