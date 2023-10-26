@@ -45,6 +45,9 @@ button{
     font-size: 25px;
     cursor: pointer;
 }
+.header__icon:hover{
+    color: var(--color-button-hover);
+}
 .header__title {
     color: var(--color-primary);
     background: transparent;
@@ -196,9 +199,12 @@ button{
 
 .products__container-buyBtn{
     width: 70%;
+    height: 50px;
     position: sticky;
     margin: 0 auto;
-    bottom: 30px;
+    bottom: 60px;
+    display: flex;
+    align-items: center;
 }
 .products__buyBtn{
     width: 100%;
@@ -219,19 +225,44 @@ button{
 /* -------------------------------------------------------------------------- */
 .ticket{
     width: 100%;
-    min-height: calc(80vh - 20px);
+    min-height: calc(80vh - 21px);
 }
 .ticket__box{
     width: 80%;
-    min-height: 200px;
+    height: 300px;
     padding: 10px;
     background-color: var(--color-primary);
     color: var(--color-white);
     margin: 20px auto;
     text-align: center;
     border-radius: 20px;
-    position: relative;
+    overflow: auto;
+    scroll-behavior: smooth;
 }
+
+/* ------------------------------------ SCROLL ----------------------------------- */
+.ticket__box::-webkit-scrollbar{
+    width: 25px;
+
+}
+.ticket__box::-webkit-scrollbar-thumb{
+    border: 10px solid transparent;
+    box-shadow: none;
+    border-radius: 40px;
+}
+.ticket__box:hover::-webkit-scrollbar-thumb{
+    box-shadow: inset 0 0 0 10px var(--color-button-hover);
+}
+.ticket__box:hover::-webkit-scrollbar-thumb:hover{
+    border: 8px solid transparent;
+    box-shadow: inset 0 0 0 10px var(--color-black);
+}
+
+.ticket__box::-webkit-scrollbar-track{
+    background-color: transparent;
+    margin: 40px 0;
+}
+/* ----------------------------------------------------------------------- */
 
 .product__ticket{
     display: grid;
@@ -247,11 +278,7 @@ button{
 }
 .ticket__total{
     font-weight: bold;
-    margin-top: 10px;
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
+    margin-top: 30px;
 
 }
 
