@@ -195,13 +195,13 @@ button{
 
 
 .products__container-buyBtn{
-    display: flex;
-    justify-content: center;
+    width: 70%;
     position: sticky;
+    margin: 0 auto;
     bottom: 30px;
 }
 .products__buyBtn{
-    width: 70%;
+    width: 100%;
     font-size: 18px;
     margin: 30px auto;
     padding: 5px 0;
