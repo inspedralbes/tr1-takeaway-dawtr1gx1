@@ -24,6 +24,10 @@ button{
     cursor: pointer;
 }
 
+li{
+    list-style: none;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                   header                                   */
 /* -------------------------------------------------------------------------- */
@@ -52,6 +56,63 @@ button{
     color: var(--color-primary);
     background: transparent;
     border: none;
+}
+
+
+/* MENU DESPLEGABLE */
+#nav__check:checked ~ .header__menu{
+    right: 0;
+}
+
+.header__menu{
+    display: block;
+    position: absolute;
+    right: -300px;
+    top: 0;
+    z-index: 999;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--color-white);
+    transition: all 1s ease;
+    box-shadow: 2px 0 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+.header-menu__logo{
+    display: block;
+    width: auto;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.header__menuInput{
+    display: none;
+}
+
+.menu-item__button{
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+}
+.menu-item__button:hover{
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+.menu-item__button.active{
+    background-color: var(--color-button-hover);
+    color: var(--color-white);
+}
+
+
+.menu__items{
+    display: block;
+    padding: 0 20px;
+    margin-top: 30px;
 }
 
 

@@ -85,3 +85,7 @@ createApp({
         });
     }
 }).mount('#app')
+
+// document.getElementById("inicio").addEventListener(click, function(){
+//     document.getElementById(inicio).classList("active");
+// });
