@@ -29,7 +29,7 @@ class categoryController extends Controller
     public function store(Request $request)
     {
         $newCategory=new category;
-        $newCategory->name=$request->name;
+        $newCategory->description=$request->description;
         $newCategory->save();
         return $newCategory;
     }
@@ -39,7 +39,7 @@ class categoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return category::all()->where("id","==",$id);
     }
 
     /**
@@ -55,7 +55,10 @@ class categoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $item=category::find($id);
+        $item->update($request->all());
+        $item->save();
+        return $item;
     }
 
     /**
@@ -63,6 +66,6 @@ class categoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return category::destroy($id);
     }
 }

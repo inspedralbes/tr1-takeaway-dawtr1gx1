@@ -24,9 +24,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/dishes' , [itemsController::class, "index"]);
 Route::post('/dishes' , [itemsController::class, "store"]);
+Route::delete('/dishes/{id}' , [itemsController::class, "destroy"]);
+Route::put("/dishes/{id}", [itemsController::class, "update"]);
+Route::get("/dishes/{id}", [itemsController::class, "show"]);
 
 Route::get('/categories', [categoryController::class, "index"]);
 Route::post('/categories' , [categoryController::class, "store"]);
+Route::delete('/categories/{id}' , [categoryController::class, "destroy"]);
+Route::put("/categories/{id}", [categoryController::class, "update"]);
+Route::get("/categories/{id}", [categoryController::class, "show"]);
+
 
 Route::get('/order', [orderController::class, "index"]);
 Route::post('/order', [orderController::class, "store"]);
