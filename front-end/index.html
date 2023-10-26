@@ -68,11 +68,12 @@
 
       <div class="products__grid">
         <div class="products__product " v-for="(product, index) in products">
+          <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
           <img class="product__img" :src=product.img alt="products">
           <h3 class="product__name"> {{ product.itemName }}</h3>
+          <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"><i class="fa-solid fa-minus product__btn-icon"></i></button>
           <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
-          <button class="product__btn" @click="addToCart(index)"><i
-              class="fa-solid fa-plus product__btn-icon"></i></button>
+          <button class="product__btn product__btn--plus" @click="addToCart(index)"><i class="fa-solid fa-plus product__btn-icon"></i></button>
         </div>
       </div>
       <div class="products__container-buyBtn">

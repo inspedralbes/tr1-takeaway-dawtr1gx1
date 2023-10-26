@@ -21,8 +21,12 @@ createApp({
            
             let objetoExistente = this.cart.find(item =>item.id === this.products[index].id)
             if (objetoExistente) {
-                this.cartPrice += this.products[index].price;
-                objetoExistente.amount++;
+                if(this.products[index].stock>objetoExistente.amount){
+                    console.log(this.products[index].stock);    
+                    this.cartPrice += this.products[index].price;
+                    objetoExistente.amount++;
+                }
+                
             } else {
               this.cart.push({
                 id: this.products[index].id,
@@ -40,6 +44,24 @@ createApp({
                 total+=element.amount;
             });
             return total;
+        },
+        deleteFromCart(index){
+            
+            let objetoExistente = this.cart.find(item =>item.id === this.products[index].id)
+            if(objetoExistente){
+            objetoExistente.amount--;
+            this.cartPrice-=objetoExistente.price;
+            if (objetoExistente.amount==0){
+                this.cart.splice(objetoExistente, 1);
+            }}  
+
+        },
+        Quantity(index){
+            let objetoExistente = this.cart.find(item =>item.id === this.products[index].id);
+            if(objetoExistente){
+            return objetoExistente.amount
+            }
+            return 0;
         }
     },
     created() {

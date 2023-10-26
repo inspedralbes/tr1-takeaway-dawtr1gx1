@@ -50,8 +50,6 @@ button{
     background: transparent;
     border: none;
 }
-.menu__item {
-}
 
 
 /* -------------------------------------------------------------------------- */
@@ -135,7 +133,24 @@ button{
     border-radius: 20px;
     overflow: hidden;
 }
-
+.product__amount{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 10px;
+    
+    border: none;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    border-radius: 200px;
+    font-size: 14px;
+    font-weight: 400;
+    top: 10px;
+    right: 10px;
+}
 .product__name{
     min-height: 43px;
     margin-top: 10px;
@@ -158,13 +173,19 @@ button{
     justify-content: center;
     align-items: center;
     bottom: 10px;
-    right: 10px;
+    
     border: none;
     color: var(--color-white);
     background-color: var(--color-primary);
     border-radius: 200px;
     font-size: 14px;
     font-weight: 400;
+}
+.product__btn--plus{
+    right: 10px;
+}
+.product__btn--minus{
+    left: 10px;
 }
 .product__btn:hover{
     background-color: var(--color-button-hover);
