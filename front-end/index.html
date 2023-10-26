@@ -75,7 +75,7 @@
         </div>
       </div>
       <div class="products__container-buyBtn">
-        <button class="products__buyBtn" @click="changeScreen(2)">Demana'n <strong>{{cart.length}}</strong> per
+        <button class="products__buyBtn" @click="changeScreen(2)">Demana'n <strong>{{calcularCartTotal()}}</strong> per
           <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
       </div>
     </section>
