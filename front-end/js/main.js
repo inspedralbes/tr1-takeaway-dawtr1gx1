@@ -46,20 +46,27 @@ createApp({
             return total;
         },
         deleteFromCart(index) {
-
+            let eliminar=-1;
             let objetoExistente = this.cart.find(item => item.id === this.products[index].id)
             if (objetoExistente) {
-                this.cartPrice -= objetoExistente.price;
                 
-                if (objetoExistente.amount==0) {
-                    this.cart.forEach(item => {
-                        if (objetoExistente.id == item.id) {
-                            let index = item.id;
+                
+                if (objetoExistente.amount==1) {
+                    for(let index=0;index<this.cart.length;index++){
+                        console.log(index)
+                        if (objetoExistente.id == this.cart[index].id) {
+                             eliminar = index;
+                             console.log(eliminar)
                         }
-                    })
-                    this.cart.splice(index, 1);
+                    }
+                    console.log(eliminar);
+                    if(eliminar!=-1){
+                        this.cart.splice(eliminar, 1);
+                        this.cartPrice -= objetoExistente.price;
+                    }
                 } else{
                     objetoExistente.amount--;
+                    this.cartPrice -= objetoExistente.price;
                 }
             }
 
