@@ -115,7 +115,7 @@ export async function getProducts() {
             "stock": 20,
             "description": "Arroz frito con vegetales y tu elección de pollo, cerdo o camarones.",
             "category": "Comida Asiática",
-            "img": "./img/arrozFrito.jpg"
+            "img": "./img/ArrozFrito.jpg"
         },
         {
             "id": 14,

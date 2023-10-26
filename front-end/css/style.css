@@ -141,13 +141,12 @@ button{
     justify-content: center;
     align-items: center;
     bottom: 10px;
-    
+    font-weight: 700;
     border: none;
-    color: var(--color-white);
-    background-color: var(--color-primary);
+    color: var(--color-black);
+    background-color: var(--color-white);
     border-radius: 200px;
     font-size: 14px;
-    font-weight: 400;
     top: 10px;
     right: 10px;
 }
