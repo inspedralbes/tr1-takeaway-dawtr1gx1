@@ -40,7 +40,7 @@ class orderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return order::all()->where("id","==",$id);
     }
 
     /**
@@ -56,7 +56,9 @@ class orderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $order=order::find($id);
+        $order->update($request->all());
+        return $order;
     }
 
     /**

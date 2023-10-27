@@ -101,7 +101,11 @@
       </div>
 
       <div class="ticket__buttons">
-        <button class="ticket__btn" @click="changeScreen(3)">Comprar</button>
+        
+          <input type="text" name="jsonOrder" id="jsonOrder" :value="cartString" style="display: none;">  
+          <button class="ticket__btn" @click="enviarForm()" >Comprar</button>
+        
+        
         <button class="ticket__btn" @click="changeScreen(1)">Tornar</button>
       </div>
     </section>
