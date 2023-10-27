@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,7 +39,7 @@ CREATE TABLE `categories` (
 --
 
 CREATE TABLE `items` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `itemName` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `imageRoute` varchar(255) DEFAULT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `items` (
 --
 
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `jsonOrder` varchar(255) DEFAULT NULL,
   `status` enum('rebut','preparacio','recollir en botiga') DEFAULT 'rebut'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
