@@ -123,17 +123,17 @@
     <section class="status" v-if="active == 4">
       <h3 class="status__title">Estat de la Comanda</h3>
       <div class="status__search">
-        <input type="text" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
+        <input @input="searchOrderStatus" type="number" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
       </div>
 
-      <div class="status__result" v-if="searchResult">
-        <p class="status__result-id"></p>
-        <p class="status__result-status"></p>
+      <div class="status__result" v-if="statusId">
+        <p class="status__result-id">{{mostrarOrdre() }}</p>
+        <!-- <p class="status__result-status"></p> -->
         <p class="status__result-details"></p>
       </div>
 
-      <button @click="changeScreen(3)" class="status__return-btn">Tornar</button>
+      <button @click="changeScreen(0)" class="status__return-btn">Tornar</button>
     </section>
 
 

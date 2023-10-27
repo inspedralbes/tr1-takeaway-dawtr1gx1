@@ -9,7 +9,7 @@ createApp({
             products: [],
             cart: [],
             cartPrice: 0,
-
+            statusId: "",
         }
     },
     methods: {
@@ -77,6 +77,21 @@ createApp({
                 return objetoExistente.amount
             }
             return 0;
+        },
+        searchOrderStatus(e) {
+            let searchId = e.target.value;
+            for (let i = 0; i < this.products.length; i++) {
+                if (searchId == this.products[i].id) {
+                    this.statusId = this.products[i].id;
+                    console.log(this.statusId)
+                }
+            }
+        },
+        mostrarOrdre(){
+            let object=this.products.find(item => item.id === this.statusId);
+            console.log(object);
+            return object.itemName;
+            return object.status;
         }
     },
     created() {
