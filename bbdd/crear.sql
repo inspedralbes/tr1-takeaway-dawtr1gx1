@@ -43,7 +43,7 @@ CREATE TABLE `items` (
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `jsonOrder` varchar(1000) DEFAULT NULL,
-  `totalprice`int(99999) DEFAULT NULL, 
+  `totalPrice` int(99999) DEFAULT NULL, 
   `status` enum('rebut','preparacio','recollir en botiga') DEFAULT 'rebut',
   PRIMARY KEY (`id`) -- Definir `id` como clave primaria
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
