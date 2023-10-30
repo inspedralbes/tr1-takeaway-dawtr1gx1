@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("jsonOrder");
             $table->enum('status', ['rebut', 'preparacio', 'recollir en botiga'])->default('rebut');
             $table->integer("totalPrice");
+            $table->string("mail");
             $table->timestamps();   
         });
     }
