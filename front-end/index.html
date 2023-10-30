@@ -10,6 +10,8 @@
   <!-- ------------------------------- VUE CDN ------------------------------- -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
+  <link rel="shortcut icon" href="img/fastbites logo.png" type="image/x-icon">
+
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/style.css" />
   <title>FASTBITES | Tu tienda TakeAway de confianza</title>
@@ -56,16 +58,42 @@
     <!-- ----------------------------------------------------------------------- -->
     <!--                                PRODUCTS                                 -->
     <!-- ----------------------------------------------------------------------- -->
+
+    <!-- ------------------------------- slider -------------------------------- -->
     <section class="products" v-if="active==1">
       <div class="products__slider">
-        <img class="products-slider__img" src="" alt="">
-        <img class="products-slider__img" src="" alt="">
-        <img class="products-slider__img" src="" alt="">
-        <img class="products-slider__img" src="" alt="">
-        <img class="products-slider__img" src="" alt="">
-        <img class="products-slider__img" src="" alt="">
+        <button class="products__slider-item">
+          <img class="products-slider__img" src="img/slider/hamburguesas.png" alt="">
+          <p class="products-slider__name">Burguer</p>
+        </button>
+        
+        <button class="products__slider-item">
+          <img class="products-slider__img" src="img/slider/pizzas.png" alt="">
+          <p class="products-slider__name">Pizzas</p>
+        </button>
+
+        <button class="products__slider-item">
+          <img class="products-slider__img" src="img/slider/ensaladas.png" alt="">
+          <p class="products-slider__name">Ensaladas</p>
+        </button>
+
+        <button class="products__slider-item">
+          <img class="products-slider__img" src="img/slider/sushi.png" alt="">
+          <p class="products-slider__name">Sushi</p>
+        </button>
+        
+        <button class="products__slider-item">
+          <img class="products-slider__img" src="img/slider/batidos.png" alt="">
+          <p class="products-slider__name">Batidos</p>
+        </button>
+
+        <button class="products__slider-item">
+          <img class="products-slider__img" src="img/slider/postres.png" alt="">
+          <p class="products-slider__name">Postres</p>
+        </button>
       </div>
 
+      <!-- ------------------------------ products ------------------------------- -->
       <div class="products__grid">
         <div class="products__product " v-for="(product, index) in products">
           <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
@@ -128,13 +156,13 @@
     <section class="status" v-if="active == 4">
       <h3 class="status__title">Estat de la Comanda</h3>
       <div class="status__search">
-        <input type="text" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
+        <input @input="searchOrderStatus" type="number" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
       </div>
 
-      <div class="status__result" v-if="searchResult">
-        <p class="status__result-id"></p>
-        <p class="status__result-status"></p>
+      <div class="status__result" v-if="statusId">
+        <p class="status__result-id">{{mostrarOrdre() }}</p>
+        <!-- <p class="status__result-status"></p> -->
         <p class="status__result-details"></p>
       </div>
 
@@ -147,7 +175,7 @@
     <!--                                 footer                                  -->
     <!-- ----------------------------------------------------------------------- -->
     <footer class="footer">
-      <img class="footer__img" src="img/fastbites.png" alt="Logo de FASTBITES" />
+      <img class="footer__img" src="img/fastbites logo.png" alt="Logo de FASTBITES" />
       <div class="footer__legal">
         <a href="#" class="legal__link-page">Condicions d'us</a>
         <a href="#" class="legal__link-page">Politica de Privadesa</a>

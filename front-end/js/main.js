@@ -9,6 +9,7 @@ createApp({
             products: [],
             cart: [],
             cartPrice: 0,
+            statusId: "",
             cartString: "",
             yourOrder: "NoOrder",
             mail: ""
@@ -87,7 +88,22 @@ createApp({
             }
             return 0;
         },
-        enviarForm() {
+        searchOrderStatus(e) {
+            let searchId = e.target.value;
+            for (let i = 0; i < this.products.length; i++) {
+                if (searchId == this.products[i].id) {
+                    this.statusId = this.products[i].id;
+                    console.log(this.statusId)
+                }
+            }
+        },
+        mostrarOrdre(){
+            let object=this.products.find(item => item.id === this.statusId);
+            console.log(object);
+            return object.itemName;
+            return object.status;
+
+          enviarForm() {
             const requestBody = {
                 jsonOrder: this.cartString,
                 totalPrice: parseFloat((this.cartPrice).toFixed(2)),
