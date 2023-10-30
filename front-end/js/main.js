@@ -10,6 +10,7 @@ createApp({
             cart: [],
             cartPrice: 0,
             statusId: "",
+            Amostrar:[]
         }
     },
     methods: {
@@ -84,14 +85,15 @@ createApp({
                 if (searchId == this.products[i].id) {
                     this.statusId = this.products[i].id;
                     console.log(this.statusId)
+                    this.mostrarOrdre();
                 }
             }
         },
         mostrarOrdre(){
             let object=this.products.find(item => item.id === this.statusId);
             console.log(object);
-            return object.itemName;
-            return object.status;
+            let itemNames  = [object.itemName, object.price];
+            this.Amostrar=itemNames;
         }
     },
     created() {
