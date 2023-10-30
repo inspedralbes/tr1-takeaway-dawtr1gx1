@@ -32,6 +32,7 @@ class orderController extends Controller
         $newOrder= new order;
         $newOrder->jsonOrder=$request->jsonOrder;
         $newOrder->totalPrice=$request->totalPrice;
+        $newOrder->mail=$request->mail;
         $newOrder->save();
         return $newOrder;
     }

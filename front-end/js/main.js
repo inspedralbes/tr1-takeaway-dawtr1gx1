@@ -10,7 +10,8 @@ createApp({
             cart: [],
             cartPrice: 0,
             cartString: "",
-            yourOrder: "NoOrder"
+            yourOrder: "NoOrder",
+            mail: ""
         }
     },
     methods: {
@@ -89,7 +90,8 @@ createApp({
         enviarForm() {
             const requestBody = {
                 jsonOrder: this.cartString,
-                totalPrice: parseFloat((this.cartPrice).toFixed(2))
+                totalPrice: parseFloat((this.cartPrice).toFixed(2)),
+                mail: this.mail,
               };
               console.log(requestBody); 
               fetch('http://127.0.0.1:8000/api/order', {
