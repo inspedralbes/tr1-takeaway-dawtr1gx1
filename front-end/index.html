@@ -131,17 +131,18 @@
         <input type="text" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
       </div>
-
+    
       <div class="status__result" v-if="searchResult">
-        <p class="status__result-id"></p>
-        <p class="status__result-status"></p>
-        <p class="status__result-details"></p>
+        <div v-for="(item, index) in itemNames">
+          <p class="status__result-id">Nom: {{ item[0] }}</p>
+          <p class="status__result-status">Quantitat: {{ item[2] }}</p>
+          <p class="status__result-price">Preu per unitat: {{ item[1] }}€</p>
+          <p class="status__result-total">Preu Total: {{ (item[1] * item[2]).toFixed(2) }}€</p>
+        </div>
       </div>
-
+    
       <button @click="changeScreen(0)" class="status__return-btn">Tornar</button>
     </section>
-
-
 
     <!-- ----------------------------------------------------------------------- -->
     <!--                                 footer                                  -->
