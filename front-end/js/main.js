@@ -9,13 +9,17 @@ createApp({
             products: [],
             cart: [],
             cartPrice: 0,
-            cartString: ""
-
+            cartString: "",
+            yourOrder: "NoOrder"
         }
     },
     methods: {
         changeScreen(active) {
             this.active = active;
+            if(active==0){
+                this.cart=[];
+                this.yourOrder="NoOrder";
+            }
 
         },
         addToCart(index) {
@@ -84,19 +88,21 @@ createApp({
         enviarForm() {
             const requestBody = {
                 jsonOrder: this.cartString,
-                totalPrice: this.calcularCartTotal()
+                totalPrice: parseFloat((this.cartPrice).toFixed(2))
               };
-            fetch('http://127.0.0.1:8000/api/order', {
+              console.log(requestBody); 
+              fetch('http://127.0.0.1:8000/api/order', {
                 method: 'POST',
-                headers:{
-                    'Content-Type': 'application/JSON'
+                headers: {
+                  'Content-Type': 'application/json'
                 },
-                body: requestBody,
-            })
+                body: JSON.stringify(requestBody), 
+              })
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                }).then(changeScreen(3))
+                    this.yourOrder=data.id;
+                }).then(this.changeScreen(3))
         }
     },
     created() {

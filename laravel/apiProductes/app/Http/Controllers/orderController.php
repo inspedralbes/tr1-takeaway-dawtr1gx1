@@ -30,7 +30,8 @@ class orderController extends Controller
     public function store(Request $request)
     {
         $newOrder= new order;
-        $newOrder->jsonComanda=$request->jsonOrder;
+        $newOrder->jsonOrder=$request->jsonOrder;
+        $newOrder->totalPrice=$request->totalPrice;
         $newOrder->save();
         return $newOrder;
     }
