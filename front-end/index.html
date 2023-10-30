@@ -7,57 +7,161 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/2c54a840da.js" crossorigin="anonymous"></script>
 
+  <!-- ------------------------------- VUE CDN ------------------------------- -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/style.css" />
   <title>FASTBITES | Tu tienda TakeAway de confianza</title>
 </head>
 
 <body>
-  <div class="container">
-    <div class="landing">
-      <header class="header">
-        <nav class="header__menu">
-          <i class="fa-solid fa-bars header__icon" style="color: #000000"></i>
-          <ul class="menu__items">
-            <li class="menu__item">Inici</li>
-            <li class="menu__item">Productes</li>
-            <li class="menu__item">Consultar comanda</li>
-            <li class="menu__item">Historial Comandes</li>
-          </ul>
-        </nav>
-        <h1 class="header__title">FASTBITES</h1>
-        <i class="fa-solid fa-user header__icon" style="color: #000000"></i>
-      </header>
+  <div id="app" class="container">
 
-      <section class="landing__content">
-        <div class="landing-content__hero">
-          <img class="landing-content__img" src="img/plato-landing.png" alt="Plato de comida" />
-          <h2 class="landing-content__title">
-            SABORS PER EMPORTAR, FELICITAT A CADA MOSSEGADA
-          </h2>
-        </div>
-        <div class="landing-content__buttons">
-          <button class="landing-buttons__btn">Demanar</button>
-          <button class="landing-buttons__btn">Consultar</button>
-        </div>
-      </section>
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 header                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+    <header class="header">
+      <nav class="header__menu">
+        <i class="fa-solid fa-bars header__icon"></i>
+        <ul class="menu__items">
+          <li class="menu__item">Inici</li>
+          <li class="menu__item">Productes</li>
+          <li class="menu__item">Consultar comanda</li>
+          <li class="menu__item">Historial Comandes</li>
+        </ul>
+      </nav>
+      <button class="header__title" @click="changeScreen(0)">
+        <h1>FASTBITES</h1>
+      </button>
+      <i class="fa-solid fa-user header__icon"></i>
+    </header>
 
-      <footer class="footer">
-        <img class="footer__img" src="img/fastbites.png" alt="Logo de FASTBITES" />
-        <div class="footer__legal">
-          <a href="#" class="legal__link-page">Condicions d'us</a>
-          <a href="#" class="legal__link-page">Politica de Privadesa</a>
-          <a href="#" class="legal__link-page">Politica de Cookies</a>
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 LANDING                                 -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="landing" v-if="active==0">
+      <div class="landing__hero">
+        <img class="landing__img" src="img/plato-landing.png" alt="Plato de comida" />
+        <h2 class="landing__title">
+          SABORS PER EMPORTAR, FELICITAT A CADA MOSSEGADA
+        </h2>
+      </div>
+      <div class="landing__buttons">
+        <button class="landing-buttons__btn" @click="changeScreen(1)">Demanar</button>
+        <button class="landing-buttons__btn" @click="changeScreen(4)">Consultar</button>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                PRODUCTS                                 -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="products" v-if="active==1">
+      <div class="products__slider">
+        <img class="products-slider__img" src="" alt="">
+        <img class="products-slider__img" src="" alt="">
+        <img class="products-slider__img" src="" alt="">
+        <img class="products-slider__img" src="" alt="">
+        <img class="products-slider__img" src="" alt="">
+        <img class="products-slider__img" src="" alt="">
+      </div>
+
+      <div class="products__grid">
+        <div class="products__product " v-for="(product, index) in products">
+          <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
+          <img class="product__img" :src=product.img alt="products">
+          <h3 class="product__name"> {{ product.itemName }}</h3>
+          <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"><i class="fa-solid fa-minus product__btn-icon"></i></button>
+          <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
+          <button class="product__btn product__btn--plus" @click="addToCart(index)"><i class="fa-solid fa-plus product__btn-icon"></i></button>
         </div>
-        <div class="socialMedia">
-          <a href="#" class="socialMedia__icon fa fa-facebook"></a>
-          <a href="#" class="socialMedia__icon fa fa-twitter"></a>
-          <a href="#" class="socialMedia__icon fa fa-linkedin"></a>
-          <a href="#" class="socialMedia__icon fa fa-instagram"></a>
+      </div>
+      <div class="products__container-buyBtn">
+        <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n <strong>{{calcularCartTotal()}}</strong> per
+          <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
+      </div>
+    </section>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 TICKET                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="ticket" v-if="active==2">
+      <div class="ticket__box">
+        <h3>COMANDA</h3>
+        <div class="ticket__products" v-for="(product, index) in cart">
+          <div class="product__ticket">
+            <p class="product-ticket__name">{{product.itemName}}</p>
+            <p>x{{product.amount}}</p>
+            <p>{{product.price}}€</p>
+
+          </div>
         </div>
-      </footer>
-    </div>
+        <p class="ticket__total">Total: {{parseFloat((cartPrice).toFixed(2))}}€</p>
+      </div>
+
+      <div class="ticket__buttons">
+          
+          <button class="ticket__btn" @click="enviarForm()" >Comprar</button>
+        
+        
+        <button class="ticket__btn" @click="changeScreen(1)">Tornar</button>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                             DATOS DE COMPRA                             -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="buyData" v-if="active==3">
+      <h3 class="buyData__id">ID: {{yourOrder}}</h3>
+      <img class="buyData__qr" src="img/qr.jfif" alt="">
+      <button class="buyData__btn buyData-download__btn">Descarregar</button>
+      <button class="buyData__btn" @click="changeScreen(0)">Tornar</button>
+    </section>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 STATUS                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="status" v-if="active == 4">
+      <h3 class="status__title">Estat de la Comanda</h3>
+      <div class="status__search">
+        <input type="text" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
+        <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
+      </div>
+
+      <div class="status__result" v-if="searchResult">
+        <p class="status__result-id"></p>
+        <p class="status__result-status"></p>
+        <p class="status__result-details"></p>
+      </div>
+
+      <button @click="changeScreen(3)" class="status__return-btn">Tornar</button>
+    </section>
+
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 footer                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+    <footer class="footer">
+      <img class="footer__img" src="img/fastbites.png" alt="Logo de FASTBITES" />
+      <div class="footer__legal">
+        <a href="#" class="legal__link-page">Condicions d'us</a>
+        <a href="#" class="legal__link-page">Politica de Privadesa</a>
+        <a href="#" class="legal__link-page">Politica de Cookies</a>
+      </div>
+      <div class="socialMedia">
+        <a href="#" class="socialMedia__icon fa fa-facebook"></a>
+        <a href="#" class="socialMedia__icon fa fa-twitter"></a>
+        <a href="#" class="socialMedia__icon fa fa-linkedin"></a>
+        <a href="#" class="socialMedia__icon fa fa-instagram"></a>
+      </div>
+    </footer>
   </div>
+
+  <script src="js/communicationManager.js" type="module"></script>
+  <script src="js/main.js" type="module"></script>
 </body>
 
 </html>
