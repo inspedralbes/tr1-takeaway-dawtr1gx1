@@ -87,6 +87,7 @@
     <!--                                 TICKET                                  -->
     <!-- ----------------------------------------------------------------------- -->
     <section class="ticket" v-if="active==2">
+      <p v-if="msg">{{msg}}</p>
       <div class="ticket__box">
         <h3>COMANDA</h3>
         <div class="ticket__products" v-for="(product, index) in cart">
