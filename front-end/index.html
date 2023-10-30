@@ -58,6 +58,8 @@
     <!-- ----------------------------------------------------------------------- -->
     <!--                                PRODUCTS                                 -->
     <!-- ----------------------------------------------------------------------- -->
+
+    <!-- ------------------------------- slider -------------------------------- -->
     <section class="products" v-if="active==1">
       <div class="products__slider">
         <button class="products__slider-item">
@@ -91,6 +93,7 @@
         </button>
       </div>
 
+      <!-- ------------------------------ products ------------------------------- -->
       <div class="products__grid">
         <div class="products__product " v-for="(product, index) in products">
           <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
