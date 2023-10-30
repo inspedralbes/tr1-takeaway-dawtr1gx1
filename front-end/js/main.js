@@ -10,11 +10,20 @@ createApp({
             cart: [],
             cartPrice: 0,
             statusId: "",
+            cartString: "",
+            yourOrder: "NoOrder",
+            mail: "",
+            msg:""
         }
     },
     methods: {
         changeScreen(active) {
             this.active = active;
+            if (active == 0) {
+                this.cart = [];
+                this.yourOrder = "NoOrder";
+                this.cartPrice = 0;
+            }
 
         },
         addToCart(index) {
@@ -36,6 +45,7 @@ createApp({
                 });
                 this.cartPrice += this.products[index].price;
             }
+            this.cartString = JSON.stringify(this.cart);
             console.log(this.cart);
         },
         calcularCartTotal() {
@@ -46,29 +56,30 @@ createApp({
             return total;
         },
         deleteFromCart(index) {
-            let eliminar=-1;
+            let eliminar = -1;
             let objetoExistente = this.cart.find(item => item.id === this.products[index].id)
             if (objetoExistente) {
-                
-                
-                if (objetoExistente.amount==1) {
-                    for(let index=0;index<this.cart.length;index++){
+
+
+                if (objetoExistente.amount == 1) {
+                    for (let index = 0; index < this.cart.length; index++) {
                         console.log(index)
                         if (objetoExistente.id == this.cart[index].id) {
-                             eliminar = index;
-                             console.log(eliminar)
+                            eliminar = index;
+                            console.log(eliminar)
                         }
                     }
                     console.log(eliminar);
-                    if(eliminar!=-1){
+                    if (eliminar != -1) {
                         this.cart.splice(eliminar, 1);
                         this.cartPrice -= objetoExistente.price;
                     }
-                } else{
+                } else {
                     objetoExistente.amount--;
                     this.cartPrice -= objetoExistente.price;
                 }
             }
+            this.cartString = JSON.stringify(this.cart);
 
         },
         Quantity(index) {
@@ -87,16 +98,46 @@ createApp({
                 }
             }
         },
-        mostrarOrdre(){
-            let object=this.products.find(item => item.id === this.statusId);
+        mostrarOrdre() {
+            let object = this.products.find(item => item.id === this.statusId);
             console.log(object);
             return object.itemName;
-            return object.status;
+        },
+        enviarForm() {
+            const requestBody = {
+                jsonOrder: this.cartString,
+                totalPrice: parseFloat((this.cartPrice).toFixed(2)),
+                mail: this.mail,
+            };
+            console.log(requestBody);
+            fetch('http://127.0.0.1:8000/api/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if(data.id){
+                    this.yourOrder = data.id;
+                    if(data.id){
+                    this.changeScreen(3)} else{
+                        this.msg=error;
+                    }
+                }
+                
+            })
         }
     },
     created() {
         getProducts().then(data => {
             this.products = data;
+            console.log(this.products);
+
         });
     }
+
+
 }).mount('#app')
