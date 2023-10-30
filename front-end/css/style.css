@@ -228,8 +228,9 @@ button{
     min-height: calc(80vh - 21px);
 }
 .ticket__box{
-    width: 80%;
-    height: 300px;
+    width: 70%;
+    min-height: 200px;
+    max-height: 500px;
     padding: 10px;
     background-color: var(--color-primary);
     color: var(--color-white);
