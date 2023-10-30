@@ -82,13 +82,16 @@ createApp({
             return 0;
         },
         enviarForm() {
-            const formData = new FormData();
-            formData.append('jsonOrder', this.cartString);
-            formData.append('totalPrice', calcularCartTotal());
-
+            const requestBody = {
+                jsonOrder: this.cartString,
+                totalPrice: this.calcularCartTotal()
+              };
             fetch('http://127.0.0.1:8000/api/order', {
                 method: 'POST',
-                body: formData,
+                headers:{
+                    'Content-Type': 'application/JSON'
+                },
+                body: requestBody,
             })
                 .then(response => response.json())
                 .then(data => {
