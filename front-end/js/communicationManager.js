@@ -3,5 +3,4 @@ export async function getProducts() {
     let productes = await response.json();
     console.log(productes);
     return productes;
-    
 };
