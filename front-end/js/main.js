@@ -19,6 +19,7 @@ createApp({
             if(active==0){
                 this.cart=[];
                 this.yourOrder="NoOrder";
+                this.cartPrice= 0;
             }
 
         },
