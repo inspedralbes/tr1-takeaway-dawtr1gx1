@@ -7,7 +7,7 @@ export async function getProducts() {
             "price": 7.99,
             "stock": 5,
             "category": "Comida Rápida",
-            "img": "./img/hamburguesaClasica.webp"
+            "img": "./img/products/hamburguesaClasica.webp"
         },
         {
             "id": 2,
@@ -16,7 +16,7 @@ export async function getProducts() {
             "price": 8.99,
             "stock": 30,
             "category": "Comida Rápida",
-            "img": "./img/pizzaPeperoni.webp"
+            "img": "./img/products/pizzaPeperoni.webp"
         },
         {
             "id": 3,
@@ -25,7 +25,7 @@ export async function getProducts() {
             "price": 6.49,
             "stock": 40,
             "category": "Comida Rápida",
-            "img": "./img/polloFrito.jpg"
+            "img": "./img/products/polloFrito.jpg"
         },
         {
             "id": 4,
@@ -34,7 +34,7 @@ export async function getProducts() {
             "price": 4.99,
             "stock": 20,
             "category": "Ensaladas",
-            "img": "./img/ensaladaCesar.jpg"
+            "img": "./img/products/ensaladaCesar.jpg"
         },
         {
             "id": 5,
@@ -43,7 +43,7 @@ export async function getProducts() {
             "stock": 25,
             "description": "Tacos rellenos de carne asada, cebolla, cilantro y salsa.",
             "category": "Comida Mexicana",
-            "img": "./img/tacosCarneAsada.jpg"
+            "img": "./img/products/tacosCarneAsada.jpg"
         },
         {
             "id": 6,
@@ -52,7 +52,7 @@ export async function getProducts() {
             "stock": 15,
             "description": "Una variedad de sushi fresco, incluyendo nigiri, sashimi y rollos.",
             "category": "Sushi",
-            "img": "./img/sushi.jpg"
+            "img": "./img/products/sushi.jpg"
         },
         {
             "id": 7,
@@ -61,7 +61,7 @@ export async function getProducts() {
             "stock": 30,
             "description": "Alitas de pollo picantes con salsa de barbacoa.",
             "category": "Aperitivos",
-            "img": "./img/alitasPicantes.jpg"
+            "img": "./img/products/alitasPicantes.jpg"
         },
         {
             "id": 8,
@@ -70,7 +70,7 @@ export async function getProducts() {
             "stock": 25,
             "description": "Pasta con salsa Alfredo, pollo a la parrilla y queso parmesano.",
             "category": "Pasta",
-            "img": "./img/pastaAlfredo.webp"
+            "img": "./img/products/pastaAlfredo.webp"
         },
         {
             "id": 9,
@@ -79,7 +79,7 @@ export async function getProducts() {
             "stock": 20,
             "description": "Burrito grande relleno de pollo, frijoles, arroz y salsa.",
             "category": "Comida Mexicana",
-            "img": "./img/burritoPollo.jpg"
+            "img": "./img/products/burritoPollo.jpg"
         },
         {
             "id": 10,
@@ -88,7 +88,7 @@ export async function getProducts() {
             "stock": 30,
             "description": "Ensalada fresca de frutas variadas con miel y yogur.",
             "category": "Ensaladas",
-            "img": "./img/ensaladaFrutas.jpg"
+            "img": "./img/products/ensaladaFrutas.jpg"
         },
         {
             "id": 11,
@@ -97,7 +97,7 @@ export async function getProducts() {
             "stock": 15,
             "description": "Deliciosa tarta de chocolate con crema batida y salsa de caramelo.",
             "category": "Postres",
-            "img": "./img/tartaChocolate.jpg"
+            "img": "./img/products/tartaChocolate.jpg"
         },
         {
             "id": 12,
@@ -106,7 +106,7 @@ export async function getProducts() {
             "stock": 35,
             "description": "Sándwich de pavo con lechuga, tomate y mostaza.",
             "category": "Sándwiches",
-            "img": "./img/sandwichPavo.jpg"
+            "img": "./img/products/sandwichPavo.jpg"
         },
         {
             "id": 13,
@@ -115,7 +115,7 @@ export async function getProducts() {
             "stock": 20,
             "description": "Arroz frito con vegetales y tu elección de pollo, cerdo o camarones.",
             "category": "Comida Asiática",
-            "img": "./img/ArrozFrito.jpg"
+            "img": "./img/products/ArrozFrito.jpg"
         },
         {
             "id": 14,
@@ -124,7 +124,7 @@ export async function getProducts() {
             "stock": 40,
             "description": "Batido refrescante de fresas con crema batida.",
             "category": "Bebidas",
-            "img": "./img/batidoFresas.jpg"
+            "img": "./img/products/batidoFresas.jpg"
         },
         {
             "id": 15,
@@ -133,7 +133,7 @@ export async function getProducts() {
             "stock": 30,
             "description": "Un hot dog clásico con mostaza, ketchup y cebolla.",
             "category": "Comida Rápida",
-            "img": "./img/hotDog.jpg"
+            "img": "./img/products/hotDog.jpg"
         },
         {
             "id": 16,
@@ -142,7 +142,7 @@ export async function getProducts() {
             "stock": 25,
             "description": "Ensalada con pepino, tomate, aceitunas, queso feta y aderezo griego.",
             "category": "Ensaladas",
-            "img": "./img/ensaladaGriega.jpg"
+            "img": "./img/products/ensaladaGriega.jpg"
         },
         {
             "id": 17,
@@ -151,7 +151,7 @@ export async function getProducts() {
             "stock": 20,
             "description": "Tortilla de patata española con cebolla y papas.",
             "category": "Comida Española",
-            "img": "./img/tortillaPatataEspañola.jpg"
+            "img": "./img/products/tortillaPatataEspañola.jpg"
         },
         {
             "id": 18,
@@ -160,7 +160,7 @@ export async function getProducts() {
             "stock": 20,
             "description": "Pollo glaseado con salsa teriyaki, servido con arroz y vegetales.",
             "category": "Comida Asiática",
-            "img": "./img/polloTeriyaki.webp"
+            "img": "./img/products/polloTeriyaki.webp"
         },
         {
             "id": 19,
@@ -169,7 +169,7 @@ export async function getProducts() {
             "stock": 30,
             "description": "Nachos con queso fundido y jalapeños.",
             "category": "Aperitivos",
-            "img": "./img/nachosConQueso.webp"
+            "img": "./img/products/nachosConQueso.webp"
         },
         {
             "id": 20,
@@ -178,7 +178,7 @@ export async function getProducts() {
             "stock": 40,
             "description": "Té helado refrescante con sabor a durazno.",
             "category": "Bebidas",
-            "img": "./img/téHelado.webp"
+            "img": "./img/products/téHelado.webp"
         }
     ]  
     
