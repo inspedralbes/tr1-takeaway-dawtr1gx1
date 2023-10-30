@@ -129,7 +129,12 @@
       </div>
 
       <div class="ticket__buttons">
-        <button class="ticket__btn" @click="changeScreen(3)">Comprar</button>
+        <label for="mail">Insereix el teu correu</label>
+          <input type="email" name="mail" id="mail" placeholder="sample@sample.com" v-model="mail">
+          
+          <button class="ticket__btn" @click="enviarForm()" >Comprar</button>
+        
+        
         <button class="ticket__btn" @click="changeScreen(1)">Tornar</button>
       </div>
     </section>
@@ -138,7 +143,7 @@
     <!--                             DATOS DE COMPRA                             -->
     <!-- ----------------------------------------------------------------------- -->
     <section class="buyData" v-if="active==3">
-      <h3 class="buyData__id">ID</h3>
+      <h3 class="buyData__id">ID: {{yourOrder}}</h3>
       <img class="buyData__qr" src="img/qr.jfif" alt="">
       <button class="buyData__btn buyData-download__btn">Descarregar</button>
       <button class="buyData__btn" @click="changeScreen(0)">Tornar</button>
