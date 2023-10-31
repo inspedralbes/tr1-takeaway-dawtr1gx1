@@ -7,8 +7,8 @@ INSERT INTO `categories` (`description`) VALUES
 INSERT INTO `items` (`itemName`, `description`, `price`, `stock`, `sale`, `itemCategory`)
 VALUES
 ('Hamburguesa', 'Pasta', 7.99, 50, 1, '1'),
-('Arros tres Delicies', 'Arros', 9.99, 100, 0, '5'),
-('Sopa', 'Sushi', 12.34, 50, 0, '7'),
+('Arros tres Delicies', 'Arros', 9.99, 100, 0, '3'),
+('Sopa', 'Sushi', 12.34, 50, 0, '4'),
 ('Yakisoba', 'Amanides', 5.67, 30, 1, '2');
 
 INSERT INTO `orders` (`id`, `jsonOrder`, `status`) VALUES
