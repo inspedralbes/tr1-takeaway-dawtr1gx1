@@ -14,7 +14,6 @@ createApp({
             mail: "",
             searchId: "",
             searchResult: null,
-            
         }
     },
     methods: {
@@ -90,40 +89,38 @@ createApp({
             }
             return 0;
         },
-        searchOrderStatus() {
+        async searchOrderStatus() {
             if (this.searchId) {
-                // Hacer una solicitud a Laravel para obtener el producto
-                // Supongamos que obtuviste una respuesta de Laravel en el formato correcto
-                // Aquí estoy utilizando un ejemplo de respuesta simulada para ilustrar el proceso.
-        
-                const responseFromLaravel = {
-                    order: [
-                        {
-                            id: 1,
-                            itemName: "Hamburguesa",
-                            price: 8,
-                            amount: 4
-                        },
-                        {
-                            id: 3,
-                            itemName: "Sopa",
-                            price: 12,
-                            amount: 2
-                        },
-                        {
-                            id: 4,
-                            itemName: "Yakisoba",
-                            price: 6,
-                            amount: 5
+                const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // Asignar la respuesta de la API a searchResult
+                    this.searchResult = data;
+
+                    // Calcular el costo total de la comanda sin usar reduce
+                    let totalCost = 0;
+
+                    if (Array.isArray(this.searchResult.order)) {
+                        for (const item of this.searchResult.order) {
+                            if (item.price && item.amount) {
+                                totalCost += item.price * item.amount;
+                            }
                         }
-                    ]
-                };
-        
-                this.searchResult = responseFromLaravel;
-                console.log(this.searchResult.order[2]);
-                console.log(this.searchId);
+                    }
+
+                    this.totalCost = totalCost;
+                    console.log(this.totalCost);
+                    console.log(this.searchResult);
+
+                } else {
+                    console.error('Error al obtener datos');
+                    this.searchResult = null;
+                    this.totalCost = 0;
+                }
             } else {
                 this.searchResult = null;
+                this.totalCost = 0;
             }
         },
         mostrarOrdre() {
