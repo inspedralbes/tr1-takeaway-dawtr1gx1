@@ -60,49 +60,29 @@
     <!-- ----------------------------------------------------------------------- -->
     <section class="products" v-if="active==1">
       <div class="products__slider">
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/hamburguesas.png" alt="">
-          <p class="products-slider__name">Burguer</p>
-        </button>
-        
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/pizzas.png" alt="">
-          <p class="products-slider__name">Pizzas</p>
-        </button>
-
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/ensaladas.png" alt="">
-          <p class="products-slider__name">Ensaladas</p>
-        </button>
-
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/sushi.png" alt="">
-          <p class="products-slider__name">Sushi</p>
-        </button>
-        
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/batidos.png" alt="">
-          <p class="products-slider__name">Batidos</p>
-        </button>
-
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/postres.png" alt="">
-          <p class="products-slider__name">Postres</p>
+        <button class="products__slider-item" v-for="category in categories" @click="changeCategory(category.id)">
+          <!-- <img class="products-slider__img" src="img/slider/hamburguesas.png" alt=""> -->
+          <p class="products-slider__name">{{category.description}}</p>
         </button>
       </div>
 
       <div class="products__grid">
-        <div class="products__product " v-for="(product, index) in products">
-          <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
-          <img class="product__img" :src=product.img alt="products">
-          <h3 class="product__name"> {{ product.itemName }}</h3>
-          <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"><i class="fa-solid fa-minus product__btn-icon"></i></button>
-          <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
-          <button class="product__btn product__btn--plus" @click="addToCart(index)"><i class="fa-solid fa-plus product__btn-icon"></i></button>
+        <div v-for="(product, index) in products">
+          <div class="products__product" v-if="categoryActive==product.itemCategory ">
+            <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
+            <img class="product__img" :src=product.img alt="products">
+            <h3 class="product__name"> {{ product.itemName }}</h3>
+            <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"><i
+                class="fa-solid fa-minus product__btn-icon"></i></button>
+            <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
+            <button class="product__btn product__btn--plus" @click="addToCart(index)"><i
+                class="fa-solid fa-plus product__btn-icon"></i></button>
+          </div>
         </div>
       </div>
       <div class="products__container-buyBtn">
-        <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n <strong>{{calcularCartTotal()}}</strong> per
+        <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n
+          <strong>{{calcularCartTotal()}}</strong> per
           <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
       </div>
     </section>
@@ -148,7 +128,8 @@
     <section class="status" v-if="active == 4">
       <h3 class="status__title">Estat de la Comanda</h3>
       <div class="status__search">
-        <input @input="searchOrderStatus" type="number" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
+        <input @input="searchOrderStatus" type="number" class="status__search-input" placeholder="Buscar per ID"
+          v-model="searchId" />
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
       </div>
 

@@ -7,11 +7,13 @@ createApp({
         return {
             active: 0,
             products: [],
+            categories: [],
+            categoryActive: 18,
             cart: [],
             cartPrice: 0,
             cartString: "",
             yourOrder: "NoOrder",
-            mail: ""
+            mail: "",
         }
     },
     methods: {
@@ -106,13 +108,17 @@ createApp({
                     console.log(data);
                     this.yourOrder=data.id;
                 }).then(this.changeScreen(3))
+        },
+        changeCategory(id){
+            this.categoryActive = id;
         }
     },
     created() {
         getProducts().then(data => {
-            this.products = data;
-            console.log(this.products);
-
+            this.products = data.items; // Datos de la tabla "items"
+            this.categories = data.categories; // Datos de la tabla "categories"
+            console.log(this.items);
+            console.log(this.categories);
         });
     }
 
