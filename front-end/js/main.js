@@ -11,16 +11,19 @@ createApp({
             cartPrice: 0,
             cartString: "",
             yourOrder: "NoOrder",
-            mail: ""
+            mail: "",
+            searchId: "",
+            searchResult: null,
+            
         }
     },
     methods: {
         changeScreen(active) {
             this.active = active;
-            if(active==0){
-                this.cart=[];
-                this.yourOrder="NoOrder";
-                this.cartPrice= 0;
+            if (active == 0) {
+                this.cart = [];
+                this.yourOrder = "NoOrder";
+                this.cartPrice = 0;
             }
 
         },
@@ -87,24 +90,65 @@ createApp({
             }
             return 0;
         },
+        searchOrderStatus() {
+            if (this.searchId) {
+                // Hacer una solicitud a Laravel para obtener el producto
+                // Supongamos que obtuviste una respuesta de Laravel en el formato correcto
+                // Aquí estoy utilizando un ejemplo de respuesta simulada para ilustrar el proceso.
+        
+                const responseFromLaravel = {
+                    order: [
+                        {
+                            id: 1,
+                            itemName: "Hamburguesa",
+                            price: 8,
+                            amount: 4
+                        },
+                        {
+                            id: 3,
+                            itemName: "Sopa",
+                            price: 12,
+                            amount: 2
+                        },
+                        {
+                            id: 4,
+                            itemName: "Yakisoba",
+                            price: 6,
+                            amount: 5
+                        }
+                    ]
+                };
+        
+                this.searchResult = responseFromLaravel;
+                console.log(this.searchResult.order[2]);
+                console.log(this.searchId);
+            } else {
+                this.searchResult = null;
+            }
+        },
+        mostrarOrdre() {
+            let object = this.products.find(item => item.id === this.statusId);
+            console.log(object);
+            return object.itemName;
+        },
         enviarForm() {
             const requestBody = {
                 jsonOrder: this.cartString,
                 totalPrice: parseFloat((this.cartPrice).toFixed(2)),
                 mail: this.mail,
-              };
-              console.log(requestBody); 
-              fetch('http://127.0.0.1:8000/api/order', {
+            };
+            console.log(requestBody);
+            fetch('http://127.0.0.1:8000/api/order', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(requestBody), 
-              })
+                body: JSON.stringify(requestBody),
+            })
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    this.yourOrder=data.id;
+                    this.yourOrder = data.id;
                 }).then(this.changeScreen(3))
         }
     },
