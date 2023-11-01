@@ -9,6 +9,7 @@ createApp({
             products: [],
             categories: [],
             categoryActive: 18,
+            productsFilter: [],
             cart: [],
             cartPrice: 0,
             cartString: "",
@@ -110,7 +111,13 @@ createApp({
                 }).then(this.changeScreen(3))
         },
         changeCategory(id){
-            this.categoryActive = id;
+            this.productsFilter.splice(0, this.productsFilter.length);
+
+            for (let i = 0; i < this.products.length; i++) {
+                if (this.products[i].itemCategory == id) {
+                    this.productsFilter.push(this.products[i]);
+                }
+            }
         }
     },
     created() {

@@ -67,8 +67,8 @@
       </div>
 
       <div class="products__grid">
-        <div v-for="(product, index) in products">
-          <div class="products__product" v-if="categoryActive==product.itemCategory ">
+        <div v-for="(product, index) in productsFilter">
+          <div class="products__product">
             <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
             <img class="product__img" :src=product.img alt="products">
             <h3 class="product__name"> {{ product.itemName }}</h3>
