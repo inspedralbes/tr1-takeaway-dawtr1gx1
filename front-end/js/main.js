@@ -100,31 +100,13 @@ createApp({
         
                     this.searchResult = data;
         
-                    let totalCost = 0;
-        
-                    if (this.searchResult && this.searchResult.order) {
-                        for (const item of this.searchResult.order) {
-                            if (item.price && item.amount) {
-                                totalCost += item.price * item.amount;
-                            }
-                        }
-                    }
-        
-                    this.totalCost = totalCost;
-                    console.log(totalCost);
                     console.log(this.searchResult);
         
-                } else {
-                    console.error('Error al obtener datos');
-                    this.searchResult = null;
-                    this.totalCost = 0;
+                
                 }
-            } else {
-                this.searchResult = null;
-                this.totalCost = 0;
             }
-        }
-        ,
+            
+        },
         mostrarOrdre() {
             let object = this.products.find(item => item.id === this.statusId);
             console.log(object);
