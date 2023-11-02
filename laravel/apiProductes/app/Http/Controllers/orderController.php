@@ -32,6 +32,7 @@ class orderController extends Controller
         $newOrder= new order;
         $newOrder->jsonOrder=$request->jsonOrder;
         $newOrder->totalPrice=$request->totalPrice;
+        $newOrder->mail=$request->mail;
         $newOrder->save();
         return $newOrder;
     }
@@ -58,8 +59,10 @@ class orderController extends Controller
     public function update(Request $request, string $id)
     {
         $order=order::find($id);
-        $order->update($request->all());
-        return $order;
+        $order->status=$request->status;
+        $order->save();
+
+        return route('detall', ['id' => $order->id]);
     }
 
     /**

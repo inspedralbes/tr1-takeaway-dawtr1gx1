@@ -10,15 +10,19 @@ createApp({
             cart: [],
             cartPrice: 0,
             cartString: "",
-            yourOrder: "NoOrder"
+            yourOrder: "NoOrder",
+            mail: "",
+            searchId: "",
+            searchResult: null,
         }
     },
     methods: {
         changeScreen(active) {
             this.active = active;
-            if(active==0){
-                this.cart=[];
-                this.yourOrder="NoOrder";
+            if (active == 0) {
+                this.cart = [];
+                this.yourOrder = "NoOrder";
+                this.cartPrice = 0;
             }
 
         },
@@ -85,23 +89,63 @@ createApp({
             }
             return 0;
         },
+        async searchOrderStatus() {
+            if (this.searchId) {
+                const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // Asignar la respuesta de la API a searchResult
+                    this.searchResult = data;
+
+                    // Calcular el costo total de la comanda sin usar reduce
+                    let totalCost = 0;
+
+                    if (Array.isArray(this.searchResult.order)) {
+                        for (const item of this.searchResult.order) {
+                            if (item.price && item.amount) {
+                                totalCost += item.price * item.amount;
+                            }
+                        }
+                    }
+
+                    this.totalCost = totalCost;
+                    console.log(this.totalCost);
+                    console.log(this.searchResult);
+
+                } else {
+                    console.error('Error al obtener datos');
+                    this.searchResult = null;
+                    this.totalCost = 0;
+                }
+            } else {
+                this.searchResult = null;
+                this.totalCost = 0;
+            }
+        },
+        mostrarOrdre() {
+            let object = this.products.find(item => item.id === this.statusId);
+            console.log(object);
+            return object.itemName;
+        },
         enviarForm() {
             const requestBody = {
-                jsonOrder: this.cartString,
-                totalPrice: parseFloat((this.cartPrice).toFixed(2))
-              };
-              console.log(requestBody); 
-              fetch('http://127.0.0.1:8000/api/order', {
+                jsonOrder: `{"order":`+this.cartString+`}`,
+                totalPrice: parseFloat((this.cartPrice).toFixed(2)),
+                mail: this.mail,
+            };
+            console.log(requestBody);
+            fetch('http://127.0.0.1:8000/api/order', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(requestBody), 
-              })
+                body: JSON.stringify(requestBody),
+            })
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    this.yourOrder=data.id;
+                    this.yourOrder = data.id;
                 }).then(this.changeScreen(3))
         }
     },

@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string("jsonOrder");
-            $table->enum('status', ['rebut', 'preparacio', 'recollir en botiga'])->default('rebut');
+            $table->enum('status', ['rebut', 'preparacio', 'recollir en botiga', 'entregat'])->default('rebut');
             $table->integer("totalPrice");
+            $table->string("mail");
             $table->timestamps();   
         });
     }

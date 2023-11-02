@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\orderController;
+use App\Models\order;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/admin', function () {
+    $orders= order::all();
+    return view('adminAdministracioComandes',['orders'=>$orders]);
+})->name("landing");
+Route::get('/admin/detall/{id}', function ($id) {
+    $order= order::find($id);
+    return view('adminComanda',['order'=>$order]);
+})->name("detall");
+
+Route::patch('/admin/update/{id}', [orderController::class, 'update'])->name("update");
