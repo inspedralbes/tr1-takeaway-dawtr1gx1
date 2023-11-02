@@ -22,6 +22,8 @@
 
 button{
     cursor: pointer;
+    border: none;
+    background-color: none;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -97,7 +99,7 @@ button{
     background-color: var(--color-primary);
     color: var(--color-white);
     padding: 6px 10px;
-    width: 30%;
+    width: 32%;
     border-radius: 200px;
     transition: all .2s ease-in-out;
 }
@@ -115,6 +117,51 @@ button{
 /* -------------------------------------------------------------------------- */
 /*                                  PRODUCTS                                  */
 /* -------------------------------------------------------------------------- */
+
+/* --------------------------------- slider --------------------------------- */
+.products__slider{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    margin: 0 auto 20px auto;
+    width: 88%;
+    gap: 20px;
+}
+.products__slider::-webkit-scrollbar{
+    display: none;
+}
+
+.products__slider-item{
+    position: relative;
+    flex: 1 0 auto;
+    min-width: 120px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    transform: translateY(10px);
+    transition: all .2s ease-in-out;
+
+}
+.products__slider-item:hover{
+    transform: translateY(0px);
+}
+
+.products-slider__img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.products-slider__name{
+    position: absolute;
+    color: white;
+    display: inline-block;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ----------------------------- products items ----------------------------- */
 .products__grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -228,8 +275,9 @@ button{
     min-height: calc(80vh - 21px);
 }
 .ticket__box{
-    width: 80%;
-    height: 300px;
+    width: 70%;
+    min-height: 200px;
+    max-height: 500px;
     padding: 10px;
     background-color: var(--color-primary);
     color: var(--color-white);
