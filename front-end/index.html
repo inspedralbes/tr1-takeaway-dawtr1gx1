@@ -166,12 +166,13 @@
         </button>
       </div>
 
+
       <div class="status__result" v-if="searchResult">
-        <div class="status__result-item" v-for="item in searchResult.order">
+        <div class="status__result-item" v-for="item in comandaItems">
           <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
-            }}€</p>
+          }}€</p>
         </div>
-        <p class="status__result-total">Total: {{ totalCost.toFixed(2) }}€</p>
+        <p class="status__result-total">Total: {{totalComanda}} €</p>
       </div>
 
 

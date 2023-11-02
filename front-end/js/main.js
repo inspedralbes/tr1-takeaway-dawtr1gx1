@@ -15,7 +15,8 @@ createApp({
             mail: "",
             searchId: "",
             searchResult: null,
-            totalCost: 0,
+            comandaItems: [],
+            totalComanda: 0,
         }
     },
     methods: {
@@ -97,15 +98,33 @@ createApp({
                 const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
                 if (response.ok) {
                     const data = await response.json();
-        
                     this.searchResult = data;
-        
                     console.log(this.searchResult);
-        
-                
+
+                    console.log(this.searchResult[0].jsonOrder);
+
+                    // Parsea la cadena JSON en jsonOrder
+                    const jsonOrder = JSON.parse(this.searchResult[0].jsonOrder);
+                    let totalPreuComanda = 0;
+
+                    this.comandaItems = jsonOrder;
+
+                    // Itera a través de los elementos y muestra los nombres
+                    for (const item of jsonOrder) {
+                        console.log(item.itemName);
+                        console.log(item.amount);
+                        console.log(item.price);
+                        
+                        // Calcula el precio total de este elemento
+                        const precioItem = item.price * item.amount;
+
+                        // Agrega el precio del elemento al precio total
+                        totalPreuComanda += item.price * item.amount;
+                        this.totalComanda = totalPreuComanda;
+                    }
                 }
             }
-            
+
         },
         mostrarOrdre() {
             let object = this.products.find(item => item.id === this.statusId);
