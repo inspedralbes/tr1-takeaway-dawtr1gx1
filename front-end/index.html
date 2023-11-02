@@ -21,7 +21,7 @@
     <!-- ----------------------------------------------------------------------- -->
     <!--                                 header                                  -->
     <!-- ----------------------------------------------------------------------- -->
-    <header class="header">
+    <header class="header header--login">
       <nav class="header__menu">
         <i class="fa-solid fa-bars header__icon"></i>
         <ul class="menu__items">
@@ -34,7 +34,7 @@
       <button class="header__title" @click="changeScreen(0)">
         <h1>FASTBITES</h1>
       </button>
-      <i class="fa-solid fa-user header__icon"></i>
+      <i class="fa-solid fa-user header__icon" @click="changeScreen(5)"></i>
     </header>
 
     <!-- ----------------------------------------------------------------------- -->
@@ -71,13 +71,16 @@
           <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
           <img class="product__img" :src=product.img alt="products">
           <h3 class="product__name"> {{ product.itemName }}</h3>
-          <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"><i class="fa-solid fa-minus product__btn-icon"></i></button>
+          <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"><i
+              class="fa-solid fa-minus product__btn-icon"></i></button>
           <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
-          <button class="product__btn product__btn--plus" @click="addToCart(index)"><i class="fa-solid fa-plus product__btn-icon"></i></button>
+          <button class="product__btn product__btn--plus" @click="addToCart(index)"><i
+              class="fa-solid fa-plus product__btn-icon"></i></button>
         </div>
       </div>
       <div class="products__container-buyBtn">
-        <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n <strong>{{calcularCartTotal()}}</strong> per
+        <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n
+          <strong>{{calcularCartTotal()}}</strong> per
           <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
       </div>
     </section>
@@ -102,11 +105,11 @@
 
       <div class="ticket__buttons">
         <label for="mail">Insereix el teu correu</label>
-          <input type="email" name="mail" id="mail" placeholder="sample@sample.com" v-model="mail">
-          
-          <button class="ticket__btn" @click="enviarForm()" >Comprar</button>
-        
-        
+        <input type="email" name="mail" id="mail" placeholder="sample@sample.com" v-model="mail">
+
+        <button class="ticket__btn" @click="enviarForm()">Comprar</button>
+
+
         <button class="ticket__btn" @click="changeScreen(1)">Tornar</button>
       </div>
     </section>
@@ -129,18 +132,87 @@
       <h3 class="status__title">Estat de la Comanda</h3>
       <div class="status__search">
         <input type="text" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
-        <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
+        <button @click="searchOrderStatus()">
+          <i class="fa-solid fa-search status__search-icon"></i>
+        </button>
       </div>
 
       <div class="status__result" v-if="searchResult">
-        <p class="status__result-id"></p>
-        <p class="status__result-status"></p>
-        <p class="status__result-details"></p>
+        <div class="status__result-item" v-for="item in searchResult.order">
+          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ item.price * item.amount }}€</p>
+        </div>
+        <p class="status__result-total">Total: {{ totalCost }}€</p>
       </div>
 
       <button @click="changeScreen(0)" class="status__return-btn">Tornar</button>
     </section>
 
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                  login                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <section class="login" v-if="active == 5">
+      <div class="login__container">
+        <div class="fomulary">
+          <form action="#">
+            <h2>Iniciar Sessió</h2>
+
+            <div class="input-container">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" required>
+              <label for="#">Email</label>
+            </div>
+            <div class="input-container">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" required>
+              <label for="#">Contrasenya</label>
+            </div>
+          </form>
+          <div>
+            <button>Log in</button>
+            <div class="register">
+              <p>No tens compte?  <a href="#" @click="changeScreen(6)">Crear un compte</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                register                                 -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <section class="register__account" v-if="active == 6">
+      <div class="register__container">
+        <div class="fomulary">
+          <form action="#">
+            <h2>Registre</h2>
+
+            <div class="input-container">
+              <i class="fa-solid fa-person"></i>
+              <input type="Nom" required>
+              <label for="#">Nom</label>
+            </div>
+
+            <div class="input-container">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" required>
+              <label for="#">Email</label>
+            </div>
+
+            <div class="input-container">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" required>
+              <label for="#">Contrasenya</label>
+            </div>
+          </form>
+          <div>
+            <button>Registrar</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
     <!-- ----------------------------------------------------------------------- -->
