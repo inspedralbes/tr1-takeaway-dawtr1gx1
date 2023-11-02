@@ -89,7 +89,7 @@ createApp({
         },
         enviarForm() {
             const requestBody = {
-                jsonOrder: this.cartString,
+                jsonOrder: `{"order":`+this.cartString+`}`,
                 totalPrice: parseFloat((this.cartPrice).toFixed(2)),
                 mail: this.mail,
               };

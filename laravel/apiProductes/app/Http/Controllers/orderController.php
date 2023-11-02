@@ -59,8 +59,10 @@ class orderController extends Controller
     public function update(Request $request, string $id)
     {
         $order=order::find($id);
-        $order->update($request->all());
-        return $order;
+        $order->status=$request->status;
+        $order->save();
+
+        return route('detall', ['id' => $order->id]);
     }
 
     /**
