@@ -449,6 +449,157 @@ button{
 
 
 /* -------------------------------------------------------------------------- */
+/*                                    login                                   */
+/* -------------------------------------------------------------------------- */
+
+.login, .register__account{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 80vh;
+    background: url(login_bg1.jpeg) no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.login__container, .register__container{
+    position: relative;
+    width: 350px;
+    border: 2px solid rgba(255, 255, 255, .6);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    height: 400px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__container h2, .register__container h2{
+    font-size: 2.3rem;
+    color: #fff;
+    text-align: center;
+}
+
+.input-container{
+    position: relative;
+    margin: 30px 0;
+    width: 300px;
+    border-bottom: 2px solid #fff;
+}
+
+.input-container label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: .6s;
+    font-weight: bold;
+}
+
+input:focus ~ label,
+input:valid ~ label{
+    top: -5px;
+}
+
+.input-container input{
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: -35px 0 5px;
+    color: #fff;
+}
+
+.input-container i{
+    position: absolute;
+    color: #fff;
+    font-size: 1.6rem;
+    top: 19px;
+    right: 8px;
+}
+/* 
+.olvidar{
+    margin: -15px 0 15px;
+    font-size: .9px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.olvidar label input{
+    margin: 3px;
+}
+
+.olvidar label a{
+    color:#fff;
+    text-decoration: none;
+    transition: .3s;
+    font-size: .9em;
+}
+
+.olvidar label a:hover{
+    text-decoration: underline;
+} */
+
+button{
+    width: 100%;
+    height: 45px;
+    border-radius: 40px;
+    background-color: #fff;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    font-size: 1rem;
+    transition: .4s;
+}
+
+button:hover{
+    opacity: .9;
+}
+
+.register{
+    font-size: .8rem;
+    color: #fff;
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+.register p a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.register p a:hover{
+    text-decoration: underline;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   footer                                   */
+/* -------------------------------------------------------------------------- */
+
+.register__container{
+    position: relative;
+    width: 350px;
+    border: 2px solid rgba(255, 255, 255, .6);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    height: 400px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* -------------------------------------------------------------------------- */
 /*                                   footer                                   */
 /* -------------------------------------------------------------------------- */
 .footer {
