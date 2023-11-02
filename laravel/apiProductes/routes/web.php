@@ -28,3 +28,16 @@ Route::get('/admin/detall/{id}', function ($id) {
 })->name("detall");
 
 Route::patch('/admin/update/{id}', [orderController::class, 'update'])->name("update");
+
+// Route::get(uri: '/', function() { 
+//     // return view('welcome');
+
+//     $to_name = 'adri';
+//     $to_email = 'grupogrupo739@gmail.com';
+//     $data = array("name"=>"adria", "body"=>"test email");
+//     Mail::send(view: "mail", $data, function ($message) use ($to_email) {
+//         $message->from('grupogrupo739@gmail.com', 'username');
+//         $message->to($to_email)
+//         ->subject('laravel main subject');
+//     });
+// });

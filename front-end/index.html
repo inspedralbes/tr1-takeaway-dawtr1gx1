@@ -66,7 +66,7 @@
           <img class="products-slider__img" src="img/slider/hamburguesas.png" alt="">
           <p class="products-slider__name">Burguer</p>
         </button>
-        
+
         <button class="products__slider-item">
           <img class="products-slider__img" src="img/slider/pizzas.png" alt="">
           <p class="products-slider__name">Pizzas</p>
@@ -81,7 +81,7 @@
           <img class="products-slider__img" src="img/slider/sushi.png" alt="">
           <p class="products-slider__name">Sushi</p>
         </button>
-        
+
         <button class="products__slider-item">
           <img class="products-slider__img" src="img/slider/batidos.png" alt="">
           <p class="products-slider__name">Batidos</p>
@@ -168,11 +168,12 @@
 
       <div class="status__result" v-if="searchResult">
         <div class="status__result-item" v-for="item in searchResult.order">
-          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ item.price * item.amount }}€</p>
+          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
+            }}€</p>
         </div>
-        <p class="status__result-total">Total: {{ totalCost }}€</p>
-
+        <p class="status__result-total">Total: {{ totalCost.toFixed(2) }}€</p>
       </div>
+
 
       <button @click="changeScreen(0)" class="status__return-btn">Tornar</button>
     </section>
@@ -202,7 +203,7 @@
           <div>
             <button class="login__btn">Log in</button>
             <div class="register">
-              <p>No tens compte?  <a href="#" @click="changeScreen(6)">Crear un compte</a></p>
+              <p>No tens compte? <a href="#" @click="changeScreen(6)">Crear un compte</a></p>
             </div>
           </div>
         </div>
