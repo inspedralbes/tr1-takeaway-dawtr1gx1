@@ -9,6 +9,7 @@ createApp({
             products: [],
             cart: [],
             cartPrice: 0,
+            statusId: "",
             cartString: "",
             yourOrder: "NoOrder",
             mail: "",
@@ -89,6 +90,7 @@ createApp({
             }
             return 0;
         },
+
         async searchOrderStatus() {
             if (this.searchId) {
                 const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
@@ -129,6 +131,7 @@ createApp({
             return object.itemName;
         },
         enviarForm() {
+
             const requestBody = {
                 jsonOrder: `{"order":`+this.cartString+`}`,
                 totalPrice: parseFloat((this.cartPrice).toFixed(2)),
