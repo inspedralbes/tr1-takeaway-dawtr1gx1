@@ -28,6 +28,7 @@ Route::get('/adminComanda/detall/{id}', function ($id) {
     $order= order::find($id);
     return view('adminComanda',['order'=>$order]);
 })->name("detall");
+
 Route::get("/admin", function(){
     return view('adminMenu');
 })->name('landing');

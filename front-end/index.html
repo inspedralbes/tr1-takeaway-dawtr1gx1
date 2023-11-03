@@ -69,6 +69,7 @@
     <!-- ------------------------------- slider -------------------------------- -->
     <section class="products" v-if="active==1">
       <div class="products__slider">
+
         <button class="products__slider-item" v-for="category in categories" @click="changeCategory(category.id)">
           <!-- <img class="products-slider__img" src="img/slider/hamburguesas.png" alt=""> -->
           <p class="products-slider__name">{{category.description}}</p>
@@ -152,13 +153,15 @@
         
       </div>
 
-      <div class="status__result" v-if="searchResult">
-        <div class="status__result-item" v-for="item in searchResult.order">
-          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ item.price * item.amount }}€</p>
-        </div>
-        <p class="status__result-total">Total: {{ totalCost }}€</p>
 
+      <div class="status__result" v-if="searchResult">
+        <div class="status__result-item" v-for="item in comandaItems">
+          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
+          }}€</p>
+        </div>
+        <p class="status__result-total">Total: {{totalComanda}} €</p>
       </div>
+
 
       <button @click="changeScreen(0)" class="status__return-btn">Tornar</button>
     </section>
