@@ -26,6 +26,14 @@ class orderController extends Controller
     }
 
     /**
+     * Generate PDF 
+     */
+    public function pdf(){
+        
+    }
+
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
