@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+Use PDF;
 
 class orderController extends Controller
 {
@@ -28,9 +29,7 @@ class orderController extends Controller
     /**
      * Generate PDF 
      */
-    public function pdf(){
-        
-    }
+    
 
 
     /**
@@ -52,6 +51,10 @@ class orderController extends Controller
             $newOrder->totalPrice = $request->totalPrice;
             $newOrder->mail = $request->mail;
             $newOrder->save();
+
+            $newOrder->id;
+            $pdf = PDF::loadView('pdf', $data);
+            //return $pdf->stream();
 
             return response()->json(['errorCode'=> 3], 422);
             
