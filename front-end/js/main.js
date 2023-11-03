@@ -114,7 +114,7 @@ createApp({
                         console.log(item.itemName);
                         console.log(item.amount);
                         console.log(item.price);
-                        
+
                         // Calcula el precio total de este elemento
                         const precioItem = item.price * item.amount;
 
@@ -125,6 +125,47 @@ createApp({
                 }
             }
 
+        },
+        login() {
+            const userEmail = this.loginEmail;
+            const userPassword = this.loginPassword;
+
+            const existingUser = this.users.find(user => user.email === userEmail);
+
+            if (existingUser && existingUser.password === userPassword) {
+                this.user = existingUser;
+                this.loginEmail = '';
+                this.loginPassword = '';
+                this.changeScreen(3);
+            } else {
+                console.error('Inicio de sesión fallido');
+            }
+        },
+
+        register() {
+            const userName = this.registerName;
+            const userEmail = this.registerEmail;
+            const userPassword = this.registerPassword;
+
+            const existingUser = this.users.find(user => user.email === userEmail);
+
+            if (!existingUser) {
+                const newUser = {
+                    name: userName,
+                    email: userEmail,
+                    password: userPassword,
+                };
+
+                this.users.push(newUser);
+
+                this.registerName = '';
+                this.registerEmail = '';
+                this.registerPassword = '';
+
+                console.log('Registro exitoso');
+            } else {
+                console.error('El usuario ya existe');
+            }
         },
         mostrarOrdre() {
             let object = this.products.find(item => item.id === this.statusId);
@@ -153,6 +194,7 @@ createApp({
                 }).then(this.changeScreen(3))
         }
     },
+
     created() {
         getProducts().then(data => {
             this.products = data;

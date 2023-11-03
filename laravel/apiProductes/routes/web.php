@@ -3,6 +3,9 @@
 use App\Http\Controllers\orderController;
 use App\Models\order;
 use Illuminate\Support\Facades\Route;
+use App\Mail\MyTestEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,15 +32,9 @@ Route::get('/admin/detall/{id}', function ($id) {
 
 Route::patch('/admin/update/{id}', [orderController::class, 'update'])->name("update");
 
-// Route::get(uri: '/', function() { 
-//     // return view('welcome');
+Route::get('/testroute', function() {
+    $name = "Funny Coder";
+    $comandaId = 123;
 
-//     $to_name = 'adri';
-//     $to_email = 'grupogrupo739@gmail.com';
-//     $data = array("name"=>"adria", "body"=>"test email");
-//     Mail::send(view: "mail", $data, function ($message) use ($to_email) {
-//         $message->from('grupogrupo739@gmail.com', 'username');
-//         $message->to($to_email)
-//         ->subject('laravel main subject');
-//     });
-// });
+    Mail::to('a16adrrodgon@inspedralbes.cat')->send(new MyTestEmail($name, $comandaId));
+});
