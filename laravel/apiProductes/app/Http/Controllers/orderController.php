@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class orderController extends Controller
 {
@@ -29,12 +30,26 @@ class orderController extends Controller
      */
     public function store(Request $request)
     {
-        $newOrder= new order;
-        $newOrder->jsonOrder=$request->jsonOrder;
-        $newOrder->totalPrice=$request->totalPrice;
-        $newOrder->mail=$request->mail;
-        $newOrder->save();
-        return $newOrder;
+        $validator = Validator::make($request->all(), [
+            'jsonOrder' => 'required',
+            'totalPrice' => 'required',
+            'mail' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errorMsg' => "Email incorrecte",'errorCode'=> 2], 422);
+        }else {
+            $newOrder = new Order;
+            $newOrder->jsonOrder = $request->jsonOrder;
+            $newOrder->totalPrice = $request->totalPrice;
+            $newOrder->mail = $request->mail;
+            $newOrder->save();
+
+            return response()->json(['errorCode'=> 3], 422);
+            
+        }
+
+        
     }
 
     /**
@@ -62,7 +77,7 @@ class orderController extends Controller
         $order->status=$request->status;
         $order->save();
 
-        return route('detall', ['id' => $order->id]);
+        return redirect()->route('detall', ['id' => $order->id]);
     }
 
     /**

@@ -7,6 +7,9 @@ createApp({
         return {
             active: 0,
             products: [],
+            categories: [],
+            categoryActive: 18,
+            productsFilter: [],
             cart: [],
             cartPrice: 0,
             statusId: "",
@@ -15,6 +18,9 @@ createApp({
             mail: "",
             searchId: "",
             searchResult: null,
+            comandaItems: [],
+            totalComanda: 0,
+            errorMsg: "",
         }
     },
     methods: {
@@ -24,6 +30,7 @@ createApp({
                 this.cart = [];
                 this.yourOrder = "NoOrder";
                 this.cartPrice = 0;
+
             }
 
         },
@@ -96,34 +103,33 @@ createApp({
                 const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
                 if (response.ok) {
                     const data = await response.json();
-
-                    // Asignar la respuesta de la API a searchResult
                     this.searchResult = data;
-
-                    // Calcular el costo total de la comanda sin usar reduce
-                    let totalCost = 0;
-
-                    if (Array.isArray(this.searchResult.order)) {
-                        for (const item of this.searchResult.order) {
-                            if (item.price && item.amount) {
-                                totalCost += item.price * item.amount;
-                            }
-                        }
-                    }
-
-                    this.totalCost = totalCost;
-                    console.log(this.totalCost);
                     console.log(this.searchResult);
 
-                } else {
-                    console.error('Error al obtener datos');
-                    this.searchResult = null;
-                    this.totalCost = 0;
+                    console.log(this.searchResult[0].jsonOrder);
+
+                    // Parsea la cadena JSON en jsonOrder
+                    const jsonOrder = JSON.parse(this.searchResult[0].jsonOrder);
+                    let totalPreuComanda = 0;
+
+                    this.comandaItems = jsonOrder;
+
+                    // Itera a través de los elementos y muestra los nombres
+                    for (const item of jsonOrder) {
+                        console.log(item.itemName);
+                        console.log(item.amount);
+                        console.log(item.price);
+
+                        // Calcula el precio total de este elemento
+                        const precioItem = item.price * item.amount;
+
+                        // Agrega el precio del elemento al precio total
+                        totalPreuComanda += item.price * item.amount;
+                        this.totalComanda = totalPreuComanda;
+                    }
                 }
-            } else {
-                this.searchResult = null;
-                this.totalCost = 0;
             }
+
         },
         mostrarOrdre() {
             let object = this.products.find(item => item.id === this.statusId);
@@ -131,12 +137,13 @@ createApp({
             return object.itemName;
         },
         enviarForm() {
-
             const requestBody = {
-                jsonOrder: `{"order":`+this.cartString+`}`,
+                jsonOrder: `{"order":` + this.cartString + `}`,
+
                 totalPrice: parseFloat((this.cartPrice).toFixed(2)),
                 mail: this.mail,
             };
+
             console.log(requestBody);
             fetch('http://127.0.0.1:8000/api/order', {
                 method: 'POST',
@@ -147,15 +154,31 @@ createApp({
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     this.yourOrder = data.id;
-                }).then(this.changeScreen(3))
+                    this.errorMsg = data["errorMsg"];
+                }).then(this.changeScreen(data["redirect"]));
+        },
+        changeCategory(id) {
+            this.productsFilter.splice(0, this.productsFilter.length);
+
+            for (let i = 0; i < this.products.length; i++) {
+                if (this.products[i].itemCategory == id) {
+                    this.productsFilter.push(this.products[i]);
+
+                } else {
+                    this.searchResult = null;
+                    this.totalCost = 0;
+                }
+            }
         }
     },
     created() {
         getProducts().then(data => {
-            this.products = data;
-            console.log(this.products);
+
+            this.products = data.items; // Datos de la tabla "items"
+            this.categories = data.categories; // Datos de la tabla "categories"
+            console.log(this.items);
+            console.log(this.categories);
 
         });
     }

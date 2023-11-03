@@ -16,6 +16,7 @@ $dataDecoded=$data['order'];
 <form action="{{route('update', ['id' => $order->id])}}" method="post">
     @csrf
     @method('PATCH')
+    <h1>Administracio de comandes</h1>
     <select name="status">
         <option value="rebut" {{ $order->status === 'rebut' ? 'selected' : '' }}>Rebut</option>
         <option value="preparacio" {{ $order->status === 'preparacio' ? 'selected' : '' }}>Preparacio</option>
@@ -25,5 +26,5 @@ $dataDecoded=$data['order'];
     <button>Guardar</button>
 </form>
 
-<a href="{{route('landing')}}">Tornar</a>
+<a href="{{route('adminComanda')}}">Tornar</a>
 @endsection
