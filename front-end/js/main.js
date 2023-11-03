@@ -7,22 +7,40 @@ createApp({
         return {
             active: 0,
             products: [],
+            categories: [],
+            categoryActive: 18,
+            productsFilter: [],
             cart: [],
             cartPrice: 0,
             statusId: "",
             cartString: "",
             yourOrder: "NoOrder",
             mail: "",
+<<<<<<< HEAD
             msg:""
+=======
+            searchId: "",
+            searchResult: null,
+            comandaItems: [],
+            totalComanda: 0,
+>>>>>>> 94948095fb6d7a4ccaedbd2454eb2f9a14d94201
         }
     },
     methods: {
         changeScreen(active) {
             this.active = active;
+<<<<<<< HEAD
             if (active == 0) {
                 this.cart = [];
                 this.yourOrder = "NoOrder";
                 this.cartPrice = 0;
+=======
+            if(active==0){
+                this.cart=[];
+                this.yourOrder="NoOrder";
+                this.cartPrice= 0;
+
+>>>>>>> 94948095fb6d7a4ccaedbd2454eb2f9a14d94201
             }
 
         },
@@ -89,23 +107,62 @@ createApp({
             }
             return 0;
         },
+<<<<<<< HEAD
         searchOrderStatus(e) {
             let searchId = e.target.value;
             for (let i = 0; i < this.products.length; i++) {
                 if (searchId == this.products[i].id) {
                     this.statusId = this.products[i].id;
                     console.log(this.statusId)
+=======
+
+        async searchOrderStatus() {
+            if (this.searchId) {
+                const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    this.searchResult = data;
+                    console.log(this.searchResult);
+
+                    console.log(this.searchResult[0].jsonOrder);
+
+                    // Parsea la cadena JSON en jsonOrder
+                    const jsonOrder = JSON.parse(this.searchResult[0].jsonOrder);
+                    let totalPreuComanda = 0;
+
+                    this.comandaItems = jsonOrder;
+
+                    // Itera a través de los elementos y muestra los nombres
+                    for (const item of jsonOrder) {
+                        console.log(item.itemName);
+                        console.log(item.amount);
+                        console.log(item.price);
+                        
+                        // Calcula el precio total de este elemento
+                        const precioItem = item.price * item.amount;
+
+                        // Agrega el precio del elemento al precio total
+                        totalPreuComanda += item.price * item.amount;
+                        this.totalComanda = totalPreuComanda;
+                    }
+>>>>>>> 94948095fb6d7a4ccaedbd2454eb2f9a14d94201
                 }
             }
+
         },
         mostrarOrdre() {
             let object = this.products.find(item => item.id === this.statusId);
             console.log(object);
             return object.itemName;
         },
+<<<<<<< HEAD
+=======
+
+>>>>>>> 94948095fb6d7a4ccaedbd2454eb2f9a14d94201
         enviarForm() {
             const requestBody = {
-                jsonOrder: this.cartString,
+                jsonOrder: `{"order":` + this.cartString + `}`,
+
                 totalPrice: parseFloat((this.cartPrice).toFixed(2)),
                 mail: this.mail,
             };
@@ -115,6 +172,7 @@ createApp({
                 headers: {
                     'Content-Type': 'application/json'
                 },
+<<<<<<< HEAD
                 body: JSON.stringify(requestBody),
             })
             .then(response => response.json())
@@ -129,12 +187,37 @@ createApp({
                 }
                 
             })
+=======
+                body: JSON.stringify(requestBody), 
+              })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    this.yourOrder=data.id;
+                }).then(this.changeScreen(3))
+        },
+        changeCategory(id){
+            this.productsFilter.splice(0, this.productsFilter.length);
+
+            for (let i = 0; i < this.products.length; i++) {
+                if (this.products[i].itemCategory == id) {
+                    this.productsFilter.push(this.products[i]);
+
+                }
+            } else {
+                this.searchResult = null;
+                this.totalCost = 0;
+            }
+>>>>>>> 94948095fb6d7a4ccaedbd2454eb2f9a14d94201
         }
     },
     created() {
         getProducts().then(data => {
-            this.products = data;
-            console.log(this.products);
+
+            this.products = data.items; // Datos de la tabla "items"
+            this.categories = data.categories; // Datos de la tabla "categories"
+            console.log(this.items);
+            console.log(this.categories);
 
         });
     }

@@ -1,7 +1,18 @@
 export async function getProducts() {
-    let response= await fetch("http://127.0.0.1:8000/api/dishes");
-    let productes = await response.json();
-    console.log(productes);
-    return productes;
-    
-};
+  let items = [];
+  let categories = [];
+
+  const itemsEcoded = await fetch('http://127.0.0.1:8000/api/dishes');
+  items = await itemsEcoded.json();
+
+  const categoriesEcoded = await fetch('http://127.0.0.1:8000/api/categories');
+  categories = await categoriesEcoded.json();
+
+  return { items, categories };
+}
+
+
+
+
+
+
