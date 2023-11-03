@@ -37,7 +37,7 @@ class orderController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errorMsg' => "Email incorrecte",'errorCode'=> 2], 422);
+            return response()->json(['errorMsg' => "Email incorrecte",'errorCode'=> 2]);
         }else {
             $newOrder = new Order;
             $newOrder->jsonOrder = $request->jsonOrder;
@@ -45,8 +45,7 @@ class orderController extends Controller
             $newOrder->mail = $request->mail;
             $newOrder->save();
 
-            return response()->json(['errorCode'=> 3], 422);
-            
+            return response()->json(['errorCode'=> 3]);
         }
 
         

@@ -35,22 +35,22 @@ createApp({
         },
         addToCart(index) {
 
-            let objetoExistente = this.cart.find(item => item.id === this.products[index].id)
+            let objetoExistente = this.cart.find(item => item.id === this.productsFilter[index].id)
             if (objetoExistente) {
-                if (this.products[index].stock > objetoExistente.amount) {
-                    console.log(this.products[index].stock);
-                    this.cartPrice += this.products[index].price;
+                if (this.productsFilter[index].stock > objetoExistente.amount) {
+                    console.log(this.productsFilter[index].stock);
+                    this.cartPrice += this.productsFilter[index].price;
                     objetoExistente.amount++;
                 }
 
             } else {
                 this.cart.push({
-                    id: this.products[index].id,
-                    itemName: this.products[index].itemName,
-                    price: this.products[index].price,
+                    id: this.productsFilter[index].id,
+                    itemName: this.productsFilter[index].itemName,
+                    price: this.productsFilter[index].price,
                     amount: 1,
                 });
-                this.cartPrice += this.products[index].price;
+                this.cartPrice += this.productsFilter[index].price;
             }
             this.cartString = JSON.stringify(this.cart);
             console.log(this.cart);
@@ -136,6 +136,7 @@ createApp({
             return object.itemName;
         },
         enviarForm() {
+            let cambio="";
             const requestBody = {
                 jsonOrder: `{"order":` + this.cartString + `}`,
 
@@ -155,7 +156,13 @@ createApp({
                 .then(data => {
                     this.yourOrder = data.id;
                     this.errorMsg = data["errorMsg"];
-                }).then(this.changeScreen(data["redirect"]));
+                    console.log(data["errorCode"]);
+                    cambio=data["errorCode"];
+                    this.changeScreen(data["errorCode"])
+                });
+                
+
+                
         },
         changeCategory(id) {
             this.productsFilter.splice(0, this.productsFilter.length);
