@@ -686,3 +686,16 @@ button:hover{
     text-decoration: none;
     color: var(--color-black);
 }
+
+
+
+.table{
+    margin-bottom: 30px;
+    padding: 10px;
+
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-bottom: 2px solid black;
+    
+
+}
