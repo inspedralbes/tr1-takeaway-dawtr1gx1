@@ -87,7 +87,7 @@
         </table>
 
         <div class="qr">
-            {!! QrCode::generate('Mail, ID, Ticket'); !!}
+            {!! QrCode::generate('Mail, ID, Ticket') !!}
         </div>
     </div>
 

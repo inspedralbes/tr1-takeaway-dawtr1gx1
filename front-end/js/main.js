@@ -42,7 +42,7 @@ createApp({
                     console.log(this.productsFilter[index].stock);
                     this.cartPrice += this.productsFilter[index].price;
                     objetoExistente.amount++;
-                }
+                } 
 
             } else {
                 this.cart.push({
@@ -154,9 +154,12 @@ createApp({
             })
                 .then(response => response.json())
                 .then(data => {
-                    this.yourOrder = data.id;
+                    this.yourOrder = data["id"];
+                    console.log(data["errorCode"])
                     this.errorMsg = data["errorMsg"];
-                }).then(this.changeScreen(data["redirect"]));
+                    this.changeScreen(data["errorCode"])
+
+                })
         },
         changeCategory(id) {
             this.productsFilter.splice(0, this.productsFilter.length);
@@ -165,10 +168,7 @@ createApp({
                 if (this.products[i].itemCategory == id) {
                     this.productsFilter.push(this.products[i]);
 
-                } else {
-                    this.searchResult = null;
-                    this.totalCost = 0;
-                }
+                }   
             }
         }
     },
