@@ -49,6 +49,13 @@
           SABORS PER EMPORTAR, FELICITAT A CADA MOSSEGADA
         </h2>
       </div>
+      <div class="landing__tContainer tContainer">
+        <p class="tContainer__title">Horari</p>
+        <p class="tContainer__days1">Dilluns-dijous</p>
+        <p class="tContainer__hour1">9:30-17:30</p>
+        <p class="tContainer__days2">Divendres i disabte</p>
+        <p class="tContainer__hour2">9:00-00:30</p>
+      </div>
       <div class="landing__buttons">
         <button class="landing-buttons__btn" @click="changeScreen(1)">Demanar</button>
         <button class="landing-buttons__btn" @click="changeScreen(4)">Consultar</button>
@@ -62,48 +69,28 @@
     <!-- ------------------------------- slider -------------------------------- -->
     <section class="products" v-if="active==1">
       <div class="products__slider">
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/hamburguesas.png" alt="">
-          <p class="products-slider__name">Burguer</p>
-        </button>
-        
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/pizzas.png" alt="">
-          <p class="products-slider__name">Pizzas</p>
-        </button>
 
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/ensaladas.png" alt="">
-          <p class="products-slider__name">Ensaladas</p>
-        </button>
+        <button class="products__slider-item" v-for="category in categories" @click="changeCategory(category.id)">
+          <!-- <img class="products-slider__img" src="img/slider/hamburguesas.png" alt=""> -->
+          <p class="products-slider__name">{{category.description}}</p>
 
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/sushi.png" alt="">
-          <p class="products-slider__name">Sushi</p>
-        </button>
-        
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/batidos.png" alt="">
-          <p class="products-slider__name">Batidos</p>
-        </button>
-
-        <button class="products__slider-item">
-          <img class="products-slider__img" src="img/slider/postres.png" alt="">
-          <p class="products-slider__name">Postres</p>
         </button>
       </div>
 
       <!-- ------------------------------ products ------------------------------- -->
       <div class="products__grid">
-        <div class="products__product " v-for="(product, index) in products">
-          <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
-          <img class="product__img" :src=product.img alt="products">
-          <h3 class="product__name"> {{ product.itemName }}</h3>
-          <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"><i
-              class="fa-solid fa-minus product__btn-icon"></i></button>
-          <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
-          <button class="product__btn product__btn--plus" @click="addToCart(index)"><i
-              class="fa-solid fa-plus product__btn-icon"></i></button>
+        <div v-for="(product, index) in productsFilter">
+          <div class="products__product">
+            <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
+            <img class="product__img" :src=product.img alt="products">
+            <h3 class="product__name"> {{ product.itemName }}</h3>
+            <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"><i
+                class="fa-solid fa-minus product__btn-icon"></i></button>
+            <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
+            <button class="product__btn product__btn--plus" @click="addToCart(index)"><i
+                class="fa-solid fa-plus product__btn-icon"></i></button>
+          </div>
+
         </div>
       </div>
       <div class="products__container-buyBtn">
@@ -159,20 +146,22 @@
     <section class="status" v-if="active == 4">
       <h3 class="status__title">Estat de la Comanda</h3>
       <div class="status__search">
+        <input @input="searchOrderStatus" type="number" class="status__search-input" placeholder="Buscar per ID"
+          v-model="searchId" />
+        <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
 
-        <input type="text" class="status__search-input" placeholder="Buscar per ID" v-model="searchId" />
-        <button @click="searchOrderStatus()">
-          <i class="fa-solid fa-search status__search-icon"></i>
-        </button>
+        
       </div>
+
 
       <div class="status__result" v-if="searchResult">
-        <div class="status__result-item" v-for="item in searchResult.order">
-          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ item.price * item.amount }}€</p>
+        <div class="status__result-item" v-for="item in comandaItems">
+          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
+          }}€</p>
         </div>
-        <p class="status__result-total">Total: {{ totalCost }}€</p>
-
+        <p class="status__result-total">Total: {{totalComanda}} €</p>
       </div>
+
 
       <button @click="changeScreen(0)" class="status__return-btn">Tornar</button>
     </section>
@@ -200,9 +189,9 @@
             </div>
           </form>
           <div>
-            <button>Log in</button>
+            <button class="login__btn">Log in</button>
             <div class="register">
-              <p>No tens compte?  <a href="#" @click="changeScreen(6)">Crear un compte</a></p>
+              <p>No tens compte? <a href="#" @click="changeScreen(6)">Crear un compte</a></p>
             </div>
           </div>
         </div>
@@ -238,7 +227,7 @@
             </div>
           </form>
           <div>
-            <button>Registrar</button>
+            <button class="register__btn">Registrar</button>
           </div>
         </div>
       </div>

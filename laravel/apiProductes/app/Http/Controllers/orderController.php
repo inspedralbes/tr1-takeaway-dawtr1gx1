@@ -62,7 +62,7 @@ class orderController extends Controller
         $order->status=$request->status;
         $order->save();
 
-        return route('detall', ['id' => $order->id]);
+        return redirect()->route('detall', ['id' => $order->id]);
     }
 
     /**
