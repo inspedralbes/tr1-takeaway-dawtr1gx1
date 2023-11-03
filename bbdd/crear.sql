@@ -29,6 +29,7 @@ CREATE TABLE `items` (
   `imageRoute` varchar(255) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `stock` int(11) DEFAULT NULL,
+  `itemCategory` int (11) DEFAULT NULL,	
   `sale` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`) -- Definir `id` como clave primaria
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -43,12 +44,9 @@ CREATE TABLE `items` (
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `jsonOrder` varchar(1000) DEFAULT NULL,
+  `totalprice` int(255) DEFAULT NULL, 
   `status` enum('rebut','preparacio','recollir en botiga') DEFAULT 'rebut',
   PRIMARY KEY (`id`) -- Definir `id` como clave primaria
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

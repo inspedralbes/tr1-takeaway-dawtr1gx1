@@ -30,7 +30,9 @@ class orderController extends Controller
     public function store(Request $request)
     {
         $newOrder= new order;
-        $newOrder->jsonComanda=$request->jsonOrder;
+        $newOrder->jsonOrder=$request->jsonOrder;
+        $newOrder->totalPrice=$request->totalPrice;
+        $newOrder->mail=$request->mail;
         $newOrder->save();
         return $newOrder;
     }
@@ -40,7 +42,7 @@ class orderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return order::all()->where("id","==",$id);
     }
 
     /**
@@ -56,7 +58,11 @@ class orderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $order=order::find($id);
+        $order->status=$request->status;
+        $order->save();
+
+        return redirect()->route('detall', ['id' => $order->id]);
     }
 
     /**

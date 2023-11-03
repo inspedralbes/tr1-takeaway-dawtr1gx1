@@ -12,9 +12,12 @@ createApp({
             productsFilter: [],
             cart: [],
             cartPrice: 0,
+            statusId: "",
             cartString: "",
             yourOrder: "NoOrder",
             mail: "",
+            searchId: "",
+            searchResult: null,
         }
     },
     methods: {
@@ -24,6 +27,7 @@ createApp({
                 this.cart=[];
                 this.yourOrder="NoOrder";
                 this.cartPrice= 0;
+
             }
 
         },
@@ -90,6 +94,7 @@ createApp({
             }
             return 0;
         },
+
         enviarForm() {
             const requestBody = {
                 jsonOrder: this.cartString,
@@ -116,16 +121,22 @@ createApp({
             for (let i = 0; i < this.products.length; i++) {
                 if (this.products[i].itemCategory == id) {
                     this.productsFilter.push(this.products[i]);
+
                 }
+            } else {
+                this.searchResult = null;
+                this.totalCost = 0;
             }
         }
     },
     created() {
         getProducts().then(data => {
+
             this.products = data.items; // Datos de la tabla "items"
             this.categories = data.categories; // Datos de la tabla "categories"
             console.log(this.items);
             console.log(this.categories);
+
         });
     }
 

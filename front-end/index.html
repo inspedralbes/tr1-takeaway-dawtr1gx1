@@ -23,7 +23,7 @@
     <!-- ----------------------------------------------------------------------- -->
     <!--                                 header                                  -->
     <!-- ----------------------------------------------------------------------- -->
-    <header class="header">
+    <header class="header header--login">
       <nav class="header__menu">
         <i class="fa-solid fa-bars header__icon"></i>
         <ul class="menu__items">
@@ -36,7 +36,7 @@
       <button class="header__title" @click="changeScreen(0)">
         <h1>FASTBITES</h1>
       </button>
-      <i class="fa-solid fa-user header__icon"></i>
+      <i class="fa-solid fa-user header__icon" @click="changeScreen(5)"></i>
     </header>
 
     <!-- ----------------------------------------------------------------------- -->
@@ -49,6 +49,13 @@
           SABORS PER EMPORTAR, FELICITAT A CADA MOSSEGADA
         </h2>
       </div>
+      <div class="landing__tContainer tContainer">
+        <p class="tContainer__title">Horari</p>
+        <p class="tContainer__days1">Dilluns-dijous</p>
+        <p class="tContainer__hour1">9:30-17:30</p>
+        <p class="tContainer__days2">Divendres i disabte</p>
+        <p class="tContainer__hour2">9:00-00:30</p>
+      </div>
       <div class="landing__buttons">
         <button class="landing-buttons__btn" @click="changeScreen(1)">Demanar</button>
         <button class="landing-buttons__btn" @click="changeScreen(4)">Consultar</button>
@@ -58,14 +65,18 @@
     <!-- ----------------------------------------------------------------------- -->
     <!--                                PRODUCTS                                 -->
     <!-- ----------------------------------------------------------------------- -->
+
+    <!-- ------------------------------- slider -------------------------------- -->
     <section class="products" v-if="active==1">
       <div class="products__slider">
         <button class="products__slider-item" v-for="category in categories" @click="changeCategory(category.id)">
           <!-- <img class="products-slider__img" src="img/slider/hamburguesas.png" alt=""> -->
           <p class="products-slider__name">{{category.description}}</p>
+
         </button>
       </div>
 
+      <!-- ------------------------------ products ------------------------------- -->
       <div class="products__grid">
         <div v-for="(product, index) in productsFilter">
           <div class="products__product">
@@ -78,6 +89,7 @@
             <button class="product__btn product__btn--plus" @click="addToCart(index)"><i
                 class="fa-solid fa-plus product__btn-icon"></i></button>
           </div>
+
         </div>
       </div>
       <div class="products__container-buyBtn">
@@ -106,7 +118,12 @@
       </div>
 
       <div class="ticket__buttons">
-        <button class="ticket__btn" @click="changeScreen(3)">Comprar</button>
+        <label for="mail">Insereix el teu correu</label>
+        <input type="email" name="mail" id="mail" placeholder="sample@sample.com" v-model="mail">
+
+        <button class="ticket__btn" @click="enviarForm()">Comprar</button>
+
+
         <button class="ticket__btn" @click="changeScreen(1)">Tornar</button>
       </div>
     </section>
@@ -115,7 +132,7 @@
     <!--                             DATOS DE COMPRA                             -->
     <!-- ----------------------------------------------------------------------- -->
     <section class="buyData" v-if="active==3">
-      <h3 class="buyData__id">ID</h3>
+      <h3 class="buyData__id">ID: {{yourOrder}}</h3>
       <img class="buyData__qr" src="img/qr.jfif" alt="">
       <button class="buyData__btn buyData-download__btn">Descarregar</button>
       <button class="buyData__btn" @click="changeScreen(0)">Tornar</button>
@@ -131,17 +148,87 @@
         <input @input="searchOrderStatus" type="number" class="status__search-input" placeholder="Buscar per ID"
           v-model="searchId" />
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
+
+        
       </div>
 
-      <div class="status__result" v-if="statusId">
-        <p class="status__result-id">{{mostrarOrdre() }}</p>
-        <!-- <p class="status__result-status"></p> -->
-        <p class="status__result-details"></p>
+      <div class="status__result" v-if="searchResult">
+        <div class="status__result-item" v-for="item in searchResult.order">
+          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ item.price * item.amount }}€</p>
+        </div>
+        <p class="status__result-total">Total: {{ totalCost }}€</p>
+
       </div>
 
       <button @click="changeScreen(0)" class="status__return-btn">Tornar</button>
     </section>
 
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                  login                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <section class="login" v-if="active == 5">
+      <div class="login__container">
+        <div class="fomulary">
+          <form action="#">
+            <h2>Iniciar Sessió</h2>
+
+            <div class="input-container">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" required>
+              <label for="#">Email</label>
+            </div>
+            <div class="input-container">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" required>
+              <label for="#">Contrasenya</label>
+            </div>
+          </form>
+          <div>
+            <button class="login__btn">Log in</button>
+            <div class="register">
+              <p>No tens compte? <a href="#" @click="changeScreen(6)">Crear un compte</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                register                                 -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <section class="register__account" v-if="active == 6">
+      <div class="register__container">
+        <div class="fomulary">
+          <form action="#">
+            <h2>Registre</h2>
+
+            <div class="input-container">
+              <i class="fa-solid fa-person"></i>
+              <input type="Nom" required>
+              <label for="#">Nom</label>
+            </div>
+
+            <div class="input-container">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" required>
+              <label for="#">Email</label>
+            </div>
+
+            <div class="input-container">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" required>
+              <label for="#">Contrasenya</label>
+            </div>
+          </form>
+          <div>
+            <button class="register__btn">Registrar</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
     <!-- ----------------------------------------------------------------------- -->

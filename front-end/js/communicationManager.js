@@ -16,11 +16,3 @@ export async function getProducts() {
 
 
 
-
-// export async function getProducts() {
-//   let items=[];
-//       let itemsEcoded=await fetch('http://127.0.0.1:8000/api/dishes');  
-//       items = itemsEcoded.json();
-//       console.log(items);
-//       return items;
-//   }
