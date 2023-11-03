@@ -366,6 +366,13 @@ button{
 
 }
 
+.ticket__errorMsg{
+    background-color: rgb(252, 105, 105);
+    width: calc(190px - 2px);
+    padding: 2px;
+    text-align: center;
+}
+
 .ticket__buttons{
     display: flex;
     flex-direction: column;
@@ -687,15 +694,3 @@ button:hover{
     color: var(--color-black);
 }
 
-
-
-.table{
-    margin-bottom: 30px;
-    padding: 10px;
-
-    border: 1px solid black;
-    border-collapse: collapse;
-    border-bottom: 2px solid black;
-    
-
-}

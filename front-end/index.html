@@ -105,6 +105,7 @@
     <!--                                 TICKET                                  -->
     <!-- ----------------------------------------------------------------------- -->
     <section class="ticket" v-if="active==2">
+      <p v-if="msg">{{msg}}</p>
       <div class="ticket__box">
         <h3>COMANDA</h3>
         <div class="ticket__products" v-for="(product, index) in cart">
@@ -121,9 +122,9 @@
       <div class="ticket__buttons">
         <label for="mail">Insereix el teu correu</label>
         <input type="email" name="mail" id="mail" placeholder="sample@sample.com" v-model="mail">
+        <p class="ticket__errorMsg" v-if="errorMsg" >{{ errorMsg }}</p>
 
         <button class="ticket__btn" @click="enviarForm()">Comprar</button>
-
 
         <button class="ticket__btn" @click="changeScreen(1)">Tornar</button>
       </div>

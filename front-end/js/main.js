@@ -20,15 +20,16 @@ createApp({
             searchResult: null,
             comandaItems: [],
             totalComanda: 0,
+            errorMsg: "",
         }
     },
     methods: {
         changeScreen(active) {
             this.active = active;
-            if(active==0){
-                this.cart=[];
-                this.yourOrder="NoOrder";
-                this.cartPrice= 0;
+            if (active == 0) {
+                this.cart = [];
+                this.yourOrder = "NoOrder";
+                this.cartPrice = 0;
 
             }
 
@@ -118,7 +119,7 @@ createApp({
                         console.log(item.itemName);
                         console.log(item.amount);
                         console.log(item.price);
-                        
+
                         // Calcula el precio total de este elemento
                         const precioItem = item.price * item.amount;
 
@@ -135,39 +136,39 @@ createApp({
             console.log(object);
             return object.itemName;
         },
-
         enviarForm() {
             const requestBody = {
                 jsonOrder: `{"order":` + this.cartString + `}`,
 
                 totalPrice: parseFloat((this.cartPrice).toFixed(2)),
                 mail: this.mail,
-              };
-              console.log(requestBody); 
-              fetch('http://127.0.0.1:8000/api/order', {
+            };
+
+            console.log(requestBody);
+            fetch('http://127.0.0.1:8000/api/order', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(requestBody), 
-              })
+                body: JSON.stringify(requestBody),
+            })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    this.yourOrder=data.id;
-                }).then(this.changeScreen(3))
+                    this.yourOrder = data.id;
+                    this.errorMsg = data["errorMsg"];
+                }).then(this.changeScreen(data["redirect"]));
         },
-        changeCategory(id){
+        changeCategory(id) {
             this.productsFilter.splice(0, this.productsFilter.length);
 
             for (let i = 0; i < this.products.length; i++) {
                 if (this.products[i].itemCategory == id) {
                     this.productsFilter.push(this.products[i]);
 
+                } else {
+                    this.searchResult = null;
+                    this.totalCost = 0;
                 }
-            } else {
-                this.searchResult = null;
-                this.totalCost = 0;
             }
         }
     },
