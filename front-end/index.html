@@ -122,6 +122,7 @@
       <div class="ticket__buttons">
         <label for="mail">Insereix el teu correu</label>
         <input type="email" name="mail" id="mail" placeholder="sample@sample.com" v-model="mail">
+        <p class="ticket__errorMsg" v-if="errorMsg" >{{ errorMsg }}</p>
 
         <button class="ticket__btn" @click="enviarForm()">Comprar</button>
 
