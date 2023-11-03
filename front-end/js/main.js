@@ -15,6 +15,8 @@ createApp({
             mail: "",
             searchId: "",
             searchResult: null,
+            comandaItems: [],
+            totalComanda: 0,
         }
     },
     methods: {
@@ -96,34 +98,33 @@ createApp({
                 const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
                 if (response.ok) {
                     const data = await response.json();
-
-                    // Asignar la respuesta de la API a searchResult
                     this.searchResult = data;
-
-                    // Calcular el costo total de la comanda sin usar reduce
-                    let totalCost = 0;
-
-                    if (Array.isArray(this.searchResult.order)) {
-                        for (const item of this.searchResult.order) {
-                            if (item.price && item.amount) {
-                                totalCost += item.price * item.amount;
-                            }
-                        }
-                    }
-
-                    this.totalCost = totalCost;
-                    console.log(this.totalCost);
                     console.log(this.searchResult);
 
-                } else {
-                    console.error('Error al obtener datos');
-                    this.searchResult = null;
-                    this.totalCost = 0;
+                    console.log(this.searchResult[0].jsonOrder);
+
+                    // Parsea la cadena JSON en jsonOrder
+                    const jsonOrder = JSON.parse(this.searchResult[0].jsonOrder);
+                    let totalPreuComanda = 0;
+
+                    this.comandaItems = jsonOrder;
+
+                    // Itera a través de los elementos y muestra los nombres
+                    for (const item of jsonOrder) {
+                        console.log(item.itemName);
+                        console.log(item.amount);
+                        console.log(item.price);
+                        
+                        // Calcula el precio total de este elemento
+                        const precioItem = item.price * item.amount;
+
+                        // Agrega el precio del elemento al precio total
+                        totalPreuComanda += item.price * item.amount;
+                        this.totalComanda = totalPreuComanda;
+                    }
                 }
-            } else {
-                this.searchResult = null;
-                this.totalCost = 0;
             }
+
         },
         mostrarOrdre() {
             let object = this.products.find(item => item.id === this.statusId);
@@ -133,7 +134,7 @@ createApp({
         enviarForm() {
 
             const requestBody = {
-                jsonOrder: `{"order":`+this.cartString+`}`,
+                jsonOrder: `{"order":` + this.cartString + `}`,
                 totalPrice: parseFloat((this.cartPrice).toFixed(2)),
                 mail: this.mail,
             };
