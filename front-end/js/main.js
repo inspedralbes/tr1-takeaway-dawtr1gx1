@@ -32,7 +32,6 @@ createApp({
                 this.cartPrice = 0;
 
             }
-
         },
         addToCart(index) {
 
