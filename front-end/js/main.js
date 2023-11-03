@@ -15,6 +15,7 @@ createApp({
             mail: "",
             searchId: "",
             searchResult: null,
+            totalCost: 0,
         }
     },
     methods: {
@@ -96,25 +97,23 @@ createApp({
                 const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
                 if (response.ok) {
                     const data = await response.json();
-
-                    // Asignar la respuesta de la API a searchResult
+        
                     this.searchResult = data;
-
-                    // Calcular el costo total de la comanda sin usar reduce
+        
                     let totalCost = 0;
-
-                    if (Array.isArray(this.searchResult.order)) {
+        
+                    if (this.searchResult && this.searchResult.order) {
                         for (const item of this.searchResult.order) {
                             if (item.price && item.amount) {
                                 totalCost += item.price * item.amount;
                             }
                         }
                     }
-
+        
                     this.totalCost = totalCost;
-                    console.log(this.totalCost);
+                    console.log(totalCost);
                     console.log(this.searchResult);
-
+        
                 } else {
                     console.error('Error al obtener datos');
                     this.searchResult = null;
@@ -124,7 +123,8 @@ createApp({
                 this.searchResult = null;
                 this.totalCost = 0;
             }
-        },
+        }
+        ,
         mostrarOrdre() {
             let object = this.products.find(item => item.id === this.statusId);
             console.log(object);
@@ -133,7 +133,7 @@ createApp({
         enviarForm() {
 
             const requestBody = {
-                jsonOrder: `{"order":`+this.cartString+`}`,
+                jsonOrder: `{"order":` + this.cartString + `}`,
                 totalPrice: parseFloat((this.cartPrice).toFixed(2)),
                 mail: this.mail,
             };
