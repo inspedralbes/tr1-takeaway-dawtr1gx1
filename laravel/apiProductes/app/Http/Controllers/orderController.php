@@ -45,7 +45,7 @@ class orderController extends Controller
             $newOrder->mail = $request->mail;
             $newOrder->save();
 
-            return response()->json(['errorCode'=> 3], 422);
+            return response()->json(['errorCode'=> 3, 'id'=>$newOrder->id]);
             
         }
 
