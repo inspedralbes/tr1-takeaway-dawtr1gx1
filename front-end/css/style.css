@@ -23,7 +23,7 @@
 button{
     cursor: pointer;
     border: none;
-    background-color: none;
+    background: none;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -108,6 +108,40 @@ button{
 .buyData__btn:hover{
     background-color: var(--color-button-hover);
 }
+
+.schedule{
+    display: grid;
+    grid-template-areas: "title title"
+    "days1 hour1"
+    "days2 hour2";
+    margin-bottom: 5%;
+    margin-top: 5%;
+    /* border: 1px solid black; */
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.schedule__title{
+    grid-area: title;
+    border: 1px solid black;
+}
+.schedule__days1{
+    grid-area: days1;
+    border: 1px solid black;
+}
+.schedule__hour1{
+    grid-area: hour1;
+    border: 1px solid black;
+}
+.schedule__days2{
+    grid-area: days2;
+    border: 1px solid black;
+}
+.schedule__hour2{
+    grid-area: hour2;
+    border: 1px solid black;
+}
+
 /* .landing-buttons__btn:focus{
     Hacer un pequeño movimiento para que el usuario sepa que ha hecho click
     https://codepen.io/andrea-maselli/pen/KLbwJw
@@ -122,6 +156,7 @@ button{
 .products__slider{
     display: flex;
     flex-wrap: nowrap;
+    overflow-y: hidden;
     overflow-x: scroll;
     margin: 0 auto 20px auto;
     width: 88%;
@@ -140,6 +175,8 @@ button{
     overflow: hidden;
     transform: translateY(10px);
     transition: all .2s ease-in-out;
+    background-color: var(--color-primary);
+
 
 }
 .products__slider-item:hover{
@@ -330,6 +367,13 @@ button{
 
 }
 
+.ticket__errorMsg{
+    background-color: rgb(252, 105, 105);
+    width: calc(190px - 2px);
+    padding: 2px;
+    text-align: center;
+}
+
 .ticket__buttons{
     display: flex;
     flex-direction: column;
@@ -402,6 +446,7 @@ button{
     border: 1px solid var(--color-primary);
     border-radius: 20px;
     padding: 10px;
+
     width: 60%;
 }
 
@@ -464,7 +509,7 @@ button{
 /*                                    login                                   */
 /* -------------------------------------------------------------------------- */
 
-.login, .register__account{
+.login, .register{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -596,12 +641,6 @@ button:hover{
     text-decoration: underline;
 }
 
-
-
-/* -------------------------------------------------------------------------- */
-/*                                   footer                                   */
-/* -------------------------------------------------------------------------- */
-
 .register__container{
     position: relative;
     width: 350px;
@@ -613,6 +652,38 @@ button:hover{
     justify-content: center;
     align-items: center;
 }
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  POLITICAS                                 */
+/* -------------------------------------------------------------------------- */
+.condicions,
+.privadesa,
+.cookies{
+    width: 80%;
+    margin: 10px auto;
+}
+.condicions__title,
+.privadesa__title,
+.cookies__title{
+    font-size: 26px;
+}
+.condicions h4,
+.privadesa h4,
+.cookies h4{
+    text-decoration: underline;
+}
+.condicions__article,
+.privadesa__article,
+.cookies__article{
+    margin: 10px 0;
+}
+.condicions li,
+.privadesa li,
+.cookies li{
+    margin-top: 5px;
+}
+
 
 /* -------------------------------------------------------------------------- */
 /*                                   footer                                   */
@@ -639,6 +710,7 @@ button:hover{
 .legal__link-page {
     text-decoration: none;
     color: var(--color-black);
+    text-align: left;
 }
 .socialMedia {
     display: grid;
@@ -649,3 +721,4 @@ button:hover{
     text-decoration: none;
     color: var(--color-black);
 }
+

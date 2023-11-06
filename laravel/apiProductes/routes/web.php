@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\itemsController;
 use App\Http\Controllers\orderController;
+use App\Models\items;
 use App\Models\order;
 use Illuminate\Support\Facades\Route;
 use App\Mail\MyTestEmail;
@@ -21,11 +23,17 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/admin', function () {
+
+Route::get('/pdf', function () {
+    return view('pdf');
+});
+
+Route::get('/adminComanda', function () {
+
     $orders= order::all();
     return view('adminAdministracioComandes',['orders'=>$orders]);
-})->name("landing");
-Route::get('/admin/detall/{id}', function ($id) {
+})->name("adminComanda");
+Route::get('/adminComanda/detall/{id}', function ($id) {
     $order= order::find($id);
     return view('adminComanda',['order'=>$order]);
 })->name("detall");
