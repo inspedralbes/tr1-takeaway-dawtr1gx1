@@ -39,7 +39,6 @@ createApp({
             let objetoExistente = this.cart.find(item => item.id === this.productsFilter[index].id)
             if (objetoExistente) {
                 if (this.productsFilter[index].stock > objetoExistente.amount) {
-                    console.log(this.productsFilter[index].stock);
                     this.cartPrice += this.productsFilter[index].price;
                     objetoExistente.amount++;
                 } 
@@ -54,7 +53,6 @@ createApp({
                 this.cartPrice += this.productsFilter[index].price;
             }
             this.cartString = JSON.stringify(this.cart);
-            console.log(this.cart);
         },
         calcularCartTotal() {
             var total = 0;
@@ -71,13 +69,10 @@ createApp({
 
                 if (objetoExistente.amount == 1) {
                     for (let index = 0; index < this.cart.length; index++) {
-                        console.log(index)
                         if (objetoExistente.id == this.cart[index].id) {
                             eliminar = index;
-                            console.log(eliminar)
                         }
                     }
-                    console.log(eliminar);
                     if (eliminar != -1) {
                         this.cart.splice(eliminar, 1);
                         this.cartPrice -= objetoExistente.price;
@@ -104,9 +99,7 @@ createApp({
                 if (response.ok) {
                     const data = await response.json();
                     this.searchResult = data;
-                    console.log(this.searchResult);
 
-                    console.log(this.searchResult[0].jsonOrder);
 
                     // Parsea la cadena JSON en jsonOrder
                     const jsonOrder = JSON.parse(this.searchResult[0].jsonOrder);
@@ -116,9 +109,7 @@ createApp({
 
                     // Itera a través de los elementos y muestra los nombres
                     for (const item of jsonOrder) {
-                        console.log(item.itemName);
-                        console.log(item.amount);
-                        console.log(item.price);
+                        
 
                         // Calcula el precio total de este elemento
                         const precioItem = item.price * item.amount;
@@ -133,7 +124,6 @@ createApp({
         },
         mostrarOrdre() {
             let object = this.products.find(item => item.id === this.statusId);
-            console.log(object);
             return object.itemName;
         },
         enviarForm() {
@@ -144,7 +134,6 @@ createApp({
                 mail: this.mail,
             };
 
-            console.log(requestBody);
             fetch('http://127.0.0.1:8000/api/order', {
                 method: 'POST',
                 headers: {
@@ -155,7 +144,6 @@ createApp({
                 .then(response => response.json())
                 .then(data => {
                     this.yourOrder = data["id"];
-                    console.log(data["errorCode"])
                     this.errorMsg = data["errorMsg"];
                     this.changeScreen(data["errorCode"])
 
@@ -176,10 +164,7 @@ createApp({
         getProducts().then(data => {
 
             this.products = data.items; // Datos de la tabla "items"
-            this.categories = data.categories; // Datos de la tabla "categories"
-            console.log(this.items);
-            console.log(this.categories);
-
+            this.categories = data.categories; // Datos de la tabla "categories
         });
     }
 
