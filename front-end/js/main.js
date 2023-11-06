@@ -32,6 +32,12 @@ createApp({
                 this.yourOrder = "NoOrder";
                 this.cartPrice = 0;
                 this.comandaItems=[];
+                getProducts().then(data => {
+
+                    this.products = data.items; // Datos de la tabla "items"
+                    this.productsFilter= this.products;
+        
+                });
             }
 
         },
