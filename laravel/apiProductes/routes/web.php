@@ -33,7 +33,7 @@ Route::get('/admin/detall/{id}', function ($id) {
 Route::patch('/admin/update/{id}', [orderController::class, 'update'])->name("update");
 
 Route::get('/testroute', function() {
-    $name = "Funny Coder";
+    $name = "FastBites";
     $comandaId = 123;
 
     Mail::to('a16adrrodgon@inspedralbes.cat')->send(new MyTestEmail($name, $comandaId));

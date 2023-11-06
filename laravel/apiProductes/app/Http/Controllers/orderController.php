@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MyTestEmail;
 use App\Models\order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class orderController extends Controller
 {
@@ -34,6 +36,8 @@ class orderController extends Controller
         $newOrder->totalPrice=$request->totalPrice;
         $newOrder->mail=$request->mail;
         $newOrder->save();
+        $name = "FastBites";
+        Mail::to($newOrder->mail)->send(new MyTestEmail($name, $newOrder->id));
         return $newOrder;
     }
 
