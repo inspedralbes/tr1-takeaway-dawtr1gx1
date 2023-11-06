@@ -70,6 +70,10 @@
     <section class="products" v-if="active==1">
       <div class="products__slider">
 
+        <button class="products__slider-item" @click="changeCategory(0)">
+          <!-- <img src="" alt=""> -->
+          <p class="products-slider__name">Todos</p>
+        </button>
         <button class="products__slider-item" v-for="category in categories" @click="changeCategory(category.id)">
           <!-- <img class="products-slider__img" src="img/slider/hamburguesas.png" alt=""> -->
           <p class="products-slider__name">{{category.description}}</p>
@@ -122,7 +126,7 @@
       <div class="ticket__buttons">
         <label for="mail">Insereix el teu correu</label>
         <input type="email" name="mail" id="mail" placeholder="sample@sample.com" v-model="mail">
-        <p class="ticket__errorMsg" v-if="errorMsg" >{{ errorMsg }}</p>
+        <p class="ticket__errorMsg" v-if="errorMsg">{{ errorMsg }}</p>
 
         <button class="ticket__btn" @click="enviarForm()">Comprar</button>
 
@@ -151,14 +155,14 @@
           v-model="searchId" />
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
 
-        
+
       </div>
 
 
       <div class="status__result" v-if="searchResult">
         <div class="status__result-item" v-for="item in comandaItems">
           <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
-          }}€</p>
+            }}€</p>
         </div>
         <p class="status__result-total">Total: {{totalComanda}} €</p>
       </div>
@@ -203,7 +207,7 @@
     <!--                                register                                 -->
     <!-- ----------------------------------------------------------------------- -->
 
-    <section class="register__account" v-if="active == 6">
+    <section class="register" v-if="active == 6">
       <div class="register__container">
         <div class="fomulary">
           <form action="#">
@@ -236,20 +240,252 @@
 
 
     <!-- ----------------------------------------------------------------------- -->
+    <!--                             CONDICIONS D'US                             -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="condicions" v-if="active == 10">
+      <h3 class="condicions__title">Condicions d'ús - FASTBITES
+      </h3>
+      <article class="condicions__article">
+        <h4>Introducció</h4>
+        <p>Benvingut/da a FastBites. En utilitzar el nostre lloc web, accepteu complir amb les següents
+          condicions. Us recomanem que les llegiu atentament abans d'utilitzar els nostres serveis.
+        </p>
+      </article>
+
+      <article class="condicions__article">
+        <h4>Acceptació de les Condicions</h4>
+        <p>En accedir i utilitzar FastBites, accepteu aquestes condicions en la seva totalitat. Si no esteu
+          d'acord amb alguna part d'aquestes condicions, us preguem que no utilitzeu el nostre lloc web.
+        </p>
+      </article>
+
+      <article class="condicions__article">
+        <h4>Ús dels Serveis</h4>
+        <ol>
+          <li><strong>Comanda i Lliurament:</strong>En fer una comanda a través del nostre lloc web, accepteu comprar
+            els productes o serveis especificats i estareu subjectes a les nostres polítiques de lliurament.</li>
+
+          <li><strong>Pagament:</strong>Acceptem mètodes de pagament específics que s'especifiquen al nostre lloc web.
+            En fer una comanda, us comprometeu a pagar la quantitat total especificada.</li>
+
+          <li><strong>Política de Cancel·lació:</strong>Si voleu cancel·lar una comanda, us demanem que ho feu amb
+            antelació i que seguiu les nostres polítiques de cancel·lació, que es detallen al nostre lloc web.</li>
+
+          <li><strong>Drets de Propietat Intel·lectual:</strong>Tot el contingut al nostre lloc web, incloent-hi textos,
+            imatges, logotips i altres elements, està protegit per drets de propietat intel·lectual. No podeu utilitzar,
+            reproduir o distribuir aquest contingut sense permís.</li>
+        </ol>
+      </article>
+
+      <article class="condicions__article">
+        <h4>Política de Privadesa</h4>
+        <p>Per entendre com recopilem, utilitzem i protegim les vostres dades personals, us recomanem llegir la nostra
+          Política de Privadesa, que es troba al nostre lloc web.
+        </p>
+      </article>
+
+      <article class="condicions__article">
+        <h4>Limitació de Responsabilitat</h4>
+        <ol>
+          <li><strong>Precisió de la Informació:</strong>Ens esforcem per proporcionar informació precisa al nostre lloc
+            web, però no garantim que tota la informació sigui precisa i actualitzada en tot moment.</li>
+          <li><strong>Ús del Lloc Web:</strong>Vós sou responsables de com utilitzeu el nostre lloc web i els serveis
+            que oferim. No serem responsables de danys o pèrdues causats per un ús inadequat del nostre lloc.</li>
+        </ol>
+      </article>
+
+      <article class="condicions__article">
+        <h4>Modificacions</h4>
+        <p>Ens reservem el dret de modificar aquestes condicions en qualsevol moment. Les modificacions entraran en
+          vigor una vegada publicades al nostre lloc web. Us recomanem que reviseu aquestes condicions periòdicament.
+        </p>
+      </article>
+
+      <article class="condicions__article">
+        <h4>Contacte</h4>
+        <p>Si teniu preguntes o inquietuds sobre aquestes condicions, si us plau, contacteu-nos a través dels mitjans de
+          contacte proporcionats al nostre lloc web.
+        </p>
+      </article>
+    </section>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                          POLITICA DE PRIVADESA                          -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="privadesa" v-if="active == 11">
+      <h3 class="privadesa__title">Política de Privacitat - FastBites</h3>
+      <article class="privadesa__article">
+        <h4>Introducció</h4>
+        <p>A FastBites, respectem i valorem la vostra privacitat. Aquesta Política de Privacitat descriu
+          com recopilem, utilitzem i protegim les vostres dades personals quan visiteu el nostre lloc web i utilitzeu
+          els nostres serveis. En utilitzar els nostres serveis, accepteu les pràctiques descrites en aquesta Política
+          de Privacitat.
+        </p>
+      </article>
+
+      <article class="privadesa__article">
+        <h4>Informació que Recopilem</h4>
+        <ol>
+          <li><strong>Informació Personal:</strong>Quan feu una comanda a través del nostre lloc web, podem recopilar
+            informació personal com el vostre nom, adreça, número de telèfon i adreça de correu electrònic.</li>
+
+          <li><strong>Informació de Pagament:</strong>Si feu un pagament en línia, recopil·larem informació relacionada
+            amb el vostre mètode de pagament com detalls de la targeta de crèdit o informació del compte de PayPal.
+            Tingueu en compte que no emmagatzemem aquesta informació de pagament; es processa de manera segura a través
+            dels nostres proveïdors de serveis de pagament.</li>
+
+          <li><strong>Informació d'Ús:</strong>Recopilem informació sobre com utilitzeu el nostre lloc web, com les
+            pàgines que visiteu, els productes que compreu i les preferències que establiu. Aquesta informació ens ajuda
+            a millorar els nostres serveis i l'experiència de l'usuari.</li>
+
+          <li><strong>Informació de Galetes:</strong>Utilitzem galetes i tecnologies similars per recopilar informació
+            sobre la vostra navegació al nostre lloc web. Podeu trobar més informació sobre la nostra política de
+            galetes en una secció separada al nostre lloc.</li>
+        </ol>
+      </article>
+
+      <article class="privadesa__article">
+        <h4>Ús de la Informació</h4>
+        <p>Utilitzem la informació que recopilem per als següents fins:
+        </p>
+        <ul>
+          <li>Processar les vostres comandes i proporcionar els productes o serveis que heu sol·licitat.</li>
+          <li>Comunicar-nos amb vosaltres en relació amb la vostra comanda.</li>
+          <li>Personalitzar la vostra experiència al nostre lloc web.</li>
+          <li>Millorar els nostres productes i serveis.</li>
+          <li>Enviar comunicacions de màrqueting si heu donat el vostre consentiment per rebre-les.</li>
+          <li>Cumplir amb les lleis i regulacions aplicables.</li>
+        </ul>
+      </article>
+
+      <article class="privadesa__article">
+        <h4>Compartir la Informació</h4>
+        <p>No compartirem la vostra informació personal amb tercers, excepte en les següents circumstàncies:
+        </p>
+        <ul>
+          <li>Amb proveïdors de serveis de confiança que necessiten la informació per oferir els serveis que heu
+            sol·licitat.</li>
+          <li>Amb autoritats governamentals si estem legalment obligats a fer-ho.</li>
+          <li>En cas de venda, fusió o adquisició de l'empresa, on la informació del client podria ser transferida com a
+            part dels actius comercials.</li>
+        </ul>
+      </article>
+
+      <article class="privadesa__article">
+        <h4>Seguretat de les Dades</h4>
+        <p>Prenem mesures per protegir les vostres dades personals i garantir la seguretat de la informació que
+          recopilem. Utilitzem mesures de seguretat tècniques i organitzatives per protegir les vostres dades contra
+          pèrdues, accessos no autoritzats i ús inadequat.
+        </p>
+      </article>
+
+      <article class="privadesa__article">
+        <h4>Els Vostres Drets</h4>
+        <p>Teniu drets sobre les vostres dades personals, que inclouen l'accés, la rectificació i l'eliminació de la
+          informació que tenim sobre vosaltres. Per exercir aquests drets, poseu-vos en contacte amb nosaltres a través
+          dels mitjans de contacte proporcionats al nostre lloc web.
+        </p>
+      </article>
+
+      <article class="privadesa__article">
+        <h4>Canvis en la Política de Privacitat</h4>
+        <p>Ens reservem el dret de modificar aquesta Política de Privacitat en qualsevol moment. Les modificacions
+          entraran en vigor una vegada publicades al nostre lloc web.
+        </p>
+      </article>
+
+      <article class="privadesa__article">
+        <h4>Contacte</h4>
+        <p>Si teniu preguntes o inquietuds sobre aquesta Política de Privacitat, si us plau, poseu-vos en contacte amb
+          nosaltres a través dels mitjans de contacte proporcionats al nostre lloc web.
+        </p>
+      </article>
+
+    </section>
+
+
+    <section class="cookies" v-if="active == 12">
+      <h3 class="cookies__title">Política de Cookies - FastBites</h3>
+      <article class="cookies__article">
+        <h4>Introducció</h4>
+        <p>Aquesta Política de Cookies explica com FastBites utilitza cookies i tecnologies similars al
+          nostre lloc web. En utilitzar el nostre lloc web, accepteu l'ús de cookies d'acord amb aquesta política.
+        </p>
+      </article>
+
+      <article class="cookies__article">
+        <h4>Què són les Cookies?</h4>
+        <p>Les cookies són petits fitxers de text que s'emmagatzemen al vostre dispositiu (ordinador, tauleta, telèfon
+          mòbil) quan visiteu un lloc web. Aquests fitxers contenen informació que s'utilitza per millorar l'experiència
+          de l'usuari, com ara recordar les vostres preferències i activitats anteriors al lloc.
+        </p>
+      </article>
+
+      <article class="cookies__article">
+        <h4>Tipus de Cookies que Utilitzem</h4>
+        <ol>
+          <li><strong>Cookies Essencials:</strong>Aquestes cookies són necessàries per al funcionament bàsic del lloc
+            web i us permeten navegar pel lloc i utilitzar les seves funcions essencials, com ara fer comandes.</li>
+          <li><strong>Cookies de Rendiment:</strong>Aquestes cookies recopilen informació sobre com els usuaris
+            interactuen amb el lloc web, la qual cosa ens ajuda a millorar el seu rendiment i l'experiència de l'usuari.
+            No s'utilitzen per identificar els usuaris individualment.</li>
+          <li><strong>Cookies de Funcionalitat:</strong>Aquestes cookies permeten al lloc web recordar les vostres
+            preferències i eleccions, com ara la vostra ubicació o el vostre idioma, per proporcionar una experiència
+            personalitzada.</li>
+          <li><strong>Cookies de Publicitat:</strong>Aquestes cookies s'utilitzen per mostrar anuncis rellevants als
+            usuaris, tant al nostre lloc web com a altres llocs web. Poden utilitzar-se per crear un perfil dels vostres
+            interessos i mostrar anuncis específics per a vosaltres.</li>
+        </ol>
+      </article>
+
+      <article class="cookies__article">
+        <h4>Control de les Cookies</h4>
+        <p>Podeu controlar i gestionar les cookies de diverses maneres:
+        </p>
+        <ul>
+          <li><strong>Configuració del Navegador:</strong>Podeu configurar el vostre navegador per acceptar o rebutjar
+            les cookies, així com eliminar les cookies existents. Consulteu la secció d'ajuda del vostre navegador per
+            obtenir instruccions.</li>
+          <li><strong>Eines de Gestió de Cookies:</strong>També podeu utilitzar eines de gestió de cookies de tercers
+            per controlar les cookies al nostre lloc web.</li>
+          <li><strong>Desactivació de Cookies de Publicitat:</strong>Podeu optar per no rebre cookies de publicitat
+            personalitzada ajustant la configuració del vostre navegador o visitant les pàgines de configuració de
+            publicitat de tercers.</li>
+        </ul>
+      </article>
+
+      <article class="cookies__article">
+        <h4>Canvis en la Política de Cookies</h4>
+        <p>Ens reservem el dret de modificar aquesta Política de Cookies en qualsevol moment. Les modificacions entraran
+          en vigor una vegada publicades al nostre lloc web.
+        </p>
+      </article>
+
+      <article class="cookies__article">
+        <h4>Contacte</h4>
+        <p>Si teniu preguntes o inquietuds sobre la nostra Política de Cookies, si us plau, poseu-vos en contacte amb
+          nosaltres a través dels mitjans de contacte proporcionats al nostre lloc web.
+        </p>
+      </article>
+
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
     <!--                                 footer                                  -->
     <!-- ----------------------------------------------------------------------- -->
     <footer class="footer">
       <img class="footer__img" src="img/fastbites logo.png" alt="Logo de FASTBITES" />
       <div class="footer__legal">
-        <a href="#" class="legal__link-page">Condicions d'us</a>
-        <a href="#" class="legal__link-page">Politica de Privadesa</a>
-        <a href="#" class="legal__link-page">Politica de Cookies</a>
+        <button class="legal__link-page" @click="changeScreen(10)">Condicions d'us</button>
+        <button class="legal__link-page" @click="changeScreen(11)">Politica de Privadesa</button>
+        <button class="legal__link-page" @click="changeScreen(12)">Politica de Cookies</button>
       </div>
       <div class="socialMedia">
-        <a href="#" class="socialMedia__icon fa fa-facebook"></a>
-        <a href="#" class="socialMedia__icon fa fa-twitter"></a>
-        <a href="#" class="socialMedia__icon fa fa-linkedin"></a>
-        <a href="#" class="socialMedia__icon fa fa-instagram"></a>
+        <a href="https://www.youtube.com/@ermengolbotaarque7178" class="socialMedia__icon fa fa-facebook"></a>
+        <a href="https://twitter.com/anonimatbuscat" class="socialMedia__icon fa fa-twitter"></a>
+        <a href="https://www.youtube.com/@ermengolbotaarque7178" class="socialMedia__icon fa fa-linkedin"></a>
+        <a href="https://www.instagram.com/ermengol/" class="socialMedia__icon fa fa-instagram"></a>
       </div>
     </footer>
   </div>
