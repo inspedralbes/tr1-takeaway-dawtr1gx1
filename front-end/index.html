@@ -74,6 +74,7 @@
           <!-- <img src="" alt=""> -->
           <p class="products-slider__name">Todos</p>
         </button>
+
         <button class="products__slider-item" v-for="category in categories" @click="changeCategory(category.id)">
           <!-- <img class="products-slider__img" src="img/slider/hamburguesas.png" alt=""> -->
           <p class="products-slider__name">{{category.description}}</p>
@@ -153,8 +154,6 @@
       <div class="status__search">
         <input type="number" class="status__search-input" name="bId" id="bId" placeholder="Buscar per ID" v-model="searchId"/>
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus()"></i>
-
-
       </div>
 
 
