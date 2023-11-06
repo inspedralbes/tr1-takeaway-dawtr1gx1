@@ -91,7 +91,7 @@ createApp({
 
         },
         Quantity(index) {
-            let objetoExistente = this.cart.find(item => item.id === this.products[index].id);
+            let objetoExistente = this.cart.find(item => item.id === this.productsFilter[index].id);
             if (objetoExistente) {
                 return objetoExistente.amount
             }
