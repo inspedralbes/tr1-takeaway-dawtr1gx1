@@ -162,7 +162,7 @@ createApp({
                 })
         },
         changeCategory(id) {
-            this.productsFilter.splice(0, this.productsFilter.length);
+            this.productsFilter=[];
 
             if (id == 0) {
                 for (let i = 0; i < this.products.length; i++) {
