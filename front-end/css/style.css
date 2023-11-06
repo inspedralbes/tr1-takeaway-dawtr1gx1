@@ -109,34 +109,35 @@ button{
     background-color: var(--color-button-hover);
 }
 
-.tContainer{
+.schedule{
     display: grid;
     grid-template-areas: "title title"
     "days1 hour1"
     "days2 hour2";
     margin-bottom: 5%;
     margin-top: 5%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     text-align: center;
+    border-collapse: collapse;
 }
 
-.tContainer__title{
+.schedule__title{
     grid-area: title;
     border: 1px solid black;
 }
-.tContainer__days1{
+.schedule__days1{
     grid-area: days1;
     border: 1px solid black;
 }
-.tContainer__hour1{
+.schedule__hour1{
     grid-area: hour1;
     border: 1px solid black;
 }
-.tContainer__days2{
+.schedule__days2{
     grid-area: days2;
     border: 1px solid black;
 }
-.tContainer__hour2{
+.schedule__hour2{
     grid-area: hour2;
     border: 1px solid black;
 }
