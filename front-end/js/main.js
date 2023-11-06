@@ -17,10 +17,11 @@ createApp({
             yourOrder: "NoOrder",
             mail: "",
             searchId: "",
-            searchResult: null,
+            searchResult: {},
             comandaItems: [],
             totalComanda: 0,
             errorMsg: "",
+            status:"",
         }
     },
     methods: {
@@ -30,7 +31,7 @@ createApp({
                 this.cart = [];
                 this.yourOrder = "NoOrder";
                 this.cartPrice = 0;
-
+                this.comandaItems=[];
             }
 
         },
@@ -98,17 +99,18 @@ createApp({
                 const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
                 if (response.ok) {
                     const data = await response.json();
+                    
                     this.searchResult = data;
 
 
                     // Parsea la cadena JSON en jsonOrder
-                    const jsonOrder = JSON.parse(this.searchResult[0].jsonOrder);
-                    let totalPreuComanda = 0;
-
-                    this.comandaItems = jsonOrder;
+                    const jsonOrder = JSON.parse(this.searchResult.jsonOrder);
+                    let totalPreuComanda = 0
+                    this.status=jsonOrder.status;
+                    this.comandaItems = jsonOrder.order;
 
                     // Itera a través de los elementos y muestra los nombres
-                    for (const item of jsonOrder) {
+                    for (const item of jsonOrder.order) {
                         
 
                         // Calcula el precio total de este elemento

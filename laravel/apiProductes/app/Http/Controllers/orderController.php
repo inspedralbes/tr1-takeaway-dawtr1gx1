@@ -57,7 +57,11 @@ class orderController extends Controller
      */
     public function show(string $id)
     {
-        return order::all()->where("id","==",$id);
+        //return order::all()->where("id","==",$id);
+        //$ret = order::all()->where("id","==",$id);
+        $ret = order::find( $id);
+        
+        return $ret;
     }
 
     /**
