@@ -147,16 +147,17 @@
     <section class="status" v-if="active == 4">
       <h3 class="status__title">Estat de la Comanda</h3>
       <div class="status__search">
-        <input @input="searchOrderStatus" type="number" class="status__search-input" placeholder="Buscar per ID"
-          v-model="searchId" />
-        <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus"></i>
+        <input type="number" class="status__search-input" name="bId" id="bId" placeholder="Buscar per ID" v-model="searchId"/>
+        <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus()"></i>
 
         
       </div>
 
 
-      <div class="status__result" v-if="searchResult">
+      <div class="status__result" v-if="comandaItems[0]">
+        <p>Status: {{searchResult.status}}</p>
         <div class="status__result-item" v-for="item in comandaItems">
+          
           <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
           }}€</p>
         </div>
