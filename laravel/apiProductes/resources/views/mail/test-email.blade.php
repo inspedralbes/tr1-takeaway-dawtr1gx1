@@ -8,13 +8,13 @@
 </head>
 
 <body>
-    <h2> Assumpte: Confirmació de Comanda FastBites amb ID: #{{  }}<br><br></h2>
+    <h2> Assumpte: Confirmació de Comanda FastBites amb ID: <br><br></h2>
     <p>
         Benvolgut/da/de Usuari/a/e,<br><br>
 
         Esperem que estiguis tenint un dia fantàstic. En nom de FastBites, us agraïm per triar-nos com la vostra
         opció de menjar a domicili. Ens complau informar-vos que la seva comanda ha estat processada amb èxit, i el seu
-        número de comanda és #{{  }}. A continuació, trobareu els detalls de la vostra comanda i un enllaç per
+        número de comanda és. A continuació, trobareu els detalls de la vostra comanda i un enllaç per
         descarregar un PDF amb les dades de la comanda i un codi QR per a un accés ràpid i senzill. <br><br>
 
         Detalls de la Comanda: <br><br>
