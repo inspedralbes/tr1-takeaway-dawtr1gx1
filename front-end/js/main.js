@@ -42,7 +42,7 @@ createApp({
                 if (this.productsFilter[index].stock > objetoExistente.amount) {
                     this.cartPrice += this.productsFilter[index].price;
                     objetoExistente.amount++;
-                } 
+                }
 
             } else {
                 this.cart.push({
@@ -87,7 +87,7 @@ createApp({
 
         },
         Quantity(index) {
-            let objetoExistente = this.cart.find(item => item.id === this.products[index].id);
+            let objetoExistente = this.cart.find(item => item.id === this.productsFilter[index].id);
             if (objetoExistente) {
                 return objetoExistente.amount
             }
@@ -154,11 +154,17 @@ createApp({
         changeCategory(id) {
             this.productsFilter.splice(0, this.productsFilter.length);
 
-            for (let i = 0; i < this.products.length; i++) {
-                if (this.products[i].itemCategory == id) {
+            if (id == 0) {
+                for (let i = 0; i < this.products.length; i++) {
                     this.productsFilter.push(this.products[i]);
+                }
+            } else {
+                for (let i = 0; i < this.products.length; i++) {
+                    if (this.products[i].itemCategory == id) {
+                        this.productsFilter.push(this.products[i]);
 
-                }   
+                    }
+                }
             }
         }
     },
@@ -166,7 +172,9 @@ createApp({
         getProducts().then(data => {
 
             this.products = data.items; // Datos de la tabla "items"
-            this.categories = data.categories; // Datos de la tabla "categories
+            this.categories = data.categories; // Datos de la tabla "categories"
+            this.productsFilter= this.products;
+
         });
     }
 
