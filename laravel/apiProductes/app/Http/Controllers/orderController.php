@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Mail\MyTestEmail;
 use App\Models\order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+Use PDF;
 use Illuminate\Support\Facades\Mail;
 
 class orderController extends Controller
@@ -27,18 +29,43 @@ class orderController extends Controller
     }
 
     /**
+     * Generate PDF 
+     */
+    
+
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $newOrder= new order;
-        $newOrder->jsonOrder=$request->jsonOrder;
-        $newOrder->totalPrice=$request->totalPrice;
-        $newOrder->mail=$request->mail;
-        $newOrder->save();
-        $name = "FastBites";
-        Mail::to($newOrder->mail)->send(new MyTestEmail($name, $newOrder->id));
-        return $newOrder;
+        $validator = Validator::make($request->all(), [
+            'jsonOrder' => 'required',
+            'totalPrice' => 'required',
+            'mail' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errorMsg' => "Email incorrecte",'errorCode'=> 2], 422);
+        }else {
+            $newOrder = new Order;
+            $newOrder->jsonOrder = $request->jsonOrder;
+            $newOrder->totalPrice = $request->totalPrice;
+            $newOrder->mail = $request->mail;
+            $newOrder->save();
+            
+            $qr = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($newOrder));
+
+            $newOrder->id;
+            $newOrder->qr = $qr;
+
+            $pdf = PDF::loadView('pdf', compact("newOrder"));
+            Mail::to($newOrder->mail)->send(new MyTestEmail($newOrder, $pdf));
+            
+            return response()->json(['errorCode'=> 3], 422);
+            
+        }
+
     }
 
     /**
