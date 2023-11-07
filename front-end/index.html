@@ -51,10 +51,12 @@
       </div>
       <div class="landing__schedule schedule">
         <p class="schedule__title">Horari</p>
-        <p class="schedule__days1">Dilluns-dijous</p>
-        <p class="schedule__hour1">9:30-17:30</p>
-        <p class="schedule__days2">Divendres i disabte</p>
-        <p class="schedule__hour2">9:00-00:30</p>
+        <div class="shedule__container">
+          <p class="schedule__item">Dilluns-dijous</p>
+          <p class="schedule__item">9:30-17:30</p>
+          <p class="schedule__item">Divendres i disabte</p>
+          <p class="schedule__item">9:00-00:30</p>
+        </div>
       </div>
       <div class="landing__buttons">
         <button class="landing-buttons__btn" @click="changeScreen(1)">Demanar</button>
@@ -152,7 +154,8 @@
     <section class="status" v-if="active == 4">
       <h3 class="status__title">Estat de la Comanda</h3>
       <div class="status__search">
-        <input type="number" class="status__search-input" name="bId" id="bId" placeholder="Buscar per ID" v-model="searchId"/>
+        <input type="number" class="status__search-input" name="bId" id="bId" placeholder="Buscar per ID"
+          v-model="searchId" />
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus()"></i>
       </div>
 
@@ -160,7 +163,7 @@
       <div class="status__result" v-if="comandaItems[0]">
         <p>Status: {{searchResult.status}}</p>
         <div class="status__result-item" v-for="item in comandaItems">
-          
+
           <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
             }}€</p>
         </div>
