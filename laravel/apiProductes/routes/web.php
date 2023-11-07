@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\itemsController;
 use App\Http\Controllers\orderController;
+use App\Models\category;
 use App\Models\items;
 use App\Models\order;
 use Illuminate\Support\Facades\Route;
@@ -42,5 +43,15 @@ Route::get("/adminStock", function (){
     $items= items::all();
     return view('adminStock', ['items'=>$items]);
 })->name('adminStock');
+Route::get("/adminItems", function (){
+
+    return view('adminItems');
+})->name('adminItems');
+
+Route::get('/adminItems/afegirItemForm', function(){
+    $categories=category::all();
+    return view('afegirItemForm', ['categories'=>$categories]);
+})->name('afegirItem');
 Route::patch('/admin/updateStock/{id}', [itemsController::class, 'update'])->name('updateItem');
 Route::patch('/admin/updateComanda/{id}', [orderController::class, 'update'])->name("update");
+Route::post('/admin/pujarDades', [itemsController::class, "store"])->name('pujarItem');
