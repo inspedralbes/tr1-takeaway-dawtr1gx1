@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer("price");
             $table->integer("stock");
             $table->string("description");
-            $table->string("imageRoute");
+            $table->binary("imageRoute");
             $table->boolean("sale")->default(false);
             $table->timestamps();
         });
