@@ -304,6 +304,15 @@ button{
     background-color: var(--color-button-hover);
 }
 
+.disabled{
+    background-color: rgba(121, 119, 119, 0.747);
+}
+.disabled>*{
+    opacity: 0.74;
+}
+.disabled>img{
+    opacity: 0.74;
+}
 /* -------------------------------------------------------------------------- */
 /*                                  TICKET                                  */
 /* -------------------------------------------------------------------------- */

@@ -85,14 +85,14 @@
       <!-- ------------------------------ products ------------------------------- -->
       <div class="products__grid">
         <div v-for="(product, index) in productsFilter">
-          <div class="products__product">
+          <div class="products__product" :class="{disabled: product.stock==0}">
             <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
             <img class="product__img" :src=product.img alt="products">
             <h3 class="product__name"> {{ product.itemName }}</h3>
-            <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"><i
+            <button class="product__btn product__btn--minus" @click="deleteFromCart(index)" v-if="product.stock>0"><i
                 class="fa-solid fa-minus product__btn-icon"></i></button>
             <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
-            <button class="product__btn product__btn--plus" @click="addToCart(index)"><i
+            <button class="product__btn product__btn--plus" @click="addToCart(index)" v-if="product.stock>0"><i
                 class="fa-solid fa-plus product__btn-icon"></i></button>
           </div>
 
