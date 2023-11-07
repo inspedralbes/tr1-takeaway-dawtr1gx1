@@ -51,11 +51,15 @@ class orderController extends Controller
             $newOrder->totalPrice = $request->totalPrice;
             $newOrder->mail = $request->mail;
             $newOrder->save();
+            
+            $qr = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($newOrder));
 
             $newOrder->id;
-            $pdf = PDF::loadView('pdf', $data);
-            //return $pdf->stream();
+            $newOrder->qr = $qr;
 
+            $pdf = PDF::loadView('pdf', compact("newOrder"));
+            Mail::to($newOrder->mail)->send(new MyTestEmail($newOrder, $pdf));
+            
             return response()->json(['errorCode'=> 3], 422);
             
         }
