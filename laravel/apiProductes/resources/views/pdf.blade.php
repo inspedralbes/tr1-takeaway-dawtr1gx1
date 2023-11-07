@@ -89,6 +89,7 @@
         <!-- <div class="qr">
             {!! QrCode::generate('Mail, ID, Ticket'); !!}
         </div> -->
+
     </div>
 
 </body>

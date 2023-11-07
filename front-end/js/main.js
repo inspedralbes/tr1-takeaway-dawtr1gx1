@@ -17,10 +17,11 @@ createApp({
             yourOrder: "NoOrder",
             mail: "",
             searchId: "",
-            searchResult: null,
+            searchResult: {},
             comandaItems: [],
             totalComanda: 0,
             errorMsg: "",
+            status:"",
         }
     },
     methods: {
@@ -30,31 +31,29 @@ createApp({
                 this.cart = [];
                 this.yourOrder = "NoOrder";
                 this.cartPrice = 0;
-
+                this.comandaItems=[];
             }
 
         },
         addToCart(index) {
 
-            let objetoExistente = this.cart.find(item => item.id === this.products[index].id)
+            let objetoExistente = this.cart.find(item => item.id === this.productsFilter[index].id)
             if (objetoExistente) {
-                if (this.products[index].stock > objetoExistente.amount) {
-                    console.log(this.products[index].stock);
-                    this.cartPrice += this.products[index].price;
+                if (this.productsFilter[index].stock > objetoExistente.amount) {
+                    this.cartPrice += this.productsFilter[index].price;
                     objetoExistente.amount++;
                 }
 
             } else {
                 this.cart.push({
-                    id: this.products[index].id,
-                    itemName: this.products[index].itemName,
-                    price: this.products[index].price,
+                    id: this.productsFilter[index].id,
+                    itemName: this.productsFilter[index].itemName,
+                    price: this.productsFilter[index].price,
                     amount: 1,
                 });
-                this.cartPrice += this.products[index].price;
+                this.cartPrice += this.productsFilter[index].price;
             }
             this.cartString = JSON.stringify(this.cart);
-            console.log(this.cart);
         },
         calcularCartTotal() {
             var total = 0;
@@ -71,13 +70,10 @@ createApp({
 
                 if (objetoExistente.amount == 1) {
                     for (let index = 0; index < this.cart.length; index++) {
-                        console.log(index)
                         if (objetoExistente.id == this.cart[index].id) {
                             eliminar = index;
-                            console.log(eliminar)
                         }
                     }
-                    console.log(eliminar);
                     if (eliminar != -1) {
                         this.cart.splice(eliminar, 1);
                         this.cartPrice -= objetoExistente.price;
@@ -91,7 +87,7 @@ createApp({
 
         },
         Quantity(index) {
-            let objetoExistente = this.cart.find(item => item.id === this.products[index].id);
+            let objetoExistente = this.cart.find(item => item.id === this.productsFilter[index].id);
             if (objetoExistente) {
                 return objetoExistente.amount
             }
@@ -103,16 +99,15 @@ createApp({
                 const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
                 if (response.ok) {
                     const data = await response.json();
+                    
                     this.searchResult = data;
-                    console.log(this.searchResult);
 
-                    console.log(this.searchResult[0].jsonOrder);
 
                     // Parsea la cadena JSON en jsonOrder
-                    const jsonOrder = JSON.parse(this.searchResult[0].jsonOrder);
-                    let totalPreuComanda = 0;
-
-                    this.comandaItems = jsonOrder;
+                    const jsonOrder = JSON.parse(this.searchResult.jsonOrder);
+                    let totalPreuComanda = 0
+                    this.status=jsonOrder.status;
+                    this.comandaItems = jsonOrder.order;
 
                     // Itera a través de los elementos y muestra los nombres
                     for (const item of jsonOrder) {
@@ -131,9 +126,49 @@ createApp({
             }
 
         },
+        login() {
+            const userEmail = this.loginEmail;
+            const userPassword = this.loginPassword;
+
+            const existingUser = this.users.find(user => user.email === userEmail);
+
+            if (existingUser && existingUser.password === userPassword) {
+                this.user = existingUser;
+                this.loginEmail = '';
+                this.loginPassword = '';
+                this.changeScreen(3);
+            } else {
+                console.error('Inicio de sesión fallido');
+            }
+        },
+
+        register() {
+            const userName = this.registerName;
+            const userEmail = this.registerEmail;
+            const userPassword = this.registerPassword;
+
+            const existingUser = this.users.find(user => user.email === userEmail);
+
+            if (!existingUser) {
+                const newUser = {
+                    name: userName,
+                    email: userEmail,
+                    password: userPassword,
+                };
+
+                this.users.push(newUser);
+
+                this.registerName = '';
+                this.registerEmail = '';
+                this.registerPassword = '';
+
+                console.log('Registro exitoso');
+            } else {
+                console.error('El usuario ya existe');
+            }
+        },
         mostrarOrdre() {
             let object = this.products.find(item => item.id === this.statusId);
-            console.log(object);
             return object.itemName;
         },
         enviarForm() {
@@ -144,7 +179,6 @@ createApp({
                 mail: this.mail,
             };
 
-            console.log(requestBody);
             fetch('http://127.0.0.1:8000/api/order', {
                 method: 'POST',
                 headers: {
@@ -154,31 +188,36 @@ createApp({
             })
                 .then(response => response.json())
                 .then(data => {
-                    this.yourOrder = data.id;
+                    this.yourOrder = data["id"];
                     this.errorMsg = data["errorMsg"];
-                }).then(this.changeScreen(data["redirect"]));
+                    this.changeScreen(data["errorCode"])
+
+                })
         },
         changeCategory(id) {
-            this.productsFilter.splice(0, this.productsFilter.length);
+            this.productsFilter=[];
 
-            for (let i = 0; i < this.products.length; i++) {
-                if (this.products[i].itemCategory == id) {
+            if (id == 0) {
+                for (let i = 0; i < this.products.length; i++) {
                     this.productsFilter.push(this.products[i]);
+                }
+            } else {
+                for (let i = 0; i < this.products.length; i++) {
+                    if (this.products[i].itemCategory == id) {
+                        this.productsFilter.push(this.products[i]);
 
-                } else {
-                    this.searchResult = null;
-                    this.totalCost = 0;
+                    }
                 }
             }
         }
     },
+
     created() {
         getProducts().then(data => {
 
             this.products = data.items; // Datos de la tabla "items"
             this.categories = data.categories; // Datos de la tabla "categories"
-            console.log(this.items);
-            console.log(this.categories);
+            this.productsFilter= this.products;
 
         });
     }

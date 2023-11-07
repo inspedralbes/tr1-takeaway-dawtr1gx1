@@ -23,7 +23,7 @@
 button{
     cursor: pointer;
     border: none;
-    background-color: none;
+    background: none;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -109,34 +109,35 @@ button{
     background-color: var(--color-button-hover);
 }
 
-.tContainer{
+.schedule{
     display: grid;
     grid-template-areas: "title title"
     "days1 hour1"
     "days2 hour2";
     margin-bottom: 5%;
     margin-top: 5%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     text-align: center;
+    border-collapse: collapse;
 }
 
-.tContainer__title{
+.schedule__title{
     grid-area: title;
     border: 1px solid black;
 }
-.tContainer__days1{
+.schedule__days1{
     grid-area: days1;
     border: 1px solid black;
 }
-.tContainer__hour1{
+.schedule__hour1{
     grid-area: hour1;
     border: 1px solid black;
 }
-.tContainer__days2{
+.schedule__days2{
     grid-area: days2;
     border: 1px solid black;
 }
-.tContainer__hour2{
+.schedule__hour2{
     grid-area: hour2;
     border: 1px solid black;
 }
@@ -640,12 +641,6 @@ button:hover{
     text-decoration: underline;
 }
 
-
-
-/* -------------------------------------------------------------------------- */
-/*                                   footer                                   */
-/* -------------------------------------------------------------------------- */
-
 .register__container{
     position: relative;
     width: 350px;
@@ -657,6 +652,38 @@ button:hover{
     justify-content: center;
     align-items: center;
 }
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  POLITICAS                                 */
+/* -------------------------------------------------------------------------- */
+.condicions,
+.privadesa,
+.cookies{
+    width: 80%;
+    margin: 10px auto;
+}
+.condicions__title,
+.privadesa__title,
+.cookies__title{
+    font-size: 26px;
+}
+.condicions h4,
+.privadesa h4,
+.cookies h4{
+    text-decoration: underline;
+}
+.condicions__article,
+.privadesa__article,
+.cookies__article{
+    margin: 10px 0;
+}
+.condicions li,
+.privadesa li,
+.cookies li{
+    margin-top: 5px;
+}
+
 
 /* -------------------------------------------------------------------------- */
 /*                                   footer                                   */
@@ -683,6 +710,7 @@ button:hover{
 .legal__link-page {
     text-decoration: none;
     color: var(--color-black);
+    text-align: left;
 }
 .socialMedia {
     display: grid;

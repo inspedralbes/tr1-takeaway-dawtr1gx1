@@ -5,6 +5,9 @@ use App\Http\Controllers\orderController;
 use App\Models\items;
 use App\Models\order;
 use Illuminate\Support\Facades\Route;
+use App\Mail\MyTestEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,12 +38,11 @@ Route::get('/adminComanda/detall/{id}', function ($id) {
     return view('adminComanda',['order'=>$order]);
 })->name("detall");
 
-Route::get("/admin", function(){
-    return view('adminMenu');
-})->name('landing');
-Route::get("/adminStock", function (){
-    $items= items::all();
-    return view('adminStock', ['items'=>$items]);
-})->name('adminStock');
-Route::patch('/admin/updateStock/{id}', [itemsController::class, 'update'])->name('updateItem');
-Route::patch('/admin/updateComanda/{id}', [orderController::class, 'update'])->name("update");
+Route::patch('/admin/update/{id}', [orderController::class, 'update'])->name("update");
+
+Route::get('/testroute', function() {
+    $name = "FastBites";
+    $comandaId = 123;
+
+    Mail::to('a16adrrodgon@inspedralbes.cat')->send(new MyTestEmail($name, $comandaId));
+});

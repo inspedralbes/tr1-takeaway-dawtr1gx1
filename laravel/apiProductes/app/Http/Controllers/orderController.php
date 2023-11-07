@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MyTestEmail;
 use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 Use PDF;
+use Illuminate\Support\Facades\Mail;
 
 class orderController extends Controller
 {
@@ -64,7 +66,6 @@ class orderController extends Controller
             
         }
 
-        
     }
 
     /**
@@ -72,7 +73,11 @@ class orderController extends Controller
      */
     public function show(string $id)
     {
-        return order::all()->where("id","==",$id);
+        //return order::all()->where("id","==",$id);
+        //$ret = order::all()->where("id","==",$id);
+        $ret = order::find( $id);
+        
+        return $ret;
     }
 
     /**
