@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\items;
 use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -45,6 +46,12 @@ class orderController extends Controller
             $newOrder->mail = $request->mail;
             $newOrder->save();
 
+            $jsonDecoded=json_decode($request->jsonOrder);
+            foreach($jsonDecoded->order as $item){
+                $dish=items::find($item->id);
+                $dish->stock=$dish->stock - $item->amount;
+                $dish->save();
+            }
             return response()->json(['errorCode'=> 3, 'id'=>$newOrder->id]);
             
         }
