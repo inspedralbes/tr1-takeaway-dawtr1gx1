@@ -509,7 +509,7 @@ button{
 /*                                    login                                   */
 /* -------------------------------------------------------------------------- */
 
-.login, .register{
+.login, .register__account{
     display: flex;
     justify-content: center;
     align-items: center;
