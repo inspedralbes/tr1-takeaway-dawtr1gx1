@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\items;
 use App\Models\order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class orderController extends Controller
 {
@@ -28,29 +30,33 @@ class orderController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $jsonOrder = json_decode($request->jsonOrder, true);
-    $allAmountsValid = true; 
 
-    foreach ($jsonOrder as $orderItem) {
-        if ($orderItem['amount'] < 0 ) {
-            $allAmountsValid = false;
-            break;
-        }
-    
+    {
+        $validator = Validator::make($request->all(), [
+            'jsonOrder' => 'required',
+            'totalPrice' => 'required',
+            'mail' => 'required|email',
+        ]);
 
-    if ($allAmountsValid) {
-        $newOrder = new Order;
-        $newOrder->jsonOrder = $request->jsonOrder;
-        $newOrder->totalPrice = $request->totalPrice;
-        $newOrder->mail = $request->mail;
-        $newOrder->save();
+        if ($validator->fails()) {
+            return response()->json(['errorMsg' => "Email incorrecte",'errorCode'=> 2], 422);
+        }else {
+            $newOrder = new Order;
+            $newOrder->jsonOrder = $request->jsonOrder;
+            $newOrder->totalPrice = $request->totalPrice;
+            $newOrder->mail = $request->mail;
+            $newOrder->save();
 
-        return $newOrder;
-    } else {
-        // Registrar un mensaje de error en el registro de Laravel
-        Log::error('Al menos uno de los "amount" no cumple con el requisito (debe ser mayor o igual a 1) en jsonOrder.');
-        return response()->json(['error' => 'Al menos uno de los "amount" no cumple con el requisito (debe ser mayor o igual a 1) en jsonOrder.'], 400);
+            $jsonDecoded=json_decode($request->jsonOrder);
+            foreach($jsonDecoded->order as $item){
+                $dish=items::find($item->id);
+                $dish->stock=$dish->stock - $item->amount;
+                $dish->save();
+            }
+            return response()->json(['errorCode'=> 3, 'id'=>$newOrder->id]);
+            
+        }      
+
     }
 }
 }
@@ -61,7 +67,11 @@ class orderController extends Controller
      */
     public function show(string $id)
     {
-        return order::all()->where("id","==",$id);
+        //return order::all()->where("id","==",$id);
+        //$ret = order::all()->where("id","==",$id);
+        $ret = order::find( $id);
+        
+        return $ret;
     }
 
     /**
@@ -81,7 +91,7 @@ class orderController extends Controller
         $order->status=$request->status;
         $order->save();
 
-        return route('detall', ['id' => $order->id]);
+        return redirect()->route('detall', ['id' => $order->id]);
     }
 
     /**
