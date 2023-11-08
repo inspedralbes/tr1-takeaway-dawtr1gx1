@@ -279,7 +279,12 @@ button{
 .product__btn:active{
     bottom: 8px;
 }
-
+.products__product{
+    transition: transform 0.5s;
+}
+.products__product:has(.product__btn--plus:active){
+    transform: rotate(0.02turn);
+}
 
 .products__container-buyBtn{
     width: 70%;
@@ -311,7 +316,7 @@ button{
     opacity: 0.74;
 }
 .disabled>img{
-    opacity: 0.74;
+    opacity: 0.5;
 }
 /* -------------------------------------------------------------------------- */
 /*                                  TICKET                                  */

@@ -17,7 +17,7 @@
         @endforeach
     </select><br>
     <label for="price">Preu</label><br>
-    <input type="number" name="price" id="price" required><br>
+    <input type="number" name="price" id="price" required step="any"><br>
     <input type="file" name="img" id="img" accept="image/jpg, image/jpeg, image/png" required><br>
     <input type="submit" value="Enviar">
     
