@@ -51,10 +51,12 @@
       </div>
       <div class="landing__schedule schedule">
         <p class="schedule__title">Horari</p>
-        <p class="schedule__days1">Dilluns-dijous</p>
-        <p class="schedule__hour1">9:30-17:30</p>
-        <p class="schedule__days2">Divendres i disabte</p>
-        <p class="schedule__hour2">9:00-00:30</p>
+        <div class="shedule__container">
+          <p class="schedule__item">Dilluns-dijous</p>
+          <p class="schedule__item">9:30-17:30</p>
+          <p class="schedule__item">Divendres i disabte</p>
+          <p class="schedule__item">9:00-00:30</p>
+        </div>
       </div>
       <div class="landing__buttons">
         <button class="landing-buttons__btn" @click="changeScreen(1)">Demanar</button>
@@ -84,24 +86,35 @@
 
       <!-- ------------------------------ products ------------------------------- -->
       <div class="products__grid">
+
         <div v-for="(product, index) in productsFilter">
-          <div class="products__product" :class="{disabled: product.stock==0}">
-            <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
-            <img class="product__img" :src="'../laravel/apiProductes/public/' + product.imageRoute" alt="products">
-            <h3 class="product__name"> {{ product.itemName }}</h3>
-            <button class="product__btn product__btn--minus" @click="deleteFromCart(index)" v-if="product.stock>0"><i
+         <div class="products__product" :class="{disabled: product.stock==0}">
+          <div class="product-card">
+            <div class="card-inner" @click="toggleCard(index)">
+              <div class="card-front">
+                <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
+                <img class="product__img" :src="'../laravel/apiProductes/public/' + product.imageRoute" alt="products">
+                <h3 class="product__name"> {{ product.itemName }}</h3>
+                 <button class="product__btn product__btn--minus" @click="deleteFromCart(index)" v-if="product.stock>0"><i
                 class="fa-solid fa-minus product__btn-icon"></i></button>
             <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
             <button class="product__btn product__btn--plus" @click="addToCart(index)" v-if="product.stock>0"><i
                 class="fa-solid fa-plus product__btn-icon"></i></button>  
+              </div>
+              <div class="card-back">
+                <h3 class="product__name">{{ product.itemName }}</h3>
+                <p class="product__description">{{ product.description }}</p>
+              </div>
+             </div>
+            </div>
           </div>
 
         </div>
       </div>
-      <div class="products__container-buyBtn">
-        <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n
-          <strong>{{calcularCartTotal()}}</strong> per
-          <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
+        <div class="products__container-buyBtn">
+          <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n
+            <strong>{{calcularCartTotal()}}</strong> per
+            <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
       </div>
     </section>
 
@@ -151,8 +164,10 @@
     <!-- ----------------------------------------------------------------------- -->
     <section class="status" v-if="active == 4">
       <h3 class="status__title">Estat de la Comanda</h3>
+
       <div class="status__search" >
         <input type="number" class="status__search-input" name="bId" id="bId" placeholder="Buscar per ID" v-model="searchId"/>
+
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus()"></i>
       </div>
 
@@ -160,7 +175,7 @@
       <div class="status__result" v-if="comandaItems[0]">
         <p>Status: {{searchResult.status}}</p>
         <div class="status__result-item" v-for="item in comandaItems">
-          
+
           <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
             }}€</p>
         </div>
