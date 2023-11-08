@@ -42,7 +42,7 @@ class itemsController extends Controller
         $newItem->itemCategory=$request->categories;
         $newItem->sale=0;
         $newItem->save();
-        return $newItem;
+        return redirect()->route('adminItems');
         
     }
 

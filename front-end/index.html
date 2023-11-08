@@ -74,7 +74,7 @@
 
         <button class="products__slider-item" @click="changeCategory(0)">
           <!-- <img src="" alt=""> -->
-          <p class="products-slider__name">Todos</p>
+          <p class="products-slider__name">Tots</p>
         </button>
 
         <button class="products__slider-item" v-for="category in categories" @click="changeCategory(category.id)">
@@ -89,13 +89,13 @@
         <div v-for="(product, index) in productsFilter">
           <div class="products__product" :class="{disabled: product.stock==0}">
             <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
-            <img class="product__img" :src=product.img alt="products">
+            <img class="product__img" :src="'../laravel/apiProductes/public/' + product.imageRoute" alt="products">
             <h3 class="product__name"> {{ product.itemName }}</h3>
             <button class="product__btn product__btn--minus" @click="deleteFromCart(index)" v-if="product.stock>0"><i
                 class="fa-solid fa-minus product__btn-icon"></i></button>
             <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
             <button class="product__btn product__btn--plus" @click="addToCart(index)" v-if="product.stock>0"><i
-                class="fa-solid fa-plus product__btn-icon"></i></button>
+                class="fa-solid fa-plus product__btn-icon"></i></button>  
           </div>
 
         </div>
