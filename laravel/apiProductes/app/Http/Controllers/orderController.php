@@ -30,6 +30,7 @@ class orderController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
+
     {
         $validator = Validator::make($request->all(), [
             'jsonOrder' => 'required',
@@ -54,10 +55,12 @@ class orderController extends Controller
             }
             return response()->json(['errorCode'=> 3, 'id'=>$newOrder->id]);
             
-        }
+        }      
 
-        
     }
+}
+}
+
 
     /**
      * Display the specified resource.
