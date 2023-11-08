@@ -19,6 +19,18 @@ createApp({
         }
     },
     methods: {
+
+        toggleCard(index) {
+            const cardInner = document.querySelectorAll('.card-inner')[index];
+            const clickedElement = document.elementFromPoint(event.clientX, event.clientY);
+            
+            if (clickedElement.classList.contains('product__img')) {
+              cardInner.style.transform = cardInner.style.transform === 'rotateY(180deg)' ? '' : 'rotateY(180deg)';
+            } else {
+              cardInner.style.transform = '';
+            }
+          },
+
         changeScreen(active) {
             this.active = active;
             if (active == 0) {
