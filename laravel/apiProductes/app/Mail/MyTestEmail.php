@@ -8,11 +8,12 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Attachment;
 
 class MyTestEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    
+    public $data;
 
     /**
      * Create a new message instance.
@@ -21,20 +22,17 @@ class MyTestEmail extends Mailable
      * @param  int  $comandaId
      * @return void
      */
-    public function __construct(private $name, private $comandaId)
+    public function __construct($newOrder, $pdf)
 {
-    $this->name = $name;
-    $this->comandaId = $comandaId;
+    $this->data["dades"] = $newOrder;
+    $this->data["pdf"] = $pdf;
 }
 
 public function content()
 {
     return new Content(
         view: 'mail.test-email',
-        with: [
-            'name' => $this->name,
-            'comandaId' => $this->comandaId,
-        ]
+        
     );
 }
 
@@ -57,7 +55,10 @@ public function content()
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromData(fn () => $this->data["pdf"]->output(), 'Ticket.pdf')
+            ->withMime('application/pdf'),
+        ];
     }
 
 }

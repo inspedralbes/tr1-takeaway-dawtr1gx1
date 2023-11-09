@@ -39,10 +39,3 @@ Route::get('/adminComanda/detall/{id}', function ($id) {
 })->name("detall");
 
 Route::patch('/admin/update/{id}', [orderController::class, 'update'])->name("update");
-
-Route::get('/testroute', function() {
-    $name = "FastBites";
-    $comandaId = 123;
-
-    Mail::to('a16adrrodgon@inspedralbes.cat')->send(new MyTestEmail($name, $comandaId));
-});

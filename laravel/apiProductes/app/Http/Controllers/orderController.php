@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 Use PDF;
 use Illuminate\Support\Facades\Mail;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class orderController extends Controller
 {
@@ -56,7 +57,7 @@ class orderController extends Controller
             
             $qr = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($newOrder));
 
-            $newOrder->id;
+            $newOrder->id=6;
             $newOrder->qr = $qr;
 
             $pdf = PDF::loadView('pdf', compact("newOrder"));

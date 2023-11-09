@@ -60,11 +60,11 @@
                 </th>
             </tr>
             <tr class="bottom-line">
-                <td>Numero de la comanda: 19</td>
-                <td>Email: a16margarlop@inspedralbes.cat</td>
+                <td>Numero de la comanda: </td>
+                <td>Email:</td>
             </tr>
             <tr class="bottom-line">
-                <td>Data de la comanda: 02-11-2023</td>
+                <td>Data de la comanda: </td>
             </tr>
         </table>
         
