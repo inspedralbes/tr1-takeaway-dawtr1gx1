@@ -6,7 +6,7 @@ use App\Mail\MyTestEmail;
 use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-Use PDF;
+use PDF;
 use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -32,9 +32,6 @@ class orderController extends Controller
     /**
      * Generate PDF 
      */
-    
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -55,12 +52,12 @@ class orderController extends Controller
             $newOrder->mail = $request->mail;
             $newOrder->save();
             
-            $qr = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($newOrder));
+            $qr = base64_encode(QrCode::format('svg')->size(150)->errorCorrection('H')->generate($newOrder->jsonOrder));
 
             $newOrder->id=6;
             $newOrder->qr = $qr;
 
-            $pdf = PDF::loadView('pdf', compact("newOrder"));
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf', compact("newOrder"));
             Mail::to($newOrder->mail)->send(new MyTestEmail($newOrder, $pdf));
             
             return response()->json(['errorCode'=> 3], 422);
