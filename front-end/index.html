@@ -157,14 +157,14 @@
       </div>
 
 
-      <div class="status__result" v-if="comandaItems[0]">
+      <div class="status__result" v-if="searchResult.status">
         <p>Status: {{searchResult.status}}</p>
-        <div class="status__result-item" v-for="item in comandaItems">
+        <div class="status__result-item" v-for="item in comandaItems" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">
           
           <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
             }}€</p>
         </div>
-        <p class="status__result-total">Total: {{totalComanda}} €</p>
+        <p class="status__result-total" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">Total: {{totalComanda}} €</p>
       </div>
 
 

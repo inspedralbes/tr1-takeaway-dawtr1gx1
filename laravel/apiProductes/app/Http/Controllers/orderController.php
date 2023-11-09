@@ -67,7 +67,15 @@ class orderController extends Controller
         //return order::all()->where("id","==",$id);
         //$ret = order::all()->where("id","==",$id);
         $ret = order::find( $id);
+        if(!$ret){
+            $ret=array("status"=>"No sa'ha trobat comanda amb aquesta id");
+            json_encode($ret);
+            
+        } 
         return $ret;
+            
+            
+        
     }
 
     /**
