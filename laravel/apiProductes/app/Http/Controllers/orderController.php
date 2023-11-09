@@ -66,7 +66,6 @@ class orderController extends Controller
             return response()->json(['errorCode'=> 3], 422);
             
         }
-
     }
 
     /**
