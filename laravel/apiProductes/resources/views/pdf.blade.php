@@ -67,7 +67,6 @@
                 <td>Data de la comanda: {{ $newOrder->created_at }}</td>
             </tr>
         </table>
-
         <table class="ticket">
             <tr>
                 <th>Producte</th>
