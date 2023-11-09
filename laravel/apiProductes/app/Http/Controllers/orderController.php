@@ -55,11 +55,9 @@ class orderController extends Controller
             }
             return response()->json(['errorCode'=> 3, 'id'=>$newOrder->id]);
             
-        }      
+        };  
 
     }
-}
-}
 
 
     /**
