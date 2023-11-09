@@ -23,7 +23,6 @@ class orderController extends Controller
     public function create()
     {
 
-
     }
 
     /**
@@ -43,6 +42,7 @@ class orderController extends Controller
         if ($validator->fails()) {
             return response()->json(['errorMsg' => "Email incorrecte", 'errorCode' => 2], 422);
         } else {
+
             foreach ($jsonOrder['order'] as $orderItem) {
                 if ($orderItem['amount'] <= 0) {
                     $allAmountsValid = false;
@@ -85,6 +85,7 @@ class orderController extends Controller
 
 
 
+
     /**
      * Display the specified resource.
      */
@@ -94,6 +95,10 @@ class orderController extends Controller
         //$ret = order::all()->where("id","==",$id);
         $ret = order::find($id);
 
+        if (!$ret) {
+            $ret = array("status" => "No sa'ha trobat comanda amb aquesta id");
+            json_encode($ret);
+        }
         return $ret;
     }
 

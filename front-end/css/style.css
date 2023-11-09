@@ -304,6 +304,10 @@ button{
     transform: rotate(0.02turn);
 }
 
+.products__product:has(.product__btn--minus:active){
+    transform: rotate(-0.02turn);
+}
+
 .products__container-buyBtn{
     width: 70%;
     height: 50px;

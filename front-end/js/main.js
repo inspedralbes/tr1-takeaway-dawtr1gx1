@@ -21,7 +21,7 @@ createApp({
             comandaItems: [],
             totalComanda: 0,
             errorMsg: "",
-            status:"",
+            status: "",
         }
     },
     methods: {
@@ -43,13 +43,14 @@ createApp({
                 this.cart = [];
                 this.yourOrder = "NoOrder";
                 this.cartPrice = 0;
-                this.comandaItems=[];
+                this.comandaItems = [];
                 getProducts().then(data => {
 
                     this.products = data.items; // Datos de la tabla "items"
-                    this.productsFilter= this.products;
-        
+                    this.productsFilter = this.products;
+
                 });
+                this.searchResult={};
             }
 
         },
@@ -114,30 +115,34 @@ createApp({
 
         async searchOrderStatus() {
             if (this.searchId) {
-                const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
+                const response = await fetch(`http://prefastbites.daw.inspedralbes.cat/laravel/apiProductes/public/api/order/${this.searchId}`);
                 if (response.ok) {
                     const data = await response.json();
-                    
                     this.searchResult = data;
 
 
                     // Parsea la cadena JSON en jsonOrder
-                    const jsonOrder = JSON.parse(this.searchResult.jsonOrder);
-                    let totalPreuComanda = 0
-                    this.status=jsonOrder.status;
-                    this.comandaItems = jsonOrder.order;
+                    if (this.searchResult.jsonOrder) {
+                        const jsonOrder = JSON.parse(this.searchResult.jsonOrder);
+                        let totalPreuComanda = 0
+                        this.status = jsonOrder.status;
+                        this.comandaItems = jsonOrder.order;
 
-                    // Itera a través de los elementos y muestra los nombres
-                    for (const item of jsonOrder.order) {
-                        
+                        // Itera a través de los elementos y muestra los nombres
+                        for (const item of jsonOrder.order) {
 
-                        // Calcula el precio total de este elemento
-                        const precioItem = item.price * item.amount;
 
-                        // Agrega el precio del elemento al precio total
-                        totalPreuComanda += item.price * item.amount;
-                        this.totalComanda = totalPreuComanda;
+                            // Calcula el precio total de este elemento
+                            const precioItem = item.price * item.amount;
+
+                            // Agrega el precio del elemento al precio total
+                            totalPreuComanda += item.price * item.amount;
+                            this.totalComanda = totalPreuComanda;
+                        }
                     }
+                }
+                else {
+                    this.comandaItems = [];
                 }
             }
 
@@ -154,7 +159,7 @@ createApp({
                 mail: this.mail,
             };
 
-            fetch('http://127.0.0.1:8000/api/order', {
+            fetch('http://prefastbites.daw.inspedralbes.cat/laravel/apiProductes/public/api/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -170,7 +175,7 @@ createApp({
                 })
         },
         changeCategory(id) {
-            this.productsFilter=[];
+            this.productsFilter = [];
 
             if (id == 0) {
                 for (let i = 0; i < this.products.length; i++) {
@@ -191,12 +196,12 @@ createApp({
 
             this.products = data.items; // Datos de la tabla "items"
             this.categories = data.categories; // Datos de la tabla "categories"
-            this.productsFilter= this.products;
+            this.productsFilter = this.products;
 
         });
     }
 
-   
+
 
 
 }).mount('#app')
