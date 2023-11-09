@@ -66,7 +66,7 @@ class orderController extends Controller
             // Convierte el array a formato JSON
             $jsonData = json_encode($data);
             
-            $qr = base64_encode(QrCode::format('svg')->size(150)->errorCorrection('H')->generate($newOrder));
+            $qr = base64_encode(QrCode::format('svg')->size(150)->errorCorrection('H')->generate($jsonData));
 
             $newOrder->id=6;
             $newOrder->qr = $qr;
