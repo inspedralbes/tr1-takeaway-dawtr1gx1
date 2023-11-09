@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\MyTestEmail;
+use App\Models\items;
 use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -25,8 +25,6 @@ class orderController extends Controller
      */
     public function create()
     {
-        
-        
     }
 
     /**
@@ -36,6 +34,7 @@ class orderController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
+
     {
         $validator = Validator::make($request->all(), [
             'jsonOrder' => 'required',
@@ -44,40 +43,26 @@ class orderController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errorMsg' => "Email incorrecte",'errorCode'=> 2], 422);
-        }else {
+            return response()->json(['errorMsg' => "Email incorrecte", 'errorCode' => 2], 422);
+        } else {
             $newOrder = new Order;
             $newOrder->jsonOrder = $request->jsonOrder;
             $newOrder->totalPrice = $request->totalPrice;
             $newOrder->mail = $request->mail;
             $newOrder->save();
 
-            $jsonOrder = $newOrder->jsonOrder;
-            $totalPrice = $newOrder->totalPrice;
-            $mail = $newOrder->mail;
-            
-            // Crea un array asociativo con los datos
-            $data = array([
-                'jsonOrder' => $jsonOrder,
-                'totalPrice' => $totalPrice,
-                'mail' => $mail,
-            ]);
-            
-            // Convierte el array a formato JSON
-            $jsonData = json_encode($data);
-            
-            $qr = base64_encode(QrCode::format('svg')->size(150)->errorCorrection('H')->generate($jsonData));
-
-            $newOrder->id=6;
-            $newOrder->qr = $qr;
-
-            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf', compact("newOrder"));
-            Mail::to($newOrder->mail)->send(new MyTestEmail($newOrder, $pdf));
-            
-            return response()->json(['errorCode'=> 3], 422);
-            
+            $jsonDecoded = json_decode($request->jsonOrder);
+            foreach ($jsonDecoded->order as $item) {
+                $dish = items::find($item->id);
+                $dish->stock = $dish->stock - $item->amount;
+                $dish->save();
+            }
+            return response()->json(['errorCode' => 3, 'id' => $newOrder->id]);
         }
     }
+
+
+
 
     /**
      * Display the specified resource.
@@ -86,8 +71,11 @@ class orderController extends Controller
     {
         //return order::all()->where("id","==",$id);
         //$ret = order::all()->where("id","==",$id);
-        $ret = order::find( $id);
-        
+        $ret = order::find($id);
+        if (!$ret) {
+            $ret = array("status" => "No sa'ha trobat comanda amb aquesta id");
+            json_encode($ret);
+        }
         return $ret;
     }
 
@@ -104,8 +92,8 @@ class orderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $order=order::find($id);
-        $order->status=$request->status;
+        $order = order::find($id);
+        $order->status = $request->status;
         $order->save();
 
         return redirect()->route('detall', ['id' => $order->id]);

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Administracio de Items</h1>
+<h1>Administracio de Stock</h1>
 <ul>
     
     @foreach($items as $item)
@@ -13,7 +13,7 @@
 
     </form>
     @endforeach
-    <input type="submit" value="acabar">
+    <a href="{{route('adminItems')}}">Tornar</a>
     
     
 </ul>

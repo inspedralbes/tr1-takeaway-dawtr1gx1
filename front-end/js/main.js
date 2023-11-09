@@ -21,17 +21,36 @@ createApp({
             comandaItems: [],
             totalComanda: 0,
             errorMsg: "",
-            status:"",
+            status: "",
         }
     },
     methods: {
+
+        toggleCard(index) {
+            const cardInner = document.querySelectorAll('.card-inner')[index];
+            const clickedElement = document.elementFromPoint(event.clientX, event.clientY);
+            
+            if (clickedElement.classList.contains('product__img')) {
+              cardInner.style.transform = cardInner.style.transform === 'rotateY(180deg)' ? '' : 'rotateY(180deg)';
+            } else {
+              cardInner.style.transform = '';
+            }
+          },
+
         changeScreen(active) {
             this.active = active;
             if (active == 0) {
                 this.cart = [];
                 this.yourOrder = "NoOrder";
                 this.cartPrice = 0;
-                this.comandaItems=[];
+                this.comandaItems = [];
+                getProducts().then(data => {
+
+                    this.products = data.items; // Datos de la tabla "items"
+                    this.productsFilter = this.products;
+
+                });
+                this.searchResult={};
             }
 
         },
@@ -99,29 +118,31 @@ createApp({
                 const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
                 if (response.ok) {
                     const data = await response.json();
-                    
                     this.searchResult = data;
 
 
                     // Parsea la cadena JSON en jsonOrder
-                    const jsonOrder = JSON.parse(this.searchResult.jsonOrder);
-                    let totalPreuComanda = 0
-                    this.status=jsonOrder.status;
-                    this.comandaItems = jsonOrder.order;
+                    if (this.searchResult.jsonOrder) {
+                        const jsonOrder = JSON.parse(this.searchResult.jsonOrder);
+                        let totalPreuComanda = 0
+                        this.status = jsonOrder.status;
+                        this.comandaItems = jsonOrder.order;
 
-                    // Itera a través de los elementos y muestra los nombres
-                    for (const item of jsonOrder) {
-                        console.log(item.itemName);
-                        console.log(item.amount);
-                        console.log(item.price);
+                        // Itera a través de los elementos y muestra los nombres
+                        for (const item of jsonOrder.order) {
 
-                        // Calcula el precio total de este elemento
-                        const precioItem = item.price * item.amount;
 
-                        // Agrega el precio del elemento al precio total
-                        totalPreuComanda += item.price * item.amount;
-                        this.totalComanda = totalPreuComanda;
+                            // Calcula el precio total de este elemento
+                            const precioItem = item.price * item.amount;
+
+                            // Agrega el precio del elemento al precio total
+                            totalPreuComanda += item.price * item.amount;
+                            this.totalComanda = totalPreuComanda;
+                        }
                     }
+                }
+                else {
+                    this.comandaItems = [];
                 }
             }
 
@@ -154,7 +175,7 @@ createApp({
                 })
         },
         changeCategory(id) {
-            this.productsFilter=[];
+            this.productsFilter = [];
 
             if (id == 0) {
                 for (let i = 0; i < this.products.length; i++) {
@@ -176,10 +197,12 @@ createApp({
 
             this.products = data.items; // Datos de la tabla "items"
             this.categories = data.categories; // Datos de la tabla "categories"
-            this.productsFilter= this.products;
+            this.productsFilter = this.products;
 
         });
     }
+
+
 
 
 }).mount('#app')
