@@ -48,6 +48,7 @@
         }
     </style>
 
+
 </head>
 <body>
     
@@ -73,16 +74,17 @@
                 <th>Quantitat</th>
                 <th>Preu</th>
             </tr>
-            
+
             <tr>
                 <td class="productName"></td>
                 <td></td>
                 <td></td>
             </tr>
+
             <tr>
                 <td></td>
                 <td></td>
-                <td>{{ $newOrder->totalPrice }}</td>
+                <td>{{ $newOrder->totalPrice }}€</td>
             </tr>
         </table>
 
