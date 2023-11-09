@@ -60,29 +60,30 @@
                 </th>
             </tr>
             <tr class="bottom-line">
-                <td>Numero de la comanda: </td>
-                <td>Email:</td>
+                <td>Numero de la comanda: {{ $newOrder->id }}</td>
+                <td>Email: {{ $newOrder->mail }}</td>
             </tr>
             <tr class="bottom-line">
-                <td>Data de la comanda: </td>
+                <td>Data de la comanda: {{ $newOrder->created_at }}</td>
             </tr>
         </table>
-        
+
         <table class="ticket">
             <tr>
                 <th>Producte</th>
                 <th>Quantitat</th>
                 <th>Preu</th>
             </tr>
+            
             <tr>
-                <td class="productName">Hamburguesa</td>
-                <td>2</td>
-                <td>7.99</td>
+                <td class="productName"></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
-                <td class="productName">Arros Tres Delicies</td>
-                <td>1</td>
-                <td>9.99</td>
+                <td></td>
+                <td></td>
+                <td>{{ $newOrder->totalPrice }}</td>
             </tr>
         </table>
 

@@ -32,9 +32,6 @@ class orderController extends Controller
     /**
      * Generate PDF 
      */
-    
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -74,7 +71,7 @@ class orderController extends Controller
             $newOrder->id=6;
             $newOrder->qr = $qr;
 
-            $pdf = PDF::loadView('pdf', compact("newOrder"));
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf', compact("newOrder"));
             Mail::to($newOrder->mail)->send(new MyTestEmail($newOrder, $pdf));
             
             return response()->json(['errorCode'=> 3], 422);
