@@ -115,7 +115,7 @@ createApp({
 
         async searchOrderStatus() {
             if (this.searchId) {
-                const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
+                const response = await fetch(`http://prefastbites.daw.inspedralbes.cat/laravel/apiProductes/public/api/order/${this.searchId}`);
                 if (response.ok) {
                     const data = await response.json();
                     this.searchResult = data;
@@ -159,7 +159,7 @@ createApp({
                 mail: this.mail,
             };
 
-            fetch('http://127.0.0.1:8000/api/order', {
+            fetch('http://prefastbites.daw.inspedralbes.cat/laravel/apiProductes/public/api/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

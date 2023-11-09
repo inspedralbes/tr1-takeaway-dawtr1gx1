@@ -97,7 +97,7 @@
                 <h3 class="product__name"> {{ product.itemName }}</h3>
                  <button class="product__btn product__btn--minus" @click="deleteFromCart(index)" v-if="product.stock>0"><i
                 class="fa-solid fa-minus product__btn-icon"></i></button>
-            <p class="product__price">Preu: <span>{{ product.price }}€</span></p>
+            <p class="product__price">Preu: <span>{{ parseFloat((product.price).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2 }) }}€</span></p>
             <button class="product__btn product__btn--plus" @click="addToCart(index)" v-if="product.stock>0"><i
                 class="fa-solid fa-plus product__btn-icon"></i></button>  
               </div>
@@ -114,7 +114,7 @@
         <div class="products__container-buyBtn">
           <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n
             <strong>{{calcularCartTotal()}}</strong> per
-            <strong>{{parseFloat((cartPrice).toFixed(2))}}€</strong></button>
+            <strong>{{parseFloat((cartPrice).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2 })}}€</strong></button>
       </div>
     </section>
 
@@ -153,7 +153,6 @@
     <!-- ----------------------------------------------------------------------- -->
     <section class="buyData" v-if="active==3">
       <h3 class="buyData__id">ID: {{yourOrder}}</h3>
-      <img class="buyData__qr" src="img/qr.jfif" alt="">
       <button class="buyData__btn buyData-download__btn">Descarregar</button>
       <button class="buyData__btn" @click="changeScreen(0)">Tornar</button>
     </section>
@@ -178,10 +177,10 @@
         <div class="status__result-item" v-for="item in comandaItems" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">
           
 
-          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2)
+          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })
             }}€</p>
         </div>
-        <p class="status__result-total" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">Total: {{totalComanda}} €</p>
+        <p class="status__result-total" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">Total: {{totalComanda.toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })}} €</p>
       </div>
 
 
