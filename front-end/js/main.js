@@ -115,9 +115,7 @@ createApp({
         async searchOrderStatus() {
             if (this.searchId) {
                 const response = await fetch(`http://127.0.0.1:8000/api/order/${this.searchId}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    
+                if (await response.json()) {
                     this.searchResult = data;
 
 
@@ -139,7 +137,10 @@ createApp({
                         this.totalComanda = totalPreuComanda;
                     }
                 }
-            }
+                else{
+                    this.comandaItems= [];
+                }
+            } 
 
         },
         mostrarOrdre() {
