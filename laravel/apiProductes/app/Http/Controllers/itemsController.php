@@ -66,7 +66,7 @@ class itemsController extends Controller
     public function update(Request $request, string $id)
     {
         $item=items::find($id);
-        $item->stock=$request->stock;
+        $item->update($request->all());
         $item->save();
         return redirect()->route('adminStock');
     }

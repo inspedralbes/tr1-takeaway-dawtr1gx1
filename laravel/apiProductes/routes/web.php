@@ -24,10 +24,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pdf', function () {
-    return view('pdf');
-});
-
 Route::get('/adminComanda', function () {
 
     $orders= order::all();
@@ -39,3 +35,4 @@ Route::get('/adminComanda/detall/{id}', function ($id) {
 })->name("detall");
 
 Route::patch('/admin/update/{id}', [orderController::class, 'update'])->name("update");
+
