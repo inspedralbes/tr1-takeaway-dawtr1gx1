@@ -6,7 +6,7 @@ use App\Mail\MyTestEmail;
 use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-Use PDF;
+use PDF;
 use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -54,8 +54,22 @@ class orderController extends Controller
             $newOrder->totalPrice = $request->totalPrice;
             $newOrder->mail = $request->mail;
             $newOrder->save();
+
+            $jsonOrder = $newOrder->jsonOrder;
+            $totalPrice = $newOrder->totalPrice;
+            $mail = $newOrder->mail;
             
-            $qr = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($newOrder));
+            // Crea un array asociativo con los datos
+            $data = array([
+                'jsonOrder' => $jsonOrder,
+                'totalPrice' => $totalPrice,
+                'mail' => $mail,
+            ]);
+            
+            // Convierte el array a formato JSON
+            $jsonData = json_encode($data);
+            
+            $qr = base64_encode(QrCode::format('svg')->size(150)->errorCorrection('H')->generate($newOrder));
 
             $newOrder->id=6;
             $newOrder->qr = $qr;
