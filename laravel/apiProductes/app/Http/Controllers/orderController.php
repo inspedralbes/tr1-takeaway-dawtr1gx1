@@ -54,7 +54,6 @@ class orderController extends Controller
             
             $qr = base64_encode(QrCode::format('svg')->size(150)->errorCorrection('H')->generate($newOrder->jsonOrder));
 
-            $newOrder->id=6;
             $newOrder->qr = $qr;
             
 
@@ -63,6 +62,7 @@ class orderController extends Controller
             Mail::to($newOrder->mail)->send(new MyTestEmail($newOrder, $pdf));
             
             return response()->json(['errorCode'=> 3], 422);
+            
             
             
         }
