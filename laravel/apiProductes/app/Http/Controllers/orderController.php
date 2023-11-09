@@ -22,8 +22,6 @@ class orderController extends Controller
      */
     public function create()
     {
-        
-        
     }
 
     /**
@@ -39,27 +37,25 @@ class orderController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errorMsg' => "Email incorrecte",'errorCode'=> 2], 422);
-        }else {
+            return response()->json(['errorMsg' => "Email incorrecte", 'errorCode' => 2], 422);
+        } else {
             $newOrder = new Order;
             $newOrder->jsonOrder = $request->jsonOrder;
             $newOrder->totalPrice = $request->totalPrice;
             $newOrder->mail = $request->mail;
             $newOrder->save();
 
-            $jsonDecoded=json_decode($request->jsonOrder);
-            foreach($jsonDecoded->order as $item){
-                $dish=items::find($item->id);
-                $dish->stock=$dish->stock - $item->amount;
+            $jsonDecoded = json_decode($request->jsonOrder);
+            foreach ($jsonDecoded->order as $item) {
+                $dish = items::find($item->id);
+                $dish->stock = $dish->stock - $item->amount;
                 $dish->save();
             }
-            return response()->json(['errorCode'=> 3, 'id'=>$newOrder->id]);
-            
-        }      
-
+            return response()->json(['errorCode' => 3, 'id' => $newOrder->id]);
+        }
     }
-}
-}
+
+
 
 
     /**
@@ -69,16 +65,12 @@ class orderController extends Controller
     {
         //return order::all()->where("id","==",$id);
         //$ret = order::all()->where("id","==",$id);
-        $ret = order::find( $id);
-        if(!$ret){
-            $ret=array("status"=>"No sa'ha trobat comanda amb aquesta id");
+        $ret = order::find($id);
+        if (!$ret) {
+            $ret = array("status" => "No sa'ha trobat comanda amb aquesta id");
             json_encode($ret);
-            
-        } 
+        }
         return $ret;
-            
-            
-        
     }
 
     /**
@@ -94,8 +86,8 @@ class orderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $order=order::find($id);
-        $order->status=$request->status;
+        $order = order::find($id);
+        $order->status = $request->status;
         $order->save();
 
         return redirect()->route('detall', ['id' => $order->id]);
