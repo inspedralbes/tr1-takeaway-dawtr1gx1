@@ -40,12 +40,8 @@ li{
     align-items: center;
     background-color: var(--color-secondary);
     padding: 0 40px;
-    overflow: hidden;
 }
 
-.menu__items{
-    display: none;
-}
 .header__icon {
     color: var(--color-primary);
     font-size: 25px;
@@ -62,32 +58,29 @@ li{
 
 
 /* MENU DESPLEGABLE */
-#nav__check:checked ~ .header{
-    overflow: auto;
-}
 #nav__check:checked ~ .header__menu{
     right: 0;
+    width: 300px;
+    display: block;
 }
 
 .header__menu{
-    display: block;
+    display: none;
     position: absolute;
-    right: -300px;
+    right: 0;
     top: 0;
     z-index: 999;
-    width: 300px;
-    height: 100%;
+    width: 0;
+    height: 100vh;
     background-color: var(--color-white);
     box-shadow: 2px 0 20px 0 rgba(0, 0, 0, 0.05);
     transition: all 1s ease;
-    
 }
 
-.header-menu__logo{
-    display: block;
+.header-menu__title{
+    display: flex;
     width: auto;
     height: 70px;
-    display: flex;
     align-items: center;
     margin-top: 10px;
     margin-left: 30px;
@@ -114,12 +107,6 @@ li{
     color: var(--color-white);
 }
 
-
-.menu__items{
-    display: block;
-    padding: 0 20px;
-    margin-top: 30px;
-}
 
 
 /* -------------------------------------------------------------------------- */
@@ -173,10 +160,7 @@ li{
 .buyData__btn:hover{
     background-color: var(--color-button-hover);
 }
-/* .landing-buttons__btn:focus{
-    Hacer un pequeño movimiento para que el usuario sepa que ha hecho click
-    https://codepen.io/andrea-maselli/pen/KLbwJw
-} */
+
 
 
 /* -------------------------------------------------------------------------- */
