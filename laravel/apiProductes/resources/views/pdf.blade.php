@@ -60,35 +60,37 @@
                 </th>
             </tr>
             <tr class="bottom-line">
-                <td>Numero de la comanda: 19</td>
-                <td>Email: a16margarlop@inspedralbes.cat</td>
+                <td>Numero de la comanda: {{ $newOrder->id }}</td>
+                <td>Email: {{ $newOrder->mail }}</td>
             </tr>
             <tr class="bottom-line">
-                <td>Data de la comanda: 02-11-2023</td>
+                <td>Data de la comanda: {{ $newOrder->created_at }}</td>
             </tr>
         </table>
-        
+
         <table class="ticket">
             <tr>
                 <th>Producte</th>
                 <th>Quantitat</th>
                 <th>Preu</th>
             </tr>
+            
             <tr>
-                <td class="productName">Hamburguesa</td>
-                <td>2</td>
-                <td>7.99</td>
+                <td class="productName"></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
-                <td class="productName">Arros Tres Delicies</td>
-                <td>1</td>
-                <td>9.99</td>
+                <td></td>
+                <td></td>
+                <td>{{ $newOrder->totalPrice }}</td>
             </tr>
         </table>
 
         <div class="qr">
-            {!! QrCode::generate('Mail, ID, Ticket') !!}
+            <img src="data:image/png;base64,{{ $newOrder['qr'] }}" alt="">
         </div>
+
     </div>
 
 </body>

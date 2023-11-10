@@ -6,6 +6,9 @@ use App\Models\items;
 use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use PDF;
+use Illuminate\Support\Facades\Mail;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class orderController extends Controller
 {
@@ -25,6 +28,9 @@ class orderController extends Controller
 
     }
 
+    /**
+     * Generate PDF 
+     */
     /**
      * Store a newly created resource in storage.
      */

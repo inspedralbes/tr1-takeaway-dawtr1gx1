@@ -191,6 +191,7 @@ createApp({
             }
         }
     },
+
     created() {
         getProducts().then(data => {
 

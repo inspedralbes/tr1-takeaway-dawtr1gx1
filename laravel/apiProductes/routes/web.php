@@ -6,6 +6,9 @@ use App\Models\category;
 use App\Models\items;
 use App\Models\order;
 use Illuminate\Support\Facades\Route;
+use App\Mail\MyTestEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/pdf', function () {
-    return view('pdf');
 });
 
 Route::get('/adminComanda', function () {

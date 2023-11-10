@@ -203,6 +203,73 @@
 
 
     <!-- ----------------------------------------------------------------------- -->
+    <!--                                  login                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <section class="login" v-if="active == 5">
+      <div class="login__container">
+        <div class="fomulary">
+          <form action="#">
+            <h2>Iniciar Sessió</h2>
+
+            <div class="input-container">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" required>
+              <label for="#">Email</label>
+            </div>
+            <div class="input-container">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" required>
+              <label for="#">Contrasenya</label>
+            </div>
+          </form>
+          <div>
+            <button class="login__btn">Log in</button>
+            <div class="register">
+              <p>No tens compte? <a href="#" @click="changeScreen(6)">Crear un compte</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                register                                 -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <section class="register__account" v-if="active == 6">
+      <div class="register__container">
+        <div class="fomulary">
+          <form action="#">
+            <h2>Registre</h2>
+
+            <div class="input-container">
+              <i class="fa-solid fa-person"></i>
+              <input type="Nom" required>
+              <label for="#">Nom</label>
+            </div>
+
+            <div class="input-container">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" required>
+              <label for="#">Email</label>
+            </div>
+
+            <div class="input-container">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" required>
+              <label for="#">Contrasenya</label>
+            </div>
+          </form>
+          <div>
+            <button class="register__btn">Registrar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ----------------------------------------------------------------------- -->
     <!--                             CONDICIONS D'US                             -->
     <!-- ----------------------------------------------------------------------- -->
     <section class="condicions" v-if="active == 10">
