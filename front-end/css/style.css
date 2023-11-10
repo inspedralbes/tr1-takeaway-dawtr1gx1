@@ -23,13 +23,20 @@
 button{
     cursor: pointer;
     border: none;
-    background-color: none;
+    background: none;
+}
+
+li{
+    list-style: none;
 }
 
 /* -------------------------------------------------------------------------- */
 /*                                   header                                   */
 /* -------------------------------------------------------------------------- */
+
+
 .header {
+    position: relative;
     width: 100%;
     height: 10vh;
     display: flex;
@@ -39,9 +46,6 @@ button{
     padding: 0 40px;
 }
 
-.menu__items{
-    display: none;
-}
 .header__icon {
     color: var(--color-primary);
     font-size: 25px;
@@ -57,13 +61,64 @@ button{
 }
 
 
+/* MENU DESPLEGABLE */
+#nav__check:checked ~ .header__menu{
+    right: 0;
+    width: 300px;
+    display: block;
+}
+
+.header__menu{
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 999;
+    width: 0;
+    height: 100vh;
+    background-color: var(--color-white);
+    box-shadow: 2px 0 20px 0 rgba(0, 0, 0, 0.05);
+    transition: all 1s ease;
+}
+
+.header-menu__title{
+    display: flex;
+    width: auto;
+    height: 70px;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.header__menuInput{
+    display: none;
+}
+
+.menu-item__button{
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+}
+.menu-item__button:hover{
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+.menu-item__button.active{
+    background-color: var(--color-button-hover);
+    color: var(--color-white);
+}
+
+
+
 /* -------------------------------------------------------------------------- */
 /*                                   LANDING                                  */
 /* -------------------------------------------------------------------------- */
 .landing {
     height: 80vh;
     padding: 0 20px;
-    /* margin: 40px 0; */
     overflow: hidden;
 }
 
@@ -108,10 +163,35 @@ button{
 .buyData__btn:hover{
     background-color: var(--color-button-hover);
 }
-/* .landing-buttons__btn:focus{
-    Hacer un pequeño movimiento para que el usuario sepa que ha hecho click
-    https://codepen.io/andrea-maselli/pen/KLbwJw
-} */
+
+
+.schedule{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: 5% auto;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+    border-collapse: collapse;
+}
+
+.schedule__title{
+    width: 100%;
+    border: 1px solid black;
+    padding: 5px 0;
+}
+.shedule__container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.schedule__item{
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px 0;
+}
 
 
 /* -------------------------------------------------------------------------- */
@@ -122,6 +202,7 @@ button{
 .products__slider{
     display: flex;
     flex-wrap: nowrap;
+    overflow-y: hidden;
     overflow-x: scroll;
     margin: 0 auto 20px auto;
     width: 88%;
@@ -140,6 +221,8 @@ button{
     overflow: hidden;
     transform: translateY(10px);
     transition: all .2s ease-in-out;
+    background-color: var(--color-primary);
+
 
 }
 .products__slider-item:hover{
@@ -183,6 +266,40 @@ button{
     border-radius: 20px;
     overflow: hidden;
 }
+
+.product__img{
+    width: 100%;
+    height: 20vh;
+    object-fit: cover;
+    display: flex;
+}
+
+.product-card {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-back {
+    border: 20px solid  #f0f0f0;
+    width: 100%;
+    height: 100%;
+    transform: rotateY(180deg);
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 20px; /* Mantén el mismo borde redondeado que el "front" */
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .product__amount{
     width: 20px;
     height: 20px;
@@ -203,17 +320,14 @@ button{
 .product__name{
     min-height: 43px;
     margin-top: 10px;
+    font-size: 100%;
 }
 .product__price{
     margin-top: 4px;
     margin-bottom: 15px;
 }
 
-.product__img{
-    width: 100%;
-    height: 20vh;
-    object-fit: cover;
-}
+
 .product__btn{
     width: 20px;
     height: 20px;
@@ -222,7 +336,6 @@ button{
     justify-content: center;
     align-items: center;
     bottom: 10px;
-    
     border: none;
     color: var(--color-white);
     background-color: var(--color-primary);
@@ -242,7 +355,16 @@ button{
 .product__btn:active{
     bottom: 8px;
 }
+.products__product{
+    transition: transform 0.5s;
+}
+.products__product:has(.product__btn--plus:active){
+    transform: rotate(0.02turn);
+}
 
+.products__product:has(.product__btn--minus:active){
+    transform: rotate(-0.02turn);
+}
 
 .products__container-buyBtn{
     width: 70%;
@@ -262,9 +384,37 @@ button{
     border: 1px solid var(--color-black);
     color: var(--color-white);
     background-color: var(--color-primary);
+    
 }
 .products__buyBtn:hover{
     background-color: var(--color-button-hover);
+}
+
+
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.card-front,
+.card-back {
+    
+    
+    backface-visibility: hidden;
+}
+
+
+.disabled{
+    background-color: rgba(121, 119, 119, 0.747);
+}
+.disabled>*{
+    opacity: 0.74;
+}
+.disabled>img{
+    opacity: 0.5;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -328,6 +478,13 @@ button{
     font-weight: bold;
     margin-top: 30px;
 
+}
+
+.ticket__errorMsg{
+    background-color: rgb(252, 105, 105);
+    width: calc(190px - 2px);
+    padding: 2px;
+    text-align: center;
 }
 
 .ticket__buttons{
@@ -402,6 +559,7 @@ button{
     border: 1px solid var(--color-primary);
     border-radius: 20px;
     padding: 10px;
+
     width: 60%;
 }
 
@@ -596,12 +754,6 @@ button:hover{
     text-decoration: underline;
 }
 
-
-
-/* -------------------------------------------------------------------------- */
-/*                                   footer                                   */
-/* -------------------------------------------------------------------------- */
-
 .register__container{
     position: relative;
     width: 350px;
@@ -613,6 +765,38 @@ button:hover{
     justify-content: center;
     align-items: center;
 }
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  POLITICAS                                 */
+/* -------------------------------------------------------------------------- */
+.condicions,
+.privadesa,
+.cookies{
+    width: 80%;
+    margin: 10px auto;
+}
+.condicions__title,
+.privadesa__title,
+.cookies__title{
+    font-size: 26px;
+}
+.condicions h4,
+.privadesa h4,
+.cookies h4{
+    text-decoration: underline;
+}
+.condicions__article,
+.privadesa__article,
+.cookies__article{
+    margin: 10px 0;
+}
+.condicions li,
+.privadesa li,
+.cookies li{
+    margin-top: 5px;
+}
+
 
 /* -------------------------------------------------------------------------- */
 /*                                   footer                                   */
@@ -639,6 +823,7 @@ button:hover{
 .legal__link-page {
     text-decoration: none;
     color: var(--color-black);
+    text-align: left;
 }
 .socialMedia {
     display: grid;
@@ -648,4 +833,10 @@ button:hover{
 .socialMedia__icon {
     text-decoration: none;
     color: var(--color-black);
+}
+
+
+.dispNone{
+    
+    display: none;
 }

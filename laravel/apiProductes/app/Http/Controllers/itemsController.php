@@ -30,17 +30,19 @@ class itemsController extends Controller
      */
     public function store(Request $request)
     {
+        $img=$request->file('img');
+        $path=$img->storeAs("/img", $img->getClientOriginalName());
         
         $newItem=new items;
         $newItem->itemName=$request->itemName;
         $newItem->price=$request->price;
         $newItem->stock=$request->stock;
         $newItem->description=$request->description;
-        $newItem->imageRoute=$request->imageRoute;
-        $newItem->itemCategory=$request->itemCategory;
-        $newItem->sale=$request->file;
+        $newItem->imageRoute=$path;
+        $newItem->itemCategory=$request->categories;
+        $newItem->sale=0;
         $newItem->save();
-        return $newItem;
+        return redirect()->route('adminItems');
         
     }
 
@@ -67,7 +69,8 @@ class itemsController extends Controller
     {
         $item=items::find($id);
         $item->update($request->all());
-        return $item;
+        $item->save();
+        return redirect()->route('adminStock');
     }
 
     /**
