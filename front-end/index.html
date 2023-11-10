@@ -36,7 +36,7 @@
       <button class="header__title" @click="changeScreen(0)">
         <h1>FASTBITES</h1>
       </button>
-      <i class="fa-solid fa-user header__icon" @click="changeScreen(5)"></i>
+      <a href="http://127.0.0.1:8000/admin"><i class="fa-solid fa-user-gear header__icon"></i></a>
     </header>
 
     <!-- ----------------------------------------------------------------------- -->
@@ -185,73 +185,6 @@
 
 
       <button @click="changeScreen(0)" class="status__return-btn">Tornar</button>
-    </section>
-
-
-    <!-- ----------------------------------------------------------------------- -->
-    <!--                                  login                                  -->
-    <!-- ----------------------------------------------------------------------- -->
-
-    <section class="login" v-if="active == 5">
-      <div class="login__container">
-        <div class="fomulary">
-          <form action="#">
-            <h2>Iniciar Sessió</h2>
-
-            <div class="input-container">
-              <i class="fa-solid fa-envelope"></i>
-              <input type="email" required>
-              <label for="#">Email</label>
-            </div>
-            <div class="input-container">
-              <i class="fa-solid fa-lock"></i>
-              <input type="password" required>
-              <label for="#">Contrasenya</label>
-            </div>
-          </form>
-          <div>
-            <button class="login__btn">Log in</button>
-            <div class="register">
-              <p>No tens compte? <a href="#" @click="changeScreen(6)">Crear un compte</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ----------------------------------------------------------------------- -->
-    <!--                                register                                 -->
-    <!-- ----------------------------------------------------------------------- -->
-
-    <section class="register" v-if="active == 6">
-      <div class="register__container">
-        <div class="fomulary">
-          <form action="#">
-            <h2>Registre</h2>
-
-            <div class="input-container">
-              <i class="fa-solid fa-person"></i>
-              <input type="Nom" required>
-              <label for="#">Nom</label>
-            </div>
-
-            <div class="input-container">
-              <i class="fa-solid fa-envelope"></i>
-              <input type="email" required>
-              <label for="#">Email</label>
-            </div>
-
-            <div class="input-container">
-              <i class="fa-solid fa-lock"></i>
-              <input type="password" required>
-              <label for="#">Contrasenya</label>
-            </div>
-          </form>
-          <div>
-            <button class="register__btn">Registrar</button>
-          </div>
-        </div>
-      </div>
     </section>
 
 
