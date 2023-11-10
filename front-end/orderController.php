@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\MyTestEmail;
+use App\Models\items;
 use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -49,7 +49,7 @@ class orderController extends Controller
             return response()->json(['errorMsg' => "Email incorrecte", 'errorCode' => 2], 422);
         } else {
 
-  foreach ($jsonOrder['order'] as $orderItem) {
+            foreach ($jsonOrder['order'] as $orderItem) {
                 if ($orderItem['amount'] <= 0) {
                     $allAmountsValid = false;
 
@@ -82,26 +82,10 @@ class orderController extends Controller
                     $dish->save();
                 }
 
-                  $qr = base64_encode(QrCode::format('svg')->size(150)->errorCorrection('H')->generate($newOrder->jsonOrder));
-                   $newOrder->qr = $qr;
-            
-
-                  $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf', compact("newOrder"));
-            
-            Mail::to($newOrder->mail)->send(new MyTestEmail($newOrder, $pdf));
-            
-            return response()->json(['errorCode'=> 3]);
+                return response()->json(['errorCode' => 3, 'id' => $newOrder->id]);
             } else {
-                return response()->json(['errorCode' => 2, "Amount incorrecte"]);
-           
-            
-          
-            
-
-
-            
+                return response()->json(['errorCode' => 3, "Amount incorrecte"]);
             }
-
         }
     }
 
