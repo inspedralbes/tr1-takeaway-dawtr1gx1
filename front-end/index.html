@@ -30,9 +30,9 @@
           <h1 class="header-menu__title">FASTBITES</h1>
         </div>
         <ul class="menu__items">
-          <li class="menu__item"><button id="incio" class="menu-item__button">Inici</button></li>
-          <li class="menu__item"><button id="productes" class="menu-item__button">Productes</button></li>
-          <li class="menu__item"><button id="consultar" class="menu-item__button">Consultar comanda</button> </li>
+          <li class="menu__item"><button id="incio" class="menu-item__button" @click="changeScreen(0)">Inici</button></li>
+          <li class="menu__item"><button id="productes" class="menu-item__button" @click="changeScreen(1)">Productes</button></li>
+          <li class="menu__item"><button id="consultar" class="menu-item__button" @click="changeScreen(4)">Consultar comanda</button> </li>
         </ul>
       </nav>
       <label for="nav__check"><i class="fa-solid fa-bars header__icon"></i></label>
