@@ -1,8 +1,8 @@
 @extends('adminTemp') 
 
 @section('content')
-<ul>
-    <li><a href="{{route('adminComanda')}}">Administracio de comandes</a></li>
-    <li><a href="{{route('adminItems')}}">Administracio de items</a></li>
-</ul>
+
+    <a href="{{route('adminComanda')}}" class="btn btn-primary">Administracio de comandes</a></li>
+    <a href="{{route('adminItems')}}" class="btn btn-primary">Administracio de items</a></li>
+
 @endsection

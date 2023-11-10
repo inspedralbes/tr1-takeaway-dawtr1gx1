@@ -134,11 +134,13 @@
           <div class="product__ticket">
             <p class="product-ticket__name">{{product.itemName}}</p>
             <p>x{{product.amount}}</p>
-            <p>{{product.price}}€</p>
+            <p>{{parseFloat((product.price).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2
+            })}}€</p>
 
           </div>
         </div>
-        <p class="ticket__total">Total: {{parseFloat((cartPrice).toFixed(2))}}€</p>
+        <p class="ticket__total">Total: {{parseFloat((cartPrice).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2
+        })}}€</p>
       </div>
 
       <div class="ticket__buttons">
