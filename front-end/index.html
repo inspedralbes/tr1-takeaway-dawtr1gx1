@@ -23,16 +23,19 @@
     <!-- ----------------------------------------------------------------------- -->
     <!--                                 header                                  -->
     <!-- ----------------------------------------------------------------------- -->
-    <header class="header header--login">
+    <header class="header">
+      <input type="checkbox" id="nav__check" class="header__menuInput">
       <nav class="header__menu">
-        <i class="fa-solid fa-bars header__icon"></i>
+        <div class="header-menu__logo">
+          <h1 class="header-menu__title">FASTBITES</h1>
+        </div>
         <ul class="menu__items">
-          <li class="menu__item">Inici</li>
-          <li class="menu__item">Productes</li>
-          <li class="menu__item">Consultar comanda</li>
-          <li class="menu__item">Historial Comandes</li>
+          <li class="menu__item"><button id="incio" class="menu-item__button">Inici</button></li>
+          <li class="menu__item"><button id="productes" class="menu-item__button">Productes</button></li>
+          <li class="menu__item"><button id="consultar" class="menu-item__button">Consultar comanda</button> </li>
         </ul>
       </nav>
+      <label for="nav__check"><i class="fa-solid fa-bars header__icon"></i></label>
       <button class="header__title" @click="changeScreen(0)">
         <h1>FASTBITES</h1>
       </button>
