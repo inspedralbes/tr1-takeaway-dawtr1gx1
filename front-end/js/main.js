@@ -29,13 +29,13 @@ createApp({
         toggleCard(index) {
             const cardInner = document.querySelectorAll('.card-inner')[index];
             const clickedElement = document.elementFromPoint(event.clientX, event.clientY);
-            
+
             if (clickedElement.classList.contains('product__img')) {
-              cardInner.style.transform = cardInner.style.transform === 'rotateY(180deg)' ? '' : 'rotateY(180deg)';
+                cardInner.style.transform = cardInner.style.transform === 'rotateY(180deg)' ? '' : 'rotateY(180deg)';
             } else {
-              cardInner.style.transform = '';
+                cardInner.style.transform = '';
             }
-          },
+        },
 
         changeScreen(active) {
             this.active = active;
@@ -50,7 +50,7 @@ createApp({
                     this.productsFilter = this.products;
 
                 });
-                this.searchResult={};
+                this.searchResult = {};
             }
 
         },
@@ -145,48 +145,47 @@ createApp({
                     this.comandaItems = [];
                 }
             }
+        }
+    },
+    mostrarOrdre() {
+        let object = this.products.find(item => item.id === this.statusId);
+        return object.itemName;
+    },
+    enviarForm() {
+        const requestBody = {
+            jsonOrder: `{"order":` + this.cartString + `}`,
 
-        },
-        mostrarOrdre() {
-            let object = this.products.find(item => item.id === this.statusId);
-            return object.itemName;
-        },
-        enviarForm() {
-            const requestBody = {
-                jsonOrder: `{"order":` + this.cartString + `}`,
+            totalPrice: parseFloat((this.cartPrice).toFixed(2)),
+            mail: this.mail,
+        };
 
-                totalPrice: parseFloat((this.cartPrice).toFixed(2)),
-                mail: this.mail,
-            };
+        fetch('http://prefastbites.daw.inspedralbes.cat/laravel/apiProductes/public/api/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody),
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.yourOrder = data["id"];
+                this.errorMsg = data["errorMsg"];
+                this.changeScreen(data["errorCode"])
 
-            fetch('http://prefastbites.daw.inspedralbes.cat/laravel/apiProductes/public/api/order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody),
             })
-                .then(response => response.json())
-                .then(data => {
-                    this.yourOrder = data["id"];
-                    this.errorMsg = data["errorMsg"];
-                    this.changeScreen(data["errorCode"])
+    },
+    changeCategory(id) {
+        this.productsFilter = [];
 
-                })
-        },
-        changeCategory(id) {
-            this.productsFilter = [];
-
-            if (id == 0) {
-                for (let i = 0; i < this.products.length; i++) {
+        if (id == 0) {
+            for (let i = 0; i < this.products.length; i++) {
+                this.productsFilter.push(this.products[i]);
+            }
+        } else {
+            for (let i = 0; i < this.products.length; i++) {
+                if (this.products[i].itemCategory == id) {
                     this.productsFilter.push(this.products[i]);
-                }
-            } else {
-                for (let i = 0; i < this.products.length; i++) {
-                    if (this.products[i].itemCategory == id) {
-                        this.productsFilter.push(this.products[i]);
 
-                    }
                 }
             }
         }

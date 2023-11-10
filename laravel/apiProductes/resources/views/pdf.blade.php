@@ -48,6 +48,7 @@
         }
     </style>
 
+
 </head>
 <body>
     
@@ -74,16 +75,21 @@
                 <th>Quantitat</th>
                 <th>Preu</th>
             </tr>
-            
+
+            @foreach (json_decode($newOrder->jsonOrder, true)['order'] as $item)
+                <tr>
+                    <td class="productName">{{ $item['itemName'] }}</td>
+                    <td>{{ $item['amount'] }}</td>
+                    <td>{{ $item['price'] }}€</td>
+                </tr>
+            @endforeach
+
+
             <tr>
-                <td class="productName"></td>
                 <td></td>
                 <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td>{{ $newOrder->totalPrice }}</td>
+                <td>{{ $newOrder->totalPrice }}€</td>
+
             </tr>
         </table>
 
@@ -95,3 +101,4 @@
 
 </body>
 </html>
+
