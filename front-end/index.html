@@ -92,33 +92,37 @@
       <div class="products__grid">
 
         <div v-for="(product, index) in productsFilter">
-         <div class="products__product" :class="{disabled: product.stock==0}">
-          <div class="product-card">
-            <div class="card-inner" @click="toggleCard(index)">
-              <div class="card-front">
-                <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
-                <img class="product__img" :src="'../laravel/apiProductes/public/' + product.imageRoute" alt="products">
-                <h3 class="product__name"> {{ product.itemName }}</h3>
-                 <button class="product__btn product__btn--minus" @click="deleteFromCart(index)" v-if="product.stock>0"><i
-                class="fa-solid fa-minus product__btn-icon"></i></button>
-            <p class="product__price">Preu: <span>{{ parseFloat((product.price).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2 }) }}€</span></p>
-            <button class="product__btn product__btn--plus" @click="addToCart(index)" v-if="product.stock>0"><i
-                class="fa-solid fa-plus product__btn-icon"></i></button>  
+          <div class="products__product" :class="{disabled: product.stock==0}">
+            <div class="product-card">
+              <div class="card-inner" @click="toggleCard(index)">
+                <div class="card-front">
+                  <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
+                  <img class="product__img" :src="'../laravel/apiProductes/public/' + product.imageRoute"
+                    alt="products">
+                  <h3 class="product__name"> {{ product.itemName }}</h3>
+                  <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"
+                    v-if="product.stock>0"><i class="fa-solid fa-minus product__btn-icon"></i></button>
+                  <p class="product__price">Preu: <span>{{
+                      parseFloat((product.price).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2 })
+                      }}€</span></p>
+                  <button class="product__btn product__btn--plus" @click="addToCart(index)" v-if="product.stock>0"><i
+                      class="fa-solid fa-plus product__btn-icon"></i></button>
+                </div>
+                <div class="card-back">
+                  <h3 class="product__name">{{ product.itemName }}</h3>
+                  <p class="product__description">{{ product.description }}</p>
+                </div>
               </div>
-              <div class="card-back">
-                <h3 class="product__name">{{ product.itemName }}</h3>
-                <p class="product__description">{{ product.description }}</p>
-              </div>
-             </div>
             </div>
           </div>
 
         </div>
       </div>
-        <div class="products__container-buyBtn">
-          <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n
-            <strong>{{calcularCartTotal()}}</strong> per
-            <strong>{{parseFloat((cartPrice).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2 })}}€</strong></button>
+      <div class="products__container-buyBtn" :class="{dispNone: cart.length<=0}">
+        <button class="products__buyBtn" @click="changeScreen(2)">Demana'n
+          <strong>{{calcularCartTotal()}}</strong> per
+          <strong>{{parseFloat((cartPrice).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2
+            })}}€</strong></button>
       </div>
     </section>
 
@@ -134,11 +138,13 @@
           <div class="product__ticket">
             <p class="product-ticket__name">{{product.itemName}}</p>
             <p>x{{product.amount}}</p>
-            <p>{{product.price}}€</p>
+            <p>{{parseFloat((product.price).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2
+            })}}€</p>
 
           </div>
         </div>
-        <p class="ticket__total">Total: {{parseFloat((cartPrice).toFixed(2))}}€</p>
+        <p class="ticket__total">Total: {{parseFloat((cartPrice).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2
+        })}}€</p>
       </div>
 
       <div class="ticket__buttons">
@@ -168,8 +174,9 @@
     <section class="status" v-if="active == 4">
       <h3 class="status__title">Estat de la Comanda</h3>
 
-      <div class="status__search" >
-        <input type="number" class="status__search-input" name="bId" id="bId" placeholder="Buscar per ID" v-model="searchId"/>
+      <div class="status__search">
+        <input type="number" class="status__search-input" name="bId" id="bId" placeholder="Buscar per ID"
+          v-model="searchId" />
 
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus()"></i>
       </div>
@@ -178,13 +185,16 @@
       <div class="status__result" v-if="searchResult.status">
         <p>Status: {{searchResult.status}}</p>
 
-        <div class="status__result-item" v-for="item in comandaItems" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">
-          
+        <div class="status__result-item" v-for="item in comandaItems"
+          v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">
 
-          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })
+
+          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price *
+            item.amount).toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })
             }}€</p>
         </div>
-        <p class="status__result-total" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">Total: {{totalComanda.toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })}} €</p>
+        <p class="status__result-total" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">Total:
+          {{totalComanda.toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })}} €</p>
       </div>
 
 

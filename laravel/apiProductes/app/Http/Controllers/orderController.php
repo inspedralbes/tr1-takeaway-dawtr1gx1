@@ -58,6 +58,7 @@ class orderController extends Controller
                     
                 }
             }
+
             $jsonOrder['order'] = array_values($jsonOrder['order']);
 
             if ($allAmountsValid) {
@@ -66,6 +67,7 @@ class orderController extends Controller
                 $newOrder->totalPrice = $totalPrice;
                 $newOrder->mail = $request->mail;
                 $newOrder->save();
+
 
                 $jsonDecoded = json_decode($request->jsonOrder);
                 foreach ($jsonDecoded->order as $item) {
@@ -80,9 +82,6 @@ class orderController extends Controller
             }
         }
     }
-
-
-
 
 
 
