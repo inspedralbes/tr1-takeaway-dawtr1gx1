@@ -17,6 +17,11 @@ class MyTestEmail extends Mailable
 
     /**
      * Create a new message instance.
+
+     *
+     * @param  string  $name
+     * @param  int  $comandaId
+
      * @return void
      */
     public function __construct($newOrder, $pdf)

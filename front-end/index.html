@@ -23,20 +23,24 @@
     <!-- ----------------------------------------------------------------------- -->
     <!--                                 header                                  -->
     <!-- ----------------------------------------------------------------------- -->
-    <header class="header header--login">
+    <header class="header">
+      <input type="checkbox" id="nav__check" class="header__menuInput">
       <nav class="header__menu">
-        <i class="fa-solid fa-bars header__icon"></i>
+        <div class="header-menu__logo">
+          <h1 class="header-menu__title">FASTBITES</h1>
+        </div>
         <ul class="menu__items">
-          <li class="menu__item">Inici</li>
-          <li class="menu__item">Productes</li>
-          <li class="menu__item">Consultar comanda</li>
-          <li class="menu__item">Historial Comandes</li>
+          <li class="menu__item"><button id="incio" class="menu-item__button">Inici</button></li>
+          <li class="menu__item"><button id="productes" class="menu-item__button">Productes</button></li>
+          <li class="menu__item"><button id="consultar" class="menu-item__button">Consultar comanda</button> </li>
         </ul>
       </nav>
+      <label for="nav__check"><i class="fa-solid fa-bars header__icon"></i></label>
       <button class="header__title" @click="changeScreen(0)">
         <h1>FASTBITES</h1>
       </button>
-      <i class="fa-solid fa-user header__icon" @click="changeScreen(5)"></i>
+
+      <a href="http://prefastbites.daw.inspedralbes.cat/laravel/apiProductes/public/admin"><i class="fa-solid fa-user-gear header__icon"></i></a>
     </header>
 
     <!-- ----------------------------------------------------------------------- -->
@@ -52,9 +56,9 @@
       <div class="landing__schedule schedule">
         <p class="schedule__title">Horari</p>
         <div class="shedule__container">
-          <p class="schedule__item">Dilluns-dijous</p>
+          <p class="schedule__item">Dilluns-Dijous</p>
           <p class="schedule__item">9:30-17:30</p>
-          <p class="schedule__item">Divendres i disabte</p>
+          <p class="schedule__item">Divendres i Dissabte</p>
           <p class="schedule__item">9:00-00:30</p>
         </div>
       </div>
@@ -88,33 +92,37 @@
       <div class="products__grid">
 
         <div v-for="(product, index) in productsFilter">
-         <div class="products__product" :class="{disabled: product.stock==0}">
-          <div class="product-card">
-            <div class="card-inner" @click="toggleCard(index)">
-              <div class="card-front">
-                <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
-                <img class="product__img" :src="'../laravel/apiProductes/public/' + product.imageRoute" alt="products">
-                <h3 class="product__name"> {{ product.itemName }}</h3>
-                 <button class="product__btn product__btn--minus" @click="deleteFromCart(index)" v-if="product.stock>0"><i
-                class="fa-solid fa-minus product__btn-icon"></i></button>
-            <p class="product__price">Preu: <span>{{ parseFloat((product.price).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2 }) }}€</span></p>
-            <button class="product__btn product__btn--plus" @click="addToCart(index)" v-if="product.stock>0"><i
-                class="fa-solid fa-plus product__btn-icon"></i></button>  
+          <div class="products__product" :class="{disabled: product.stock==0}">
+            <div class="product-card">
+              <div class="card-inner" @click="toggleCard(index)">
+                <div class="card-front">
+                  <p class="product__amount" v-if="Quantity(index)!=0">{{Quantity(index)}}</p>
+                  <img class="product__img" :src="'../laravel/apiProductes/public/' + product.imageRoute"
+                    alt="products">
+                  <h3 class="product__name"> {{ product.itemName }}</h3>
+                  <button class="product__btn product__btn--minus" @click="deleteFromCart(index)"
+                    v-if="product.stock>0"><i class="fa-solid fa-minus product__btn-icon"></i></button>
+                  <p class="product__price">Preu: <span>{{
+                      parseFloat((product.price).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2 })
+                      }}€</span></p>
+                  <button class="product__btn product__btn--plus" @click="addToCart(index)" v-if="product.stock>0"><i
+                      class="fa-solid fa-plus product__btn-icon"></i></button>
+                </div>
+                <div class="card-back">
+                  <h3 class="product__name">{{ product.itemName }}</h3>
+                  <p class="product__description">{{ product.description }}</p>
+                </div>
               </div>
-              <div class="card-back">
-                <h3 class="product__name">{{ product.itemName }}</h3>
-                <p class="product__description">{{ product.description }}</p>
-              </div>
-             </div>
             </div>
           </div>
 
         </div>
       </div>
-        <div class="products__container-buyBtn">
-          <button class="products__buyBtn" v-if="cart.length > 0" @click="changeScreen(2)">Demana'n
-            <strong>{{calcularCartTotal()}}</strong> per
-            <strong>{{parseFloat((cartPrice).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2 })}}€</strong></button>
+      <div class="products__container-buyBtn" :class="{dispNone: cart.length<=0}">
+        <button class="products__buyBtn" @click="changeScreen(2)">Demana'n
+          <strong>{{calcularCartTotal()}}</strong> per
+          <strong>{{parseFloat((cartPrice).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2
+            })}}€</strong></button>
       </div>
     </section>
 
@@ -130,11 +138,13 @@
           <div class="product__ticket">
             <p class="product-ticket__name">{{product.itemName}}</p>
             <p>x{{product.amount}}</p>
-            <p>{{product.price}}€</p>
+            <p>{{parseFloat((product.price).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2
+            })}}€</p>
 
           </div>
         </div>
-        <p class="ticket__total">Total: {{parseFloat((cartPrice).toFixed(2))}}€</p>
+        <p class="ticket__total">Total: {{parseFloat((cartPrice).toFixed(2)).toLocaleString('es-ES', { minimumFractionDigits: 2
+        })}}€</p>
       </div>
 
       <div class="ticket__buttons">
@@ -164,8 +174,9 @@
     <section class="status" v-if="active == 4">
       <h3 class="status__title">Estat de la Comanda</h3>
 
-      <div class="status__search" >
-        <input type="number" class="status__search-input" name="bId" id="bId" placeholder="Buscar per ID" v-model="searchId"/>
+      <div class="status__search">
+        <input type="number" class="status__search-input" name="bId" id="bId" placeholder="Buscar per ID"
+          v-model="searchId" />
 
         <i class="fa-solid fa-search status__search-icon" @click="searchOrderStatus()"></i>
       </div>
@@ -174,13 +185,16 @@
       <div class="status__result" v-if="searchResult.status">
         <p>Status: {{searchResult.status}}</p>
 
-        <div class="status__result-item" v-for="item in comandaItems" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">
-          
+        <div class="status__result-item" v-for="item in comandaItems"
+          v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">
 
-          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price * item.amount).toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })
+
+          <p class="status__result-name">{{ item.itemName }} x{{ item.amount }} {{ (item.price *
+            item.amount).toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })
             }}€</p>
         </div>
-        <p class="status__result-total" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">Total: {{totalComanda.toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })}} €</p>
+        <p class="status__result-total" v-if="searchResult.status!=`No sa'ha trobat comanda amb aquesta id`">Total:
+          {{totalComanda.toFixed(2).toLocaleString('es-ES', { minimumFractionDigits: 2 })}} €</p>
       </div>
 
 
@@ -493,8 +507,8 @@
     <footer class="footer">
       <img class="footer__img" src="img/fastbites logo.png" alt="Logo de FASTBITES" />
       <div class="footer__legal">
-        <button class="legal__link-page" @click="changeScreen(10)">Condicions d'us</button>
-        <button class="legal__link-page" @click="changeScreen(11)">Politica de Privadesa</button>
+        <button class="legal__link-page" @click="changeScreen(10)">Condicions d'ús</button>
+        <button class="legal__link-page" @click="changeScreen(11)">Política de Privadesa</button>
         <button class="legal__link-page" @click="changeScreen(12)">Politica de Cookies</button>
       </div>
       <div class="socialMedia">

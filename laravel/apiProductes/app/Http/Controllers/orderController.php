@@ -25,6 +25,7 @@ class orderController extends Controller
      */
     public function create()
     {
+
     }
 
     /**
@@ -34,7 +35,6 @@ class orderController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-
     {
         $validator = Validator::make($request->all(), [
             'jsonOrder' => 'required',
@@ -42,28 +42,68 @@ class orderController extends Controller
             'mail' => 'required|email',
         ]);
 
+        $jsonOrder = json_decode($request->jsonOrder, true);
+        $allAmountsValid = true;
+
         if ($validator->fails()) {
             return response()->json(['errorMsg' => "Email incorrecte", 'errorCode' => 2], 422);
         } else {
-            $newOrder = new Order;
-            $newOrder->jsonOrder = $request->jsonOrder;
-            $newOrder->totalPrice = $request->totalPrice;
-            $newOrder->mail = $request->mail;
-            $newOrder->save();
-            
-            $qr = base64_encode(QrCode::format('svg')->size(150)->errorCorrection('H')->generate($newOrder->jsonOrder));
-            $newOrder->qr = $qr;
+
+  foreach ($jsonOrder['order'] as $orderItem) {
+                if ($orderItem['amount'] <= 0) {
+                    $allAmountsValid = false;
+
+                    //array_splice($jsonOrder['order'], $orderItem, 1);
+                    return response()->json(['errorCode' => 2, 'errorMsg' => "No pots fer compres negatives"]);
+                }
+                $itemFromDb  = items::find($orderItem['id']);
+                $totalPrice=0;
+                if ($itemFromDb ) {
+                    // Calcular el totalPrice sumando el precio * amount
+                    $totalPrice += $itemFromDb ->price * $orderItem['amount'];
+                    
+                }
+            }
+
+            $jsonOrder['order'] = array_values($jsonOrder['order']);
+
+            if ($allAmountsValid) {
+                $newOrder = new Order;
+                $newOrder->jsonOrder = $request->jsonOrder;
+                $newOrder->totalPrice = $totalPrice;
+                $newOrder->mail = $request->mail;
+                $newOrder->save();
+
+
+                $jsonDecoded = json_decode($request->jsonOrder);
+                foreach ($jsonDecoded->order as $item) {
+                    $dish = items::find($item->id);
+                    $dish->stock = $dish->stock - $item->amount;
+                    $dish->save();
+                }
+
+                  $qr = base64_encode(QrCode::format('svg')->size(150)->errorCorrection('H')->generate($newOrder->jsonOrder));
+                   $newOrder->qr = $qr;
             
 
-            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf', compact("newOrder"));
+                  $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf', compact("newOrder"));
             
             Mail::to($newOrder->mail)->send(new MyTestEmail($newOrder, $pdf));
             
-            return response()->json(['errorCode'=> 3], 422);
+            return response()->json(['errorCode'=> 3]);
+            } else {
+                return response()->json(['errorCode' => 2, "Amount incorrecte"]);
+           
             
+          
+            
+
+
+            
+            }
+
         }
     }
-
 
 
 
@@ -75,6 +115,7 @@ class orderController extends Controller
         //return order::all()->where("id","==",$id);
         //$ret = order::all()->where("id","==",$id);
         $ret = order::find($id);
+
         if (!$ret) {
             $ret = array("status" => "No sa'ha trobat comanda amb aquesta id");
             json_encode($ret);

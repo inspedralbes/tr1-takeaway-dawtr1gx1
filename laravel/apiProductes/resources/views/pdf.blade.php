@@ -68,6 +68,7 @@
                 <td>Data de la comanda: {{ $newOrder->created_at }}</td>
             </tr>
         </table>
+
         <table class="ticket">
             <tr>
                 <th>Producte</th>
@@ -88,6 +89,7 @@
                 <td></td>
                 <td></td>
                 <td>{{ $newOrder->totalPrice }}€</td>
+
             </tr>
         </table>
 
