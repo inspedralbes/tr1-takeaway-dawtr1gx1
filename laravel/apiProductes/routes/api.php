@@ -37,3 +37,5 @@ Route::get("/categories/{id}", [categoryController::class, "show"]);
 
 Route::get('/order', [orderController::class, "index"]);
 Route::post('/order', [orderController::class, "store"]);
+Route::get('/order/{id}', [orderController::class, "show"]);
+Route::put("/order/{id}", [orderController::class, "update"]);
