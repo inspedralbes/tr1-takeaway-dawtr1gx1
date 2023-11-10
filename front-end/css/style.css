@@ -65,7 +65,6 @@ button{
 .landing {
     height: 80vh;
     padding: 0 20px;
-    /* margin: 40px 0; */
     overflow: hidden;
 }
 
@@ -264,6 +263,7 @@ button{
 .product__name{
     min-height: 43px;
     margin-top: 10px;
+    font-size: 100%;
 }
 .product__price{
     margin-top: 4px;
